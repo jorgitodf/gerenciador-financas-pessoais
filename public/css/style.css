@@ -472,6 +472,11 @@ select option:checked {
         width: 83%;
     }
 
+    #div_cad_categoria {
+        height: 315px !important;
+    }
+
+
     /* TABELA EXIBIÇÂO DOS BANCOS*/
     #table_bancos {
         width: 100%;
@@ -552,6 +557,52 @@ select option:checked {
     }
     #table_bancos th:nth-child(3) {
         text-align: center;
+    }
+
+
+    /* TABELA EXIBIÇÂO DAS CATEGORIAS*/
+    #table_categorias {
+        width: 100%;
+    }
+    #table_categorias td {
+        text-align: center;
+        padding: 1.5px !important;
+    }
+    #table_categorias th:nth-child(1) {
+        text-align: center;
+        width: 25% !important;
+    }
+    #table_categorias th:nth-child(2) {
+        text-align: center;
+        width: 10% !important;
+    }
+    #table_categorias th:nth-child(3) {
+        text-align: center;
+        width: 15% !important;
+    }
+    #table_categorias th:nth-child(4) {
+        text-align: center;
+        width: 10% !important;
+    }
+
+    #table_categorias td:nth-child(1) {
+        text-align: center;
+        padding-top: 8px !important;
+    }
+    #table_categorias td:nth-child(2) {
+        text-align: center;
+        padding-top: 8px !important;
+    }
+    #table_categorias td:nth-child(3) {
+        text-align: center;
+        padding-top: 8px !important;
+    }
+    #table_categorias td:nth-child(4) {
+        text-align: center;
+        padding: 1px !important;
+    }
+    #div_cad_categoria {
+        height: 315px !important;
     }
 
     /* TABELA DE EXTRATO*/

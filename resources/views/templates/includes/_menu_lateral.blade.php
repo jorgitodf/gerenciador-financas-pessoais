@@ -11,7 +11,6 @@
             </li>
             <ul class="sub-menu collapse" id="bancos">
                 <li class="active"><a href="{{ route('banco.novo') }}">Novo Banco</a></li>
-                <li><a href="#">Alterar Banco</a></li>
                 <li><a href="{{ route('bancos') }}">Todos Bancos</a></li>
             </ul>
 
@@ -22,6 +21,14 @@
                 <li class="active"><a href="">Nova Conta</a></li>
                 <li><a href="#">Alterar Conta</a></li>
                 <li><a href="">Trocar de Conta</a></li>
+            </ul>
+
+            <li data-toggle="collapse" data-target="#categorias" id="menu_div_categoria" class="collapsed active">
+                <a><i class="fa fa-users fa-lg"></i> Categorias <span class="arrow"></span></a>
+            </li>
+            <ul class="sub-menu collapse" id="categorias">
+                <li class="active"><a href="{{ route('categoria.novo') }}">Nova Categoria</a></li>
+                <li><a href="{{ route('categorias') }}">Todas Categorias</a></li>
             </ul>
 
             <li data-toggle="collapse" data-target="#products" id="menu_div_extrato" class="collapsed disabled">

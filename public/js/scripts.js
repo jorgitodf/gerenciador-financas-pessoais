@@ -83,7 +83,7 @@ $(document).ready(function () {
     $(function(){
         $(".remove-color-input-cbanco").click(function() {
             let cod_banco = $("#cod_banco").val();
-            if (cod_banco == "") {
+            if (cod_banco != "") {
                 $("#cod_banco").val("").css("background", "white");
             } else {
                 $("#cod_banco").css("background", "white");
@@ -95,7 +95,7 @@ $(document).ready(function () {
     $(function(){
         $(".remove-color-input-nbanco").click(function() {
             let nome_banco = $("#nome_banco").val();
-            if (nome_banco == "") {
+            if (nome_banco != "") {
                 $("#nome_banco").val("").css("background", "white");
             } else {
                 $("#nome_banco").css("background", "white");
@@ -118,6 +118,40 @@ $(document).ready(function () {
             }
         });
     });
+
+    // CADASTRO DE CATEGORIA
+    $(function(){
+        $(".remove-color-input-categoria").click(function() {
+            let nome_categoria = $("#nome_categoria").val();
+            if (nome_categoria.length != 0 && nome_categoria == "Preencha a Categoria!" || nome_categoria == "Categoria somente Texto!") {
+                $("#nome_categoria").val("");
+                $("#nome_categoria").css("background", "white");
+            } else if (nome_categoria.length != 0) {
+                $("#nome_categoria").css("background", "white");
+            } else {
+                $("#nome_categoria").css("background", "white");
+            }
+            $("#nome_categoria").attr("type", "text").css("color", "black");
+        });
+    });
+    
+
+    $(function() {
+        $("#despesa_fixa").click(function () {
+            //let nome_categoria = $("#despesa_fixa").val();
+            //$(this).find('option[value="0"]').attr("type", "text").css("color", "white");
+            //$(this).find('option[value='+nome_categoria+']').remove();
+            //$(this).html("<option value=0>"+nome_categoria+"</option>");
+            //$(this+" option[value='+nome_categoria+']").remove();
+            //$("#despesa_fixa option[value='1']").remove();
+            //$("#despesa_fixa").children('option:not(:3)').remove();
+            //$(this).find("[value="+nome_categoria+"]").remove();
+            //$(this).children('option:not(:first)').remove();
+            //$(this).find('option').css('color', 'black');
+        });
+
+    });
+
 
     $(function() {
         $(".remove-color-input").click(function() {
@@ -1291,6 +1325,97 @@ $(document).ready(function () {
         });
     });
 
+
+    // CADASTRO NOVA CATEGORIA
+    $('#btn-nov-cat').click(function () {
+        $("#btn-cad-cat").removeAttr('disabled');
+        $("#btn-nov-cat").attr('disabled', 'disabled');
+        $("#nome_categoria").removeAttr('disabled');
+        $("#despesa_fixa").removeAttr('disabled');
+        $("#tipo").removeAttr('disabled');
+        $("#nome_categoria").css("background", "white");
+        $("#despesa_fixa").css("background", "white");
+        $("#tipo").css("background", "white");
+        $('#span-success-cadastro-categoria').remove();
+        $("#nome_categoria").val("");
+        $("#despesa_fixa").val("");
+        $("#tipo").val("");
+    });
+
+    $('#btn-edit-cat').click(function () {
+        $("#btn-salvar-cat").removeAttr('disabled');
+        $("#btn-edit-cat").attr('disabled', 'disabled');
+        $("#nome_categoria").removeAttr('disabled');
+        $("#despesa_fixa").removeAttr('disabled');
+        $("#tipo").removeAttr('disabled');
+        $("#nome_categoria").css("background", "white");
+        $("#despesa_fixa").css("background", "white");
+        $("#tipo").css("background", "white");
+        $('#span-success-cadastro-banco').remove();
+    });
+
+    $(function () {
+        $("#formCadCategoria").submit(function(e) {
+            let url = $("#formCadCategoria").attr("action");
+            let nome_categoria = $("#nome_categoria").val();
+            if (nome_categoria == 'Preencha a Categoria!' || nome_categoria == 'Categoria já Cadastrada!' || nome_categoria == '') {
+                nome_categoria = '';
+            }
+            let despesa_fixa = $("#despesa_fixa").val();
+            if (despesa_fixa == 'Informe se é Despesa Fixa!' || despesa_fixa == '') {
+                despesa_fixa = '';
+            }
+            let tipo = $("#tipo").val();
+            if (tipo == 'Informe o Tipo!' || tipo == '') {
+                tipo = '';
+            }
+            let id_categoria = $("#id_categoria").val();
+
+            let data = {nome_categoria: nome_categoria, despesa_fixa: despesa_fixa, tipo:tipo, id_categoria:id_categoria};
+            e.preventDefault();
+            axios.post(url, simpleQueryString.stringify(data))
+                .then(function(response) {
+                    if (response.status == 201) {
+                        $("#btn-cad-cat").attr('disabled', 'disabled');
+                        $("#btn-nov-cat").removeAttr('disabled');
+                        $("#btn-salvar-cat").attr('disabled', 'disabled');
+                        $("#btn-edit-cat").removeAttr('disabled');
+                        $("#nome_categoria").attr('disabled', 'disabled');
+                        $("#despesa_fixa").attr('disabled', 'disabled');
+                        $("#tipo").attr('disabled', 'disabled');
+                        $(".white").css("background", "#ffffb1");
+                        $("#div-msg-cadastro-categoria").html("<span class='alert alert-success msgSuccess' id='span-success-cadastro-categoria'>"+ response.data['success'] +"</span>").css("display", "block");
+                        setInterval(function() {
+                            redirectPageAllCategories(response.data['base_url']);
+                        }, 3000);
+                    }
+                })
+                .catch(function(error) {
+                    if (error.response.status == 500) {
+                        if (!error.response.data.error['error-nome-categoria'] == "") {
+                            $("#nome_categoria").val(error.response.data.error['error-nome-categoria']).css("background", cor_input).css("color", "white");
+                        } else {
+                            $("#nome_categoria").css("background", "#ffffb1");
+                        }
+
+                        if (!error.response.data.error['error-despesa-fixa'] == "") {
+                            $("#despesa_fixa").find('option:selected').html(error.response.data.error['error-despesa-fixa']);
+                            $("#despesa_fixa").css("background", "#EBA8A3").css("color", "white");
+                        } else {
+                            $("#despesa_fixa").css("background", "#ffffb1").css("color", "black");
+                        }
+
+                        if (!error.response.data.error['error-tipo'] == "") {
+                            $("#tipo").find('option:selected').html(error.response.data.error['error-tipo']);
+                            $("#tipo").css("background", "#EBA8A3").css("color", "white");
+                        } else {
+                            $("#tipo").css("background", "#ffffb1").css("color", "black");
+                        }
+                    }
+                })
+        });
+    });
+
     // CADASTRO NOVO BANCO
     $('#btn-nov-bnc').click(function () {
         $("#btn-cad-bnc").removeAttr('disabled');
@@ -1523,6 +1648,9 @@ function redirectPageLogin(base_url) {
 
 function redirectPageAllBanks(base_url) {
     return window.location.replace(base_url + "/bancos");
+}
+function redirectPageAllCategories(base_url) {
+    return window.location.replace(base_url + "/categorias");
 }
 
 function formateDate(inputFormat) {

@@ -26,7 +26,7 @@ class BancoController extends Controller
      */
     public function index()
     {
-        $bancos = $this->model::paginate(12);
+        $bancos = $this->model::paginate(10);
         return view('banco.index', compact('bancos'));
     }
 

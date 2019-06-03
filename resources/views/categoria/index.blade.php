@@ -1,6 +1,6 @@
 @extends('templates.layout')
 
-@section('title', 'Cadastro de Banco')
+@section('title', 'Cadastro de Categoria')
 
 @section('content')
 
@@ -8,33 +8,35 @@
         <div class="row">
             <div class="col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1">
                 <div class="well well-sm well-md well-xs sombra table-responsive">
-                    @if(isset($bancos) && $bancos->count() > 0)
-                        <table class="table table-hover table-condensed table-bordered" id="table_bancos">
+                    @if(isset($categorias) && $categorias->count() > 0)
+                        <table class="table table-hover table-condensed table-bordered" id="table_categorias">
                             <thead>
                             <tr>
-                                <th>Código</th>
-                                <th>Nome do Banco</th>
-                                <th>Ação</th>
+                                <th>Categoria</th>
+                                <th>Despesa Fixa</th>
+                                <th>Tipo</th>
+                                <th>Ações</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($bancos as $banco)
+                            @foreach($categorias as $categoria)
                                 <tr>
-                                    <td>{{ $banco->cod_banco_formatted }}</td>
-                                    <td>{{ $banco->nome_banco }}</td>
+                                    <td>{{ $categoria->nome_categoria_formatted }}</td>
+                                    <td>{{ $categoria->despesa_fixa_formatted }}</td>
+                                    <td>{{ $categoria->tipo_formatted }}</td>
                                     <td>
-                                        <a class="btn deep-orange" href="{{ route('banco.editar', $banco->cod_banco) }}">Editar</a>
+                                        <a class="btn deep-orange" href="{{ route('categoria.editar', $categoria->id) }}">Editar</a>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                         <div class="row" align="center">
-                            {{ $bancos->links() }}
+                            {{ $categorias->links() }}
                         </div>
                     @else
                         <div class="row-fluid text-center">
-                            <p>Nenhum Banco Cadastrado</p>
+                            <p>Nenhuma Categoria Cadastrada</p>
                         </div>
                     @endif
                 </div>

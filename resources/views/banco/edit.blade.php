@@ -1,6 +1,6 @@
 @extends('templates.layout')
 
-@section('title', 'Cadastro de Banco')
+@section('title', 'Edição de Banco')
 
 @section('content')
 
