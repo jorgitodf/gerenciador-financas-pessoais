@@ -16,7 +16,7 @@ html, body {
 .capitalize {
     text-transform: capitalize;
 }
-  
+
 
 /* MENU LATERAL */
 .nav-side-menu {
@@ -118,32 +118,34 @@ html, body {
     -ms-transition: all 1s ease;
     transition: all 1s ease;
 }
+
 @media (max-width: 767px) {
-.nav-side-menu {
-    position: relative;
-    width: 100%;
-    margin-bottom: 10px;
+    .nav-side-menu {
+        position: relative;
+        width: 100%;
+        margin-bottom: 10px;
+    }
+    .nav-side-menu .toggle-btn {
+        display: block;
+        cursor: pointer;
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        z-index: 10 !important;
+        padding: 3px;
+        background-color: #ffffff;
+        color: #000;
+        width: 40px;
+        text-align: center;
+    }
+    .brand {
+        text-align: left !important;
+        font-size: 22px;
+        padding-left: 20px;
+        line-height: 50px !important;
+    }
 }
-.nav-side-menu .toggle-btn {
-    display: block;
-    cursor: pointer;
-    position: absolute;
-    right: 10px;
-    top: 10px;
-    z-index: 10 !important;
-    padding: 3px;
-    background-color: #ffffff;
-    color: #000;
-    width: 40px;
-    text-align: center;
-}
-.brand {
-    text-align: left !important;
-    font-size: 22px;
-    padding-left: 20px;
-    line-height: 50px !important;
-}
-}
+
 @media (min-width: 767px) {
     .nav-side-menu .menu-list .menu-content {
         display: block;
@@ -161,7 +163,7 @@ html, body {
 
 .fonte_despesa {
     color: red;
-    font-size: 12px !important; 
+    font-size: 12px !important;
 }
 .fonte_receita {
     color: blue;
@@ -178,7 +180,7 @@ html, body {
     font-size: 12px !important;
 }
 
-.sombra { 
+.sombra {
     box-shadow: 6px 6px 6px 6px black;
     -webkit-box-shadow: 6px 6px 6px black;
     -moz-box-shadow: 6px 6px 6px black;
@@ -189,8 +191,8 @@ select option:checked {
 }
 
 .disabled {
-    pointer-events: none; 
-    opacity: 0.6;         
+    pointer-events: none;
+    opacity: 0.6;
 }
 
 /* FORMULÁRIO DE LOGIN */
@@ -470,6 +472,35 @@ select option:checked {
         width: 83%;
     }
 
+    /* TABELA EXIBIÇÂO DOS BANCOS*/
+    #table_bancos {
+        width: 100%;
+    }
+    #table_bancos td {
+        text-align: left;
+        padding: 1.5px !important;
+    }
+    #table_bancos th:nth-child(1) {
+        width: 8% !important;
+    }
+    #table_bancos td:nth-child(1) {
+        text-align: center;
+        padding: 8px !important;
+    }
+    #table_bancos td:nth-child(2) {
+        padding: 8px !important;
+    }
+    #table_bancos td:nth-child(3) {
+        text-align: center;
+    }
+    #table_bancos th:nth-child(1) {
+        text-align: center;
+    }
+    #table_bancos th:nth-child(3) {
+        text-align: center;
+    }
+
+
     /* FORMULÁRIO CADASTRO DE DESPESAS DE CARTÃO DE CRÉDITO */
     #well_desp_cartao {
         height: 270px;
@@ -493,6 +524,34 @@ select option:checked {
     .div-principal-form {
         margin-top: 5%;
         margin-left: 20%;
+    }
+
+    /* TABELA EXIBIÇÂO DOS BANCOS*/
+    #table_bancos {
+        width: 100%;
+    }
+    #table_bancos td {
+        text-align: left;
+        padding: 1.5px !important;
+    }
+    #table_bancos th:nth-child(1) {
+        width: 8% !important;
+    }
+    #table_bancos td:nth-child(1) {
+        text-align: center;
+        padding: 8px !important;
+    }
+    #table_bancos td:nth-child(2) {
+        padding: 8px !important;
+    }
+    #table_bancos td:nth-child(3) {
+        text-align: center;
+    }
+    #table_bancos th:nth-child(1) {
+        text-align: center;
+    }
+    #table_bancos th:nth-child(3) {
+        text-align: center;
     }
 
     /* TABELA DE EXTRATO*/
@@ -675,4 +734,3 @@ select option:checked {
         font-size: 22px !important;
     }
 }
-

@@ -81,15 +81,25 @@ $(document).ready(function () {
     });
 
     $(function(){
-        $(".remove-color-input-cbanco").click(function(){
-            $("#cod_banco").val("").css("background", "white");
+        $(".remove-color-input-cbanco").click(function() {
+            let cod_banco = $("#cod_banco").val();
+            if (cod_banco == "") {
+                $("#cod_banco").val("").css("background", "white");
+            } else {
+                $("#cod_banco").css("background", "white");
+            }
             $("#cod_banco").attr("type", "text").css("color", "black");
         });
     });
 
     $(function(){
-        $(".remove-color-input-nbanco").click(function(){
-            $("#nome_banco").val("").css("background", "white");
+        $(".remove-color-input-nbanco").click(function() {
+            let nome_banco = $("#nome_banco").val();
+            if (nome_banco == "") {
+                $("#nome_banco").val("").css("background", "white");
+            } else {
+                $("#nome_banco").css("background", "white");
+            }
             $("#nome_banco").attr("type", "text").css("color", "black");
         });
     });
@@ -114,14 +124,14 @@ $(document).ready(function () {
             let str = $(this).val();
             if (str.indexOf("Preencha") > -1 || str.indexOf("Números") > -1 || str.indexOf("caracters") > -1) {
                 $(this).val("").css("background", "white");
-                $(this).attr("type", "text").css("color", "black");            
+                $(this).attr("type", "text").css("color", "black");
             }
         });
         $(".remove-color-input").focus(function () {
             let str = $(this).val();
             if (str.indexOf("Preencha") > -1 || str.indexOf("Números") > -1 || str.indexOf("caracters") > -1) {
                 $(this).val("").css("background", "white");
-                $(this).attr("type", "text").css("color", "black");            
+                $(this).attr("type", "text").css("color", "black");
             }
         });
     });
@@ -132,14 +142,14 @@ $(document).ready(function () {
             if (str.indexOf("Preencha") > -1 || str.indexOf("Informe") > -1 || str.indexOf("Data") > -1) {
                 $(this).val("").css("background", "white");
                 $(this).attr("type", "date").css("color", "black");
-            }    
+            }
         });
         $(".remove-color-input-date").focus(function () {
             let str = $(this).val();
             if (str.indexOf("Preencha") > -1 || str.indexOf("Informe") > -1 || str.indexOf("Data") > -1) {
                 $(this).val("").css("background", "white");
                 $(this).attr("type", "date").css("color", "black");
-            }   
+            }
         });
     });
 
@@ -148,7 +158,7 @@ $(document).ready(function () {
             $(this).mask("9999.9999.9999.9999");
             $(this).val("").css("background", "white");
             $(this).attr("type", "text").css("color", "black");
-            
+
         });
         $(".remove-color-input-num-card").focus(function () {
             $(this).mask("9999.9999.9999.9999");
@@ -156,7 +166,7 @@ $(document).ready(function () {
             $(this).attr("type", "text").css("color", "black");
         });
     });
-    
+
 
     $(function(){
         $(".remove-color-option").click(function() {
@@ -203,7 +213,7 @@ $(document).ready(function () {
             $("#menu_div_cartao_credito").removeClass("disabled");
             $("#menu_div_agendamentos").removeClass("disabled");
             $("#menu_div_dashboards").removeClass("disabled");
-        }    
+        }
     });
 
     $(function(){
@@ -212,19 +222,19 @@ $(document).ready(function () {
             let _csrf_token = $("#_csrf_token").val();
             axios.get(url, {
                 params: {
-                     _csrf_token: _csrf_token
+                    _csrf_token: _csrf_token
                 }
             })
-            .then(function(response) {
-                if (response.status == 201) {
-                    window.location.replace(response.data['base_url']);
-                }
-            })
-            .catch(function(error) {
-                if (error.response.status == 500) {
-                    alert(error.response.data.error);
-                }
-            })
+                .then(function(response) {
+                    if (response.status == 201) {
+                        window.location.replace(response.data['base_url']);
+                    }
+                })
+                .catch(function(error) {
+                    if (error.response.status == 500) {
+                        alert(error.response.data.error);
+                    }
+                })
         });
     });
 
@@ -254,7 +264,7 @@ $(document).ready(function () {
             let restante = $("#restante").val();
             let valor_total = $("#valor_total").val();
             let valor_pagar = $("#valor_pagar").val();
-            
+
 
             let _csrf_token = $("#_csrf_token").val();
             let data = {id_cartao_fat: id_cartao_fat, id_cartao_cre: id_cartao_cre, dt_vencimento: dt_vencimento,
@@ -289,7 +299,7 @@ $(document).ready(function () {
                         }
                     }
                 })
-        });    
+        });
     });
 
 
@@ -375,35 +385,35 @@ $(document).ready(function () {
         if (subtotal > 0) {
             total = (parseFloat(subtotal) + parseFloat(encargos) + parseFloat(iof) + parseFloat(anuidade) + parseFloat(protecao_prem)
                 + parseFloat(juros_fat) + parseFloat(restante));
-            //let num = total.toString();   
+            //let num = total.toString();
             //let tot = num.replace('.',',');
         }
 
         axios.post(url, simpleQueryString.stringify(data))
-        .then(function(response) {
-            if (response.status == 202) {
-                let val = response.data['value'].toString();
-                let res = val.replace('.',',');
-                if (res == 0) {
-                    res = '0,00';
+            .then(function(response) {
+                if (response.status == 202) {
+                    let val = response.data['value'].toString();
+                    let res = val.replace('.',',');
+                    if (res == 0) {
+                        res = '0,00';
+                    }
+                    $('#restante').val('R$ ' + res);
                 }
-                $('#restante').val('R$ ' + res);
-            }
-        })
-        .catch(function(error) {
-            if (error.response.status == 500) {
-                if (!error.response.data.error['error_fatura'] == "") {
-                    $("#div-msg-pagar-fatura-cartao-credito").html("<span class='alert alert-danger msgError' id='span-success-pagar-fatura-cartao-credito'>"+ error.response.data.error['error_fatura'] +"</span>").css("display", "block");
-                    $("#fatura").css("background", "#EBA8A3").css("color", "white");
-                } else {
-                    $("#fatura").css("background", "#ffffb1").css("color", "black");
-                }
+            })
+            .catch(function(error) {
+                if (error.response.status == 500) {
+                    if (!error.response.data.error['error_fatura'] == "") {
+                        $("#div-msg-pagar-fatura-cartao-credito").html("<span class='alert alert-danger msgError' id='span-success-pagar-fatura-cartao-credito'>"+ error.response.data.error['error_fatura'] +"</span>").css("display", "block");
+                        $("#fatura").css("background", "#EBA8A3").css("color", "white");
+                    } else {
+                        $("#fatura").css("background", "#ffffb1").css("color", "black");
+                    }
 
-                if (!error.response.data.error['error_token_conta'] == "") {
-                    $("#div-msg-pagar-fatura-cartao-credito").html("<span class='alert alert-danger msgError' id='span-success-pagar-fatura-cartao-credito'>"+ error.response.data.error['error_token_conta'] +"</span>").css("display", "block");
+                    if (!error.response.data.error['error_token_conta'] == "") {
+                        $("#div-msg-pagar-fatura-cartao-credito").html("<span class='alert alert-danger msgError' id='span-success-pagar-fatura-cartao-credito'>"+ error.response.data.error['error_token_conta'] +"</span>").css("display", "block");
+                    }
                 }
-            }
-        })
+            })
         if (encargos != 0) {
             $('#encargos').val(numberToReal(encargos));
         }
@@ -429,10 +439,10 @@ $(document).ready(function () {
 
     function replace(str) {
         let encargos = str.replace('R$', '');
-        encargos = encargos.replace(',', '.'); 
+        encargos = encargos.replace(',', '.');
         return encargos;
     }
-    function arred(val,casas) { 
+    function arred(val,casas) {
         let aux = Math.pow(2,casas);
         return Math.floor(val * aux) / aux;
     }
@@ -456,7 +466,7 @@ $(document).ready(function () {
             }
 
             let _csrf_token = $("#_csrf_token").val();
-            
+
             let data = {fatura: fatura, _csrf_token: _csrf_token};
             e.preventDefault();
 
@@ -480,9 +490,9 @@ $(document).ready(function () {
                         }
                     }
                 })
-        });    
+        });
     });
-     
+
 
     // FORMULÁRIO GERAR FATURA DE CARTÃO DE CRÉDITO
     $('#btn-nov-fatura-cartao').click(function () {
@@ -508,10 +518,10 @@ $(document).ready(function () {
             let data_pagamento = $("#data_pagamento").val();
             if (data_pagamento == 'Informe a Data do Pagamento!') {
                 data_pagamento = "";
-            }			
+            }
 
             let _csrf_token = $("#_csrf_token").val();
-            
+
             let data = {cartao: cartao, data_pagamento: data_pagamento, _csrf_token: _csrf_token};
             e.preventDefault();
 
@@ -547,7 +557,7 @@ $(document).ready(function () {
                         }
                     }
                 })
-        });    
+        });
     });
 
     // FORMULÁRIO DE DESPESA DE CARTÃO DE CRÉDITO
@@ -583,7 +593,7 @@ $(document).ready(function () {
             let descricao = $("#descricao").val();
             if (descricao == 'Preencha a Descrição!' || descricao == 'Descrição sem Números!' || descricao == 'Descrição acima de 3 caracters!') {
                 descricao = "";
-            }			
+            }
             let data_compra = $("#data_compra").val();
             if (data_compra == 'Informe a Data da Compra!') {
                 data_compra = "";
@@ -655,7 +665,7 @@ $(document).ready(function () {
                         }
                     }
                 })
-        });    
+        });
     });
 
 
@@ -680,11 +690,11 @@ $(document).ready(function () {
                 data_inicial = "";
             }
 
-			let data_final = $("#data_final").val();
+            let data_final = $("#data_final").val();
             if (data_final == 'Preencha a Data Final!') {
                 data_final = "";
-            }			
-			
+            }
+
             let _csrf_token = $("#_csrf_token").val();
             let data = {data_inicial: data_inicial, data_final: data_final, _csrf_token: _csrf_token};
             e.preventDefault();
@@ -692,7 +702,7 @@ $(document).ready(function () {
             axios.post(url, simpleQueryString.stringify(data))
                 .then(function(response) {
                     if (response.status == 201) {
-                        $("#well_extrato").html(generateTableExtract(response.data.extrato));               
+                        $("#well_extrato").html(generateTableExtract(response.data.extrato));
                     }
                 })
                 .catch(function(error) {
@@ -710,14 +720,14 @@ $(document).ready(function () {
                         } else {
                             $("#data_final").css("background", "#ffffb1");
                         }
-						
+
                         if (!error.response.data.error['error_token_conta'] == "") {
                             $("#div-msg-extrato").html("<span class='alert alert-danger msgError' id='span-success-bus-extrac-per'>"+ error.response.data.error['error_token_conta'] +"</span>").css("display", "block");
                         }
 
                     }
                 })
-        });    
+        });
     });
 
     // FORMULÁRIO DE CRÉDITO CONTA
@@ -810,7 +820,7 @@ $(document).ready(function () {
 
                     }
                 })
-        });    
+        });
     });
 
 
@@ -904,7 +914,7 @@ $(document).ready(function () {
 
                     }
                 })
-        });    
+        });
     });
 
 
@@ -995,7 +1005,7 @@ $(document).ready(function () {
 
                     }
                 })
-        });    
+        });
     });
 
 
@@ -1008,18 +1018,18 @@ $(document).ready(function () {
         $("#data_validade").removeAttr('disabled');
         $("#bandeira").removeAttr('disabled');
         $("#banco").removeAttr('disabled');
-		$("#dia_pgto_fatura").removeAttr('disabled');
+        $("#dia_pgto_fatura").removeAttr('disabled');
         $("#numero_cartao").css("background", "white");
         $("#data_validade").css("background", "white");
         $("#bandeira").css("background", "white");
         $("#banco").css("background", "white");
-		$("#dia_pgto_fatura").css("background", "white");
+        $("#dia_pgto_fatura").css("background", "white");
         $('#span-msg-cadastro-cartao').remove();
         $("#numero_cartao").val("");
         $("#data_validade").val("");
         $("#bandeira").val("");
         $("#banco").val("");
-		$("#dia_pgto_fatura").val("");
+        $("#dia_pgto_fatura").val("");
     });
 
     $(function () {
@@ -1028,7 +1038,7 @@ $(document).ready(function () {
             let numero_cartao = $("#numero_cartao").val();
             if (numero_cartao == 'Preencha o Número do Cartão!') {
                 numero_cartao = "";
-            }			
+            }
             let data_validade = $("#data_validade").val();
             if (data_validade == 'Informe a Data de Validade do Cartão') {
                 data_validade = "";
@@ -1044,8 +1054,8 @@ $(document).ready(function () {
             let dia_pgto_fatura = $("#dia_pgto_fatura").val();
             if (dia_pgto_fatura == 'Informe o dia do Pagamento do Cartão!' || dia_pgto_fatura == 'Dia do Pagamento Somente Números!') {
                 dia_pgto_fatura = "";
-            }			
-			
+            }
+
             let _csrf_token = $("#_csrf_token").val();
             let data = {numero_cartao: numero_cartao, data_validade: data_validade, bandeira: bandeira,
                 banco: banco, dia_pgto_fatura: dia_pgto_fatura, _csrf_token: _csrf_token};
@@ -1060,7 +1070,7 @@ $(document).ready(function () {
                         $("#data_validade").attr('disabled', 'disabled');
                         $("#bandeira").attr('disabled', 'disabled');
                         $("#banco").attr('disabled', 'disabled');
-						$("#dia_pgto_fatura").attr('disabled', 'disabled');
+                        $("#dia_pgto_fatura").attr('disabled', 'disabled');
                         $(".white").css("background", "#ffffb1");
                         $("#div-msg-cadastro-cartao-credito").html("<span class='alert alert-success msgSuccess' id='span-msg-cadastro-cartao'>"+ response.data['success'] +"</span>").css("display", "block");
                     }
@@ -1092,8 +1102,8 @@ $(document).ready(function () {
                         } else {
                             $("#banco").css("background", "#ffffb1").css("color", "black");
                         }
-						
-						if (!error.response.data.error['error_dia_pgto_fatura'] == "") {
+
+                        if (!error.response.data.error['error_dia_pgto_fatura'] == "") {
                             $("#dia_pgto_fatura").val(error.response.data.error['error_dia_pgto_fatura']).css("background", "#EBA8A3").css("color", "white");
                         } else {
                             $("#dia_pgto_fatura").css("background", "#ffffb1");
@@ -1109,11 +1119,11 @@ $(document).ready(function () {
 
                     }
                 })
-        });    
+        });
     });
 
 
-    // ACESSA CONTA 
+    // ACESSA CONTA
     $(function () {
         $("#table_contas input:radio").click(function(e) {
             let url = '/conta/list';
@@ -1121,11 +1131,11 @@ $(document).ready(function () {
             let _csrf_token = $("#_csrf_token").val();
             e.preventDefault();
             axios.get(url, {
-                    params: {
-                        id_conta: id_conta,
-                        _csrf_token: _csrf_token
-                    }
-                })
+                params: {
+                    id_conta: id_conta,
+                    _csrf_token: _csrf_token
+                }
+            })
                 .then(function(response) {
                     if (response.status == 201) {
                         window.location.replace(response.data['base_url']);
@@ -1278,7 +1288,7 @@ $(document).ready(function () {
                         }
                     }
                 })
-        });    
+        });
     });
 
     // CADASTRO NOVO BANCO
@@ -1294,6 +1304,16 @@ $(document).ready(function () {
         $("#nome_banco").val("");
     });
 
+    $('#btn-edit-bnc').click(function () {
+        $("#btn-salvar-bnc").removeAttr('disabled');
+        $("#btn-edit-bnc").attr('disabled', 'disabled');
+        $("#cod_banco").removeAttr('disabled');
+        $("#nome_banco").removeAttr('disabled');
+        $("#cod_banco").css("background", "white");
+        $("#nome_banco").css("background", "white");
+        $('#span-success-cadastro-banco').remove();
+    });
+
     $(function () {
         $("#formCadBanco").submit(function(e) {
             let url = $("#formCadBanco").attr("action");
@@ -1305,42 +1325,41 @@ $(document).ready(function () {
             if (nome_banco == 'Preencha o nome do Banco!' || nome_banco == '') {
                 nome_banco = '';
             }
-            let _csrf_token = $("#_csrf_token").val();
-            let data = {cod_banco: cod_banco, nome_banco: nome_banco, _csrf_token: _csrf_token};
-            e.preventDefault();
 
+            let data = {cod_banco: cod_banco, nome_banco: nome_banco };
+            e.preventDefault();
             axios.post(url, simpleQueryString.stringify(data))
                 .then(function(response) {
                     if (response.status == 201) {
                         $("#btn-cad-bnc").attr('disabled', 'disabled');
                         $("#btn-nov-bnc").removeAttr('disabled');
+                        $("#btn-salvar-bnc").attr('disabled', 'disabled');
+                        $("#btn-edit-bnc").removeAttr('disabled');
                         $("#cod_banco").attr('disabled', 'disabled');
                         $("#nome_banco").attr('disabled', 'disabled');
                         $(".white").css("background", "#ffffb1");
                         $("#div-msg-cadastro-banco").html("<span class='alert alert-success msgSuccess' id='span-success-cadastro-banco'>"+ response.data['success'] +"</span>").css("display", "block");
+                        setInterval(function() {
+                            redirectPageAllBanks(response.data['base_url']);
+                        }, 3000);
                     }
                 })
                 .catch(function(error) {
                     if (error.response.status == 500) {
-                        if (!error.response.data.error['error_data_pgto'] == "") {
-                            $("#cod_banco").val(error.response.data.error['error_data_pgto']).css("background", cor_input).css("color", "white");
+                        if (!error.response.data.error['error-cod-banco'] == "") {
+                            $("#cod_banco").val(error.response.data.error['error-cod-banco']).css("background", cor_input).css("color", "white");
                         } else {
                             $("#cod_banco").css("background", "#ffffb1");
                         }
 
-                        if (!error.response.data.error['error_movimentacao'] == "") {
-                            $("#nome_banco").val(error.response.data.error['error_movimentacao']).css("background", cor_input).css("color", "white");
+                        if (!error.response.data.error['error-nome-banco'] == "") {
+                            $("#nome_banco").val(error.response.data.error['error-nome-banco']).css("background", cor_input).css("color", "white");
                         } else {
                             $("#nome_banco").css("background", "#ffffb1");
                         }
-
-                        if (!error.response.data.error['error-token-banco'] == "") {
-                            $("#div-msg-cadastro-banco").html("<span class='alert alert-danger msgError' id='span-success-cadastro-banco'>"+ error.response.data.error['error-token-banco'] +"</span>").css("display", "block");
-                        }
-
                     }
                 })
-        });    
+        });
     });
 
     // CADASTRO NOVA CONTA
@@ -1411,8 +1430,8 @@ $(document).ready(function () {
 
             let _csrf_token = $("#_csrf_token").val();
 
-            let data = {codigo_agencia: codigo_agencia, digito_verificador_agencia: digito_verificador_agencia, 
-                numero_conta: numero_conta, digito_verificador_conta: digito_verificador_conta, 
+            let data = {codigo_agencia: codigo_agencia, digito_verificador_agencia: digito_verificador_agencia,
+                numero_conta: numero_conta, digito_verificador_conta: digito_verificador_conta,
                 codigo_operacao: codigo_operacao, tipo_conta: tipo_conta, banco: banco, _csrf_token: _csrf_token};
             e.preventDefault();
 
@@ -1490,7 +1509,7 @@ $(document).ready(function () {
 
                     }
                 })
-        });    
+        });
     });
 
 });
@@ -1502,8 +1521,8 @@ function redirectPageLogin(base_url) {
     return window.location.replace(base_url+"/auth/login");
 }
 
-function redirectPageHome(base_url) {
-    return window.location.replace(base_url + "/");
+function redirectPageAllBanks(base_url) {
+    return window.location.replace(base_url + "/bancos");
 }
 
 function formateDate(inputFormat) {
@@ -1531,48 +1550,46 @@ function generateTableExtract(datas) {
     table +=    "</tr>";
     table +=  "</thead>";
     table +=  "<tbody>";
-    
-        for (attr in datas) {
-            table +=  "<tr>";
-            if (datas[attr].tipo == 'D') {
-                table += "<td class='fonte_data td'>" + formateDate(datas[attr].data_movimentacao) + "</td>";
-                if (datas[attr].despesa_fixa == 'S') {
-                    table += "<td class='fonte_despesa td'>" + datas[attr].movimentacao + "</td>";
-                    table += "<td class='fonte_despesa td'>" + datas[attr].nome_categoria + "</td>";
-                    table += "<td class='fonte_despesa td'>" + numberToReal(datas[attr].valor) + "</td>";
-                    table += "<td class='fonte_despesa td'>" + numberToReal(datas[attr].saldo) + "</td>";
-                } else {
-                    table += "<td class='fonte_despesa_fixa td'>" + datas[attr].movimentacao + "</td>";
-                    table += "<td class='fonte_despesa_fixa td'>" + datas[attr].nome_categoria + "</td>";
-                    table += "<td class='fonte_despesa_fixa td'>" + numberToReal(datas[attr].valor) + "</td>";
-                    table += "<td class='fonte_despesa_fixa td'>" + numberToReal(datas[attr].saldo) + "</td>";					
-                }
+
+    for (attr in datas) {
+        table +=  "<tr>";
+        if (datas[attr].tipo == 'D') {
+            table += "<td class='fonte_data td'>" + formateDate(datas[attr].data_movimentacao) + "</td>";
+            if (datas[attr].despesa_fixa == 'S') {
+                table += "<td class='fonte_despesa td'>" + datas[attr].movimentacao + "</td>";
+                table += "<td class='fonte_despesa td'>" + datas[attr].nome_categoria + "</td>";
+                table += "<td class='fonte_despesa td'>" + numberToReal(datas[attr].valor) + "</td>";
+                table += "<td class='fonte_despesa td'>" + numberToReal(datas[attr].saldo) + "</td>";
             } else {
-                table += "<td class='fonte_data td'>" + formateDate(datas[attr].data_movimentacao) + "</td>";
-                table += "<td class='fonte_receita td'>" + datas[attr].movimentacao + "</td>";
-                table += "<td class='fonte_receita td'>" + datas[attr].nome_categoria + "</td>";
-                table += "<td class='fonte_receita td'>" + numberToReal(datas[attr].valor) + "</td>";
-                table += "<td class='fonte_receita td'>" + numberToReal(datas[attr].saldo) + "</td>";
+                table += "<td class='fonte_despesa_fixa td'>" + datas[attr].movimentacao + "</td>";
+                table += "<td class='fonte_despesa_fixa td'>" + datas[attr].nome_categoria + "</td>";
+                table += "<td class='fonte_despesa_fixa td'>" + numberToReal(datas[attr].valor) + "</td>";
+                table += "<td class='fonte_despesa_fixa td'>" + numberToReal(datas[attr].saldo) + "</td>";
             }
-            table +=  "</tr>";	
+        } else {
+            table += "<td class='fonte_data td'>" + formateDate(datas[attr].data_movimentacao) + "</td>";
+            table += "<td class='fonte_receita td'>" + datas[attr].movimentacao + "</td>";
+            table += "<td class='fonte_receita td'>" + datas[attr].nome_categoria + "</td>";
+            table += "<td class='fonte_receita td'>" + numberToReal(datas[attr].valor) + "</td>";
+            table += "<td class='fonte_receita td'>" + numberToReal(datas[attr].saldo) + "</td>";
         }
-    
-    table +=  "</tbody>";	
-    table += "</table>";	
+        table +=  "</tr>";
+    }
+
+    table +=  "</tbody>";
+    table += "</table>";
 
     table += "<script>";
     table +=    "$('#table_extrato_din').ready(function() {";
     table +=        "$('#table_extrato_din').DataTable( {";
-    table +=        "'scrollY': '470px',";    
+    table +=        "'scrollY': '470px',";
     table +=        "'scrollCollapse': true,";
     table +=        "'paging': false,";
     table +=        "'bInfo': false,";
     table +=        "'searching': false,";
-    table +=        "});";    
+    table +=        "});";
     table +=    "});";
     table += "</script>";
-    
-    return table;            
+
+    return table;
 }
-
-

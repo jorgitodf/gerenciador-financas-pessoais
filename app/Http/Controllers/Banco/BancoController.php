@@ -5,16 +5,18 @@ namespace App\Http\Controllers\Banco;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Bank;
-use App\Http\Requests\BankRequest;
+use App\Validations\ValidationBanco;
 
 class BancoController extends Controller
 {
     protected $model;
+    private $validations;
 
     public function __construct(Bank $banco, Request $request)
     {
         $this->model = $banco;
         $this->request = $request;
+        $this->validations = new ValidationBanco();
     }
 
     /**
@@ -24,7 +26,7 @@ class BancoController extends Controller
      */
     public function index()
     {
-        $bancos = $this->model::all();
+        $bancos = $this->model::paginate(12);
         return view('banco.index', compact('bancos'));
     }
 
@@ -45,19 +47,18 @@ class BancoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(BankRequest $request)
+    public function store(Request $request)
     {
         $dados = $request->all();
-        $this->model::create($dados);
-        return redirect()->route('bancos');
-        /* 
-        if (!empty($dados['cod_banco']) || !empty($dados['nome_banco'])) {
-            $this->model::create($dados);
-            return redirect()->route('bancos');
-        } */
+        $error = $this->validations->validateBanco($dados, $this->model);
 
-        //return view('banco.create');
-       
+        if (!$error) {
+            $this->model::create($dados);
+            return response()->json(['success' => 'Banco Cadastrado com Sucesso!', 'base_url' => url('')], 201);
+            return redirect()->route('bancos');
+        }
+
+        return response()->json(['error' => $error], 500);
     }
 
     /**
@@ -77,15 +78,14 @@ class BancoController extends Controller
      * Update the specified resource in storage / Atualizar o recurso especificado no armazenamento.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
         $dados = $request->all();
-
-        $this->model::find($dados['cod_banco'])->update($dados);
-        return redirect()->route('banco');
+        if ($this->model::find($dados['cod_banco'])->update($dados)) {
+            return response()->json(['success' => 'Banco Alterado com Sucesso!', 'base_url' => url('')], 201);
+        }
     }
 
     /**

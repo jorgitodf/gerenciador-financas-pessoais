@@ -8,7 +8,7 @@
         <div class="row">   
             <div class="col-md-7 col-md-offset-3 col-sm-7 col-sm-offset-3 col-xs-7 col-xs-offset-3">
                 <div class="well well-sm sombra">
-                <form class="form-horizontal" role="form" action="{{route('banco.salvar')}}" method="post" id="" enctype="multipart/form-data">
+                <form class="form-horizontal" role="form" action="{{route('banco.salvar')}}" method="post" id="formCadBanco" enctype="multipart/form-data">
                 {{ csrf_field() }}
                 <fieldset>
                 @include('banco._form')
