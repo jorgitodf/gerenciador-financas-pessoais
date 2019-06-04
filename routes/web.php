@@ -13,3 +13,15 @@ Route::get('/categoria/create', ['as'=>'categoria.novo', 'uses'=>'Categoria\Cate
 Route::post('/categoria/store', ['as'=>'categoria.salvar', 'uses'=>'Categoria\CategoriaController@store']);
 Route::get('/categoria/edit/{id}', ['as'=>'categoria.editar', 'uses'=>'Categoria\CategoriaController@edit']);
 Route::post('/categoria/update', ['as'=>'categoria.atualizar', 'uses'=>'Categoria\CategoriaController@update']);
+
+Route::get('/bandeiras', ['as'=>'bandeiras', 'uses'=>'Bandeira\BandeiraCartaoController@index']);
+Route::get('/bandeira/create', ['as'=>'bandeira.novo', 'uses'=>'Bandeira\BandeiraCartaoController@create']);
+Route::post('/bandeira/store', ['as'=>'bandeira.salvar', 'uses'=>'Bandeira\BandeiraCartaoController@store']);
+Route::get('/bandeira/edit/{id}', ['as'=>'bandeira.editar', 'uses'=>'Bandeira\BandeiraCartaoController@edit']);
+Route::post('/bandeira/update', ['as'=>'bandeira.atualizar', 'uses'=>'Bandeira\BandeiraCartaoController@update']);
+
+Route::get('/cartoes', ['as'=>'cartoes', 'uses'=>'Cartao\CartaoController@index']);
+Route::get('/cartao/create', ['as'=>'cartao.novo', 'uses'=>'Cartao\CartaoController@create']);
+Route::post('/cartao/store', ['as'=>'cartao.salvar', 'uses'=>'Cartao\CartaoController@store']);
+Route::get('/cartao/edit/{id}', ['as'=>'cartao.editar', 'uses'=>'Cartao\CartaoController@edit']);
+Route::post('/cartao/update', ['as'=>'cartao.atualizar', 'uses'=>'Cartao\CartaoController@update']);

@@ -119,6 +119,22 @@ $(document).ready(function () {
         });
     });
 
+    // CADASTRO DE BANDEIRA
+    $(function(){
+        $(".remove-color-input-bandeira").click(function() {
+            let bandeira = $("#bandeira").val();
+            if (bandeira.length != 0 && bandeira == "Preencha o Nome da Bandeira!" || bandeira == "Bandeira deve conter acima de 3 dígitos!" || bandeira == "Bandeira já Cadastrada!") {
+                $("#bandeira").val("");
+                $("#bandeira").css("background", "white");
+            } else if (bandeira.length != 0) {
+                $("#bandeira").css("background", "white");
+            } else {
+                $("#bandeira").css("background", "white");
+            }
+            $("#bandeira").attr("type", "text").css("color", "black");
+        });
+    });
+
     // CADASTRO DE CATEGORIA
     $(function(){
         $(".remove-color-input-categoria").click(function() {
@@ -1273,7 +1289,8 @@ $(document).ready(function () {
         });
     });
 
-    // CADASTRO NOVO BANDEIRA CARTÃO
+
+    // CADASTRO NOVA BANDEIRA CARTÃO
     $('#btn-nov-ban').click(function () {
         $("#btn-cad-ban").removeAttr('disabled');
         $("#btn-nov-ban").attr('disabled', 'disabled');
@@ -1283,16 +1300,24 @@ $(document).ready(function () {
         $('#span-msg-cadastro-bandeira').remove();
         $("#bandeira").val("");
     });
+	
+	$('#btn-edit-ban').click(function () {
+		$("#btn-salvar-ban").removeAttr('disabled');
+		$("#btn-edit-ban").attr('disabled', 'disabled');
+		$("#bandeira").removeAttr('disabled');
+		$("#bandeira").css("background", "white");
+		$('#span-success-cadastro-bandeira').remove();
+    });
 
     $(function () {
         $("#formCadBandeira").submit(function(e) {
             let url = $("#formCadBandeira").attr("action");
             let bandeira = $("#bandeira").val();
+            let id_bandeira = $("#id_bandeira").val();
             if (bandeira == 'Preencha o Nome da Bandeira!' || bandeira == 'Bandeira já Cadastrada!' || bandeira == 'Bandeira somente Números!' ||  bandeira == '') {
                 bandeira = '';
             }
-            let _csrf_token = $("#_csrf_token").val();
-            let data = {bandeira: bandeira, _csrf_token: _csrf_token};
+            let data = {bandeira: bandeira, id_bandeira:id_bandeira};
             e.preventDefault();
 
             axios.post(url, simpleQueryString.stringify(data))
@@ -1302,29 +1327,27 @@ $(document).ready(function () {
                         $("#btn-nov-ban").removeAttr('disabled');
                         $("#bandeira").attr('disabled', 'disabled');
                         $(".white").css("background", "#ffffb1");
-                        $("#div_msg_cadastro_bandeira").html("<span class='alert alert-success msgSuccess' id='span-msg-cadastro-bandeira'>"+ response.data['success'] +"</span>").css("display", "block");
+                        $("#div-msg-cadastro-bandeira").html("<span class='alert alert-success msgSuccess' id='span-msg-cadastro-bandeira'>"+ response.data['success'] +"</span>").css("display", "block");
+                        setInterval(function() {
+                            redirectPageAllFlags(response.data['base_url']);
+                        }, 3000);
                     }
                 })
                 .catch(function(error) {
                     if (error.response.status == 500) {
-                        if (!error.response.data.error['error_nome_bandeira'] == "") {
-                            $("#bandeira").val(error.response.data.error['error_nome_bandeira']).css("background", cor_input).css("color", "white");
+                        if (!error.response.data.error['error-nome-bandeira'] == "") {
+                            $("#bandeira").val(error.response.data.error['error-nome-bandeira']).css("background", cor_input).css("color", "white");
                         } else {
                             $("#bandeira").css("background", "#ffffb1");
                         }
 
                         if (!error.response.data.error['error_bandeira'] == "") {
-                            $("#div_msg_cadastro_bandeira").html("<span class='alert alert-danger msgError' id='span-msg-cadastro-bandeira'>"+ error.response.data.error['error_bandeira'] +"</span>").css("display", "block");
-                        }
-
-                        if (!error.response.data.error['error_token_bandeira'] == "") {
-                            $("#div_msg_cadastro_bandeira").html("<span class='alert alert-danger msgError' id='span-msg-cadastro-bandeira'>"+ error.response.data.error['error_token_bandeira'] +"</span>").css("display", "block");
+                            $("#div-msg-cadastro-bandeira").html("<span class='alert alert-danger msgError' id='span-msg-cadastro-bandeira'>"+ error.response.data.error['error_bandeira'] +"</span>").css("display", "block");
                         }
                     }
                 })
         });
     });
-
 
     // CADASTRO NOVA CATEGORIA
     $('#btn-nov-cat').click(function () {
@@ -1644,6 +1667,10 @@ $(document).ready(function () {
 
 function redirectPageLogin(base_url) {
     return window.location.replace(base_url+"/auth/login");
+}
+
+function redirectPageAllFlags(base_url) {
+    return window.location.replace(base_url + "/bandeiras");
 }
 
 function redirectPageAllBanks(base_url) {

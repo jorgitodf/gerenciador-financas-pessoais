@@ -505,6 +505,35 @@ select option:checked {
         text-align: center;
     }
 
+    /* TABELA DE BANDEIRA DE CARTÃO */
+    #table_bandeiras {
+        width: 100%;
+    }
+    #table_bandeiras td {
+        text-align: center;
+        padding: 1.5px !important;
+    }
+    #table_bandeiras th:nth-child(1) {
+        text-align: center;
+        width: 25% !important;
+    }
+    #table_bandeiras th:nth-child(2) {
+        text-align: center;
+        width: 10% !important;
+    }
+
+    #table_bandeiras td:nth-child(1) {
+        text-align: center;
+        padding-top: 10px !important;
+    }
+    #table_bandeiras td:nth-child(2) {
+        text-align: center;
+        padding-top: 0 !important;
+    }    
+    #div_cad_bandeira {
+        height: 215px !important;
+    }
+
 
     /* FORMULÁRIO CADASTRO DE DESPESAS DE CARTÃO DE CRÉDITO */
     #well_desp_cartao {
@@ -603,6 +632,35 @@ select option:checked {
     }
     #div_cad_categoria {
         height: 315px !important;
+    }
+
+    /* TABELA DE BANDEIRA DE CARTÃO */
+    #table_bandeiras {
+        width: 100%;
+    }
+    #table_bandeiras td {
+        text-align: center;
+        padding: 2px !important;
+    }
+    #table_bandeiras th:nth-child(1) {
+        text-align: center;
+        width: 25% !important;
+    }
+    #table_bandeiras th:nth-child(2) {
+        text-align: center;
+        width: 10% !important;
+    }
+
+    #table_bandeiras td:nth-child(1) {
+        text-align: center;
+        padding-top: 7px !important;
+    }
+    #table_bandeiras td:nth-child(2) {
+        text-align: center;
+        padding-top: 2px !important;
+    }    
+    #div_cad_bandeira {
+        height: 215px !important;
     }
 
     /* TABELA DE EXTRATO*/

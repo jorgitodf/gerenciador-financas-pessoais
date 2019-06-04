@@ -47,13 +47,12 @@
                 <li><a href="">Debitar</a></li>
             </ul>
 
-            <li data-toggle="collapse" data-target="#new" id="menu_div_cartao_credito" class="collapsed disabled">
+            <li data-toggle="collapse" data-target="#new" id="menu_div_cartao_credito" class="collapsed">
                 <a href="#"><i class="fa fa-credit-card fa-lg"></i> Cartão de Crédito <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="new">
-                <li><a href="">Nova Bandeira</a></li>
+                <li><a href="{{ route('bandeira.novo') }}">Nova Bandeira</a></li>
                 <li><a href="">Novo Cartão</a></li>
-                <li>Alterar Cartão</li>
                 <li><a href="">Lançar Compra</a></li>
                 <li><a href="">Gerar Fatura</a></li>
                 <li><a href="">Pagar Fatura</a></li>

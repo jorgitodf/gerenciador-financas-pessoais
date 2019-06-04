@@ -3,3 +3,36 @@ https://fontawesome.com/v4.7.0/icons/
 UPDATE banks SET nome_banco = UPPER(nome_banco);
 INSERT INTO financial.banks (cod_banco, nome_banco, created_at, updated_at) 
 SELECT cod_banco, nome_banco, NOW(), NOW() FROM financeiro.tb_banco;
+
+--use Illuminate\Support\Facades\DB;
+
+--DB::table('nome_tabela')->get();
+--DB::table('nome_tabela')->pluck('nome_campo'); //retorna apenas o nome do campo
+--DB::table('nome_tabela')->where('id', 1)->get();
+--DB::table('nome_tabela')->where('id', 1)->first();
+--DB::table('nome_tabela')->where('nome', 'like', '%p%')->get();
+--DB::table('nome_tabela')->where('nome', 1)->orWhere('id', 2)->get();
+--DB::table('nome_tabela')->whereBetween('nome', ['1,2'])->get();
+--DB::table('nome_tabela')->whereNotBetween('nome', ['1,2'])->get();
+--DB::table('nome_tabela')->whereIn('id', ['1,2,3,4'])->get();
+--DB::table('nome_tabela')->whereNotIn('id', ['1,2,3,4'])->get();
+--DB::table('nome_tabela')->where([['id', 1], ['nome', 'roupa']])->get();
+--DB::table('nome_tabela')->orderBy('nome')->get();
+--DB::table('nome_tabela')->orderBy('nome', 'desc')->get();
+--DB::table('nome_tabela')->insert([['nome' => 'Jorgito Paiva'], ['idade'=> 41]]);
+--DB::table('nome_tabela')->insertGetId([['nome' => 'Jorgito Paiva'], ['idade'=> 41]]);
+--DB::table('nome_tabela')->where(['id', 1])->update(['nome' => 'Fulano de Tal']);
+
+--Eloquent
+
+--$d = new Model();
+--$d->save();
+
+--$d = Model::findOrFail($id);
+--$d = Model::where('nome', $nome)->get();
+--$d = Model::where('nome', '= ou > ou <', $nome)->get();
+--$d = Model::where('id', '>=', $nome)->count();
+--$d = Model::where('id', '>=', $nome)->max();
+
+
+

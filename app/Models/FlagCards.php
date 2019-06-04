@@ -6,5 +6,18 @@ use Illuminate\Database\Eloquent\Model;
 
 class FlagCards extends Model
 {
-    //
+    protected $fillable = [
+        'bandeira'
+    ];
+
+    // Mutator para Modificar o dado antes de salvá-lo no Banco de Dados
+    public function setBandeiraAttribute($value)
+    {
+        $this->attributes['bandeira'] = trim(ucwords(strtoupper($value)));
+    }
+
+    public function getBandeiraFormattedAttribute()
+    {
+        return strtoupper($this->bandeira);
+    }
 }
