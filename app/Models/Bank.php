@@ -11,6 +11,10 @@ class Bank extends Model
     ];
     protected $primaryKey = 'cod_banco';
 
+    public function cartoes()
+    {
+        return $this->hasMany(CreditCard::class, 'bank_id', 'cod_banco');
+    }
     
     // Mutator para Modificar o dado antes de salvá-lo no Banco de Dados
     public function setNomeBancoAttribute($value)

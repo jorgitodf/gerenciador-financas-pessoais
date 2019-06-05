@@ -23,7 +23,7 @@
                                     <td>{{ $banco->cod_banco_formatted }}</td>
                                     <td>{{ $banco->nome_banco }}</td>
                                     <td>
-                                        <a class="btn deep-orange" href="{{ route('banco.editar', $banco->cod_banco) }}">Editar</a>
+                                        <a class="btn btn-warning btn-sm" href="{{ route('banco.editar', $banco->cod_banco) }}">Editar</a>
                                     </td>
                                 </tr>
                             @endforeach

@@ -12,18 +12,26 @@
                         <table class="table table-hover table-condensed table-bordered" id="table_cartoes">
                             <thead>
                             <tr>
-                                <th>Código</th>
-                                <th>Nome do Banco</th>
-                                <th>Ação</th>
+                                <th>Número do Cartão</th>
+                                <th>Data de Validade</th>
+                                <th>Bandeira</th>
+                                <th>Banco</th>
+                                <th>Ativo</th>
+                                <th>Pagamento</th>
+                                <th>Ações</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($cartoes as $cartao)
                                 <tr>
-                                    <td></td>
-                                    <td></td>
+                                    <td><input type="text" style="text-align:center" class="transparente numero_cartao" value="{{ $cartao->numero_cartao }}" readonly disabled></td>
+                                    <td>{{ $cartao->data_validade_formatted }}</td>
+                                    <td>{{ $cartao->bandeira->bandeira }}</td>
+                                    <td>{{ $cartao->banco->nome_banco }}</td>
+                                    <td>{{ $cartao->ativo_formatted }}</td>
+                                    <td>{{ $cartao->dia_pgto_fatura_formatted}}</td>
                                     <td>
-                                        <a class="btn deep-orange" href="{{ route('cartao.editar', $cartao->id) }}">Editar</a>
+                                        <a class="btn btn-warning btn-sm" href="{{ route('cartao.editar', $cartao->id) }}">Editar</a>
                                     </td>
                                 </tr>
                             @endforeach

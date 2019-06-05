@@ -52,7 +52,8 @@
             </li>
             <ul class="sub-menu collapse" id="new">
                 <li><a href="{{ route('bandeira.novo') }}">Nova Bandeira</a></li>
-                <li><a href="">Novo Cartão</a></li>
+                <li><a href="{{ route('cartoes') }}">Listar Cartões</a></li>
+                <li><a href="{{ route('cartao.novo') }}">Novo Cartão</a></li>
                 <li><a href="">Lançar Compra</a></li>
                 <li><a href="">Gerar Fatura</a></li>
                 <li><a href="">Pagar Fatura</a></li>

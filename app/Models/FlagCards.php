@@ -10,6 +10,11 @@ class FlagCards extends Model
         'bandeira'
     ];
 
+    public function cartoes()
+    {
+        return $this->hasMany(CreditCard::class, 'flag_card_id', 'id');
+    }
+
     // Mutator para Modificar o dado antes de salvá-lo no Banco de Dados
     public function setBandeiraAttribute($value)
     {
