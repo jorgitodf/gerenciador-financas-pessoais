@@ -6,11 +6,12 @@ class ValidationConta
 {
     private $erros = [];
 
-    public function validateTipoConta($data, $model = null)
+    public function validateTipoConta($data, $model = null, $tv = null)
     {
-
-        if ($model::where('tipo_conta', $data['tipo_conta'])->get()->first()) {
-            $this->erros['error_tipo_conta'] = "Tipo de Conta já Cadastrada!";
+        if ($tv == "create") {
+            if ($model::where('tipo_conta', $data['tipo_conta'])->get()->first()) {
+                $this->erros['error_tipo_conta'] = "Tipo de Conta já Cadastrada!";
+            }
         }
 
         if (empty($data['tipo_conta']) || $data['tipo_conta'] == null) {

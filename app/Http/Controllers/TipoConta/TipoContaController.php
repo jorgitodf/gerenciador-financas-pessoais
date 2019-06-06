@@ -46,11 +46,15 @@ class TipoContaController extends Controller
     public function store(Request $request)
     {
         $dados = $request->all();
-        $error = $this->validations->validateTipoConta($dados, $this->model);
+        $error = $this->validations->validateTipoConta($dados, $this->model, $tv = "create");
 
         if (!$error) {
-            $this->model::create($dados);
-            return response()->json(['success' => 'Tipo de Conta Cadastrada com Sucesso!', 'base_url' => url('')], 201);
+            try {
+                $this->model::create($dados);
+                return response()->json(['success' => 'Tipo de Conta Cadastrada com Sucesso!', 'base_url' => url('')], 201);
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $error['error_create'] = $ex->getMessage(); 
+            }
         }
 
         return response()->json(['error' => $error], 500);
@@ -58,12 +62,22 @@ class TipoContaController extends Controller
 
     public function edit($id)
     {
-        //
+        $legend = "Edição de Tipo de Conta";
+        $tipo_conta = $this->model::find($id);
+        return view('tipo_conta.edit', compact('tipo_conta', 'legend'));
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $dados = $request->all();
+        $error = $this->validations->validateTipoConta($dados, $this->model, $tv = "edit");
+
+        if (!$error) {
+            $this->model::find($dados['id_tipo_conta'])->update($dados);
+            return response()->json(['success' => 'Tipo de Conta Alterada com Sucesso!', 'base_url' => url('')], 201);
+        }
+
+        return response()->json(['error' => $error], 500);
     }
 
 }

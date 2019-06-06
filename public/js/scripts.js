@@ -1392,9 +1392,9 @@ $(document).ready(function () {
         $("#tipo_conta").val("");
     });
 
-    $('#btn-edit-ban').click(function () {
-        $("#btn-salvar-ban").removeAttr('disabled');
-        $("#btn-edit-ban").attr('disabled', 'disabled');
+    $('#btn-edit-tpconta').click(function () {
+        $("#btn-salvar-tpconta").removeAttr('disabled');
+        $("#btn-edit-tpconta").attr('disabled', 'disabled');
         $("#tipo_conta").removeAttr('disabled');
         $("#tipo_conta").css("background", "white");
         $('#span-success-cadastro-tipo_conta').remove();
@@ -1437,6 +1437,11 @@ $(document).ready(function () {
                             $("#div-msg-cadastro-tpconta").html("<span class='alert alert-danger msgError' id='span-msg-cadastro-tpconta'>"+ error.response.data.error['error_tipo_conta'] +"</span>").css("display", "block");
                         }
 
+                    }
+
+                    if (!error.response.data.error['error_create'] == "") {
+                        //$("#div-msg-cadastro-tpconta").html("<span class='alert alert-danger msgError' id='span-msg-cadastro-tpconta'>"+ error.response.data.error['error_create'] +"</span>").css("display", "block");
+                        alert(error.response.data.error['error_create']);
                     }
                 }
             })

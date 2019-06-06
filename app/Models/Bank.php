@@ -15,6 +15,11 @@ class Bank extends Model
     {
         return $this->hasMany(CreditCard::class, 'bank_id', 'cod_banco');
     }
+
+    public function contas()
+    {
+        return $this->hasMany(Account::class, 'bank_id', 'cod_banco');
+    }
     
     // Mutator para Modificar o dado antes de salvá-lo no Banco de Dados
     public function setNomeBancoAttribute($value)

@@ -479,6 +479,29 @@ select option:checked {
         height: 200px !important;
     }
 
+    /* TABELA EXIBIÇÂO DOS TIPOS DE CONTAS*/
+    #table_tipo_conta {
+        width: 100%;
+    }
+    #table_tipo_conta th {
+        text-align: center;
+        padding: 3px !important;
+    }
+    #table_tipo_conta th:nth-child(1) {
+        width: 80% !important;
+    }
+    #table_tipo_conta th:nth-child(2) {
+        width: 20% !important;
+    }
+
+    #table_tipo_conta td:nth-child(1) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_tipo_conta td:nth-child(2) {
+        text-align: center;
+        padding-top: 5px !important;
+    }
 
     /* TABELA EXIBIÇÂO DOS BANCOS*/
     #table_bancos {
@@ -562,6 +585,31 @@ select option:checked {
         margin-top: 5%;
         margin-left: 20%;
     }
+
+    /* TABELA EXIBIÇÂO DOS TIPOS DE CONTAS*/
+    #table_tipo_conta {
+        width: 100%;
+    }
+    #table_tipo_conta th {
+        text-align: center;
+        padding: 3px !important;
+    }
+    #table_tipo_conta th:nth-child(1) {
+        width: 80% !important;
+    }
+    #table_tipo_conta th:nth-child(2) {
+        width: 20% !important;
+    }
+
+    #table_tipo_conta td:nth-child(1) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_tipo_conta td:nth-child(2) {
+        text-align: center;
+        padding-top: 5px !important;
+    }
+
 
     /* TABELA EXIBIÇÂO DOS BANCOS*/
     #table_bancos {
