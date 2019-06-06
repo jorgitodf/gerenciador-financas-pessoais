@@ -25,3 +25,9 @@ Route::get('/cartao/create', ['as'=>'cartao.novo', 'uses'=>'Cartao\CartaoControl
 Route::post('/cartao/store', ['as'=>'cartao.salvar', 'uses'=>'Cartao\CartaoController@store']);
 Route::get('/cartao/edit/{id}', ['as'=>'cartao.editar', 'uses'=>'Cartao\CartaoController@edit']);
 Route::post('/cartao/update', ['as'=>'cartao.atualizar', 'uses'=>'Cartao\CartaoController@update']);
+
+Route::get('/tipo-contas', ['as'=>'tipo-contas', 'uses'=>'TipoConta\TipoContaController@index']);
+Route::get('/tipo-conta/create', ['as'=>'tipo-conta.novo', 'uses'=>'TipoConta\TipoContaController@create']);
+Route::post('/tipo-conta/store', ['as'=>'tipo-conta.salvar', 'uses'=>'TipoConta\TipoContaController@store']);
+Route::get('/tipo-conta/edit/{id}', ['as'=>'tipo-conta.editar', 'uses'=>'TipoConta\TipoContaController@edit']);
+Route::post('/tipo-conta/update', ['as'=>'tipo-conta.atualizar', 'uses'=>'TipoConta\TipoContaController@update']);

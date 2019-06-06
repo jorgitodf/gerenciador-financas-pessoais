@@ -94,6 +94,18 @@ $(document).ready(function () {
     });
 
     $(function(){
+        $(".remove-color-input-tpconta").click(function() {
+            let tipo_conta = $(this).val();
+            if (tipo_conta != "") {
+                $("#tipo_conta").val("").css("background", "white");
+            } else {
+                $("#tipo_conta").css("background", "white");
+            }
+            $("#tipo_conta").attr("type", "text").css("color", "black");
+        });
+    });
+
+    $(function(){
         $(".remove-color-input-nbanco").click(function() {
             let nome_banco = $("#nome_banco").val();
             if (nome_banco != "") {
@@ -151,7 +163,7 @@ $(document).ready(function () {
             $("#nome_categoria").attr("type", "text").css("color", "black");
         });
     });
-    
+
 
     $(function() {
         $("#despesa_fixa").click(function () {
@@ -211,7 +223,7 @@ $(document).ready(function () {
                 $("#data_validade").css("background", "white");
             }
             $("#data_validade").attr("type", "text").css("color", "black");
-        });    
+        });
     });
 
     $(function() {
@@ -238,7 +250,7 @@ $(document).ready(function () {
                 $("#dia_pgto_fatura").css("background", "white");
             }
             $("#dia_pgto_fatura").attr("type", "text").css("color", "black");
-        });    
+        });
     });
 
     $(function() {
@@ -1369,6 +1381,69 @@ $(document).ready(function () {
     });
 
 
+    // CADASTRO TIPO DE CONTA
+    $('#btn-nov-tpconta').click(function () {
+        $("#btn-cad-tpconta").removeAttr('disabled');
+        $("#btn-nov-ban").attr('disabled', 'disabled');
+        $("#tipo_conta").removeAttr('disabled');
+        $("#tipo_conta").focus();
+        $("#tipo_conta").css("background", "white");
+        $('#span-msg-cadastro-tipo_conta').remove();
+        $("#tipo_conta").val("");
+    });
+
+    $('#btn-edit-ban').click(function () {
+        $("#btn-salvar-ban").removeAttr('disabled');
+        $("#btn-edit-ban").attr('disabled', 'disabled');
+        $("#tipo_conta").removeAttr('disabled');
+        $("#tipo_conta").css("background", "white");
+        $('#span-success-cadastro-tipo_conta').remove();
+    });
+
+    $(function () {
+        $("#formCadTipoConta").submit(function(e) {
+            let url = $("#formCadTipoConta").attr("action");
+            let tipo_conta = $("#tipo_conta").val();
+            let id_tipo_conta = $("#id_tipo_conta").val();
+
+            let data = {tipo_conta: tipo_conta, id_tipo_conta: id_tipo_conta};
+
+            e.preventDefault();
+            axios.post(url, simpleQueryString.stringify(data))
+            .then(function(response) {
+                if (response.status == 201) {
+                    $("#btn-cad-tpconta").attr('disabled', 'disabled');
+                    $("#btn-nov-tpconta").removeAttr('disabled');
+                    $("#tipo_conta").attr('disabled', 'disabled');
+                    $(".white").css("background", "#ffffb1");
+                    $("#div-msg-cadastro-tpconta").html("<span class='alert alert-success msgSuccess' id='span-msg-cadastro-tipo_conta'>"+ response.data['success'] +"</span>").css("display", "block");
+                    setInterval(function() {
+                        redirectPageAllTpConta(response.data['base_url']);
+                    }, 3000);
+                }
+            })
+            .catch(function(error) {
+                if (error.response.status == 500) {
+                    if (!error.response.data.error['error_tipo_conta'] == "") {
+                        $("#tipo_conta").val(error.response.data.error['error_tipo_conta']).css("background", cor_input).css("color", "white");
+                    } else {
+                        $("#tipo_conta").css("background", "#ffffb1");
+                    }
+
+                    if (!error.response.data.error['error_tipo_conta'] == "") {
+                        if (tipo_conta == 'Tipo de Conta já Cadastrada!' || tipo_conta == 'Preencha o Tipo de Conta!' || tipo_conta == 'Tipo de Conta deve conter acima de 3 dígitos!' ||  bandeira == '') {
+                            tipo_conta = '';
+                        } else {
+                            $("#div-msg-cadastro-tpconta").html("<span class='alert alert-danger msgError' id='span-msg-cadastro-tpconta'>"+ error.response.data.error['error_tipo_conta'] +"</span>").css("display", "block");
+                        }
+
+                    }
+                }
+            })
+        });
+    });
+
+
     // CADASTRO NOVA BANDEIRA CARTÃO
     $('#btn-nov-ban').click(function () {
         $("#btn-cad-ban").removeAttr('disabled');
@@ -1379,7 +1454,7 @@ $(document).ready(function () {
         $('#span-msg-cadastro-bandeira').remove();
         $("#bandeira").val("");
     });
-	
+
 	$('#btn-edit-ban').click(function () {
 		$("#btn-salvar-ban").removeAttr('disabled');
 		$("#btn-edit-ban").attr('disabled', 'disabled');
@@ -1754,6 +1829,10 @@ function redirectPageAllFlags(base_url) {
 
 function redirectPageAllCards(base_url) {
     return window.location.replace(base_url + "/cartoes");
+}
+
+function redirectPageAllTpConta(base_url) {
+    return window.location.replace(base_url + "/tipo-contas");
 }
 
 function redirectPageAllBanks(base_url) {

@@ -18,7 +18,8 @@
                 <a><i class="fa fa-money fa-lg"></i> Contas <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="contas">
-                <li class="active"><a href="">Nova Conta</a></li>
+                <li class="active"><a href="{{ route('tipo-conta.novo') }}">Novo Tipo de Conta</a></li>
+                <li><a href="">Nova Conta</a></li>
                 <li><a href="#">Alterar Conta</a></li>
                 <li><a href="">Trocar de Conta</a></li>
             </ul>
@@ -41,7 +42,7 @@
 
             <li data-toggle="collapse" data-target="#service" id="menu_div_trasacoes" class="collapsed disabled">
                 <a href="#"><i class="fa fa-globe fa-lg"></i> Transações <span class="arrow"></span></a>
-            </li>  
+            </li>
             <ul class="sub-menu collapse" id="service">
                 <li><a href="">Creditar</a></li>
                 <li><a href="">Debitar</a></li>

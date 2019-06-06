@@ -1,6 +1,6 @@
 @extends('templates.layout')
 
-@section('title', 'Cadastro de Banco')
+@section('title', 'Cadastro de Tipo de Conta')
 
 @section('content')
 
@@ -8,29 +8,27 @@
         <div class="row">
             <div class="col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1">
                 <div class="well well-sm well-md well-xs sombra table-responsive">
-                    @if(isset($bancos) && $bancos->count() > 0)
-                        <table class="table table-hover table-condensed table-bordered" id="table_bancos">
+                    @if(isset($tipo_contas) && $tipo_contas->count() > 0)
+                        <table class="table table-hover table-condensed table-bordered" id="table_tipo_conta">
                             <thead>
                             <tr>
-                                <th>Código</th>
-                                <th>Nome do Banco</th>
-                                <th>Ação</th>
+                                <th>Tipo de Conta</th>
+                                <th>Ações</th>
                             </tr>
                             </thead>
                             <tbody>
-                            @foreach($bancos as $banco)
+                            @foreach($tipo_contas as $tipo_conta)
                                 <tr>
-                                    <td>{{ $banco->cod_banco_formatted }}</td>
-                                    <td>{{ $banco->nome_banco }}</td>
+                                    <td>{{ $tipo_conta->tipo_conta }}</td>
                                     <td>
-                                        <a class="btn btn-warning btn-sm" href="{{ route('banco.editar', $banco->cod_banco) }}">Editar</a>
+                                        <a class="btn btn-warning btn-sm" href="{{ route('tipo-conta.editar', $tipo_conta->id) }}">Editar</a>
                                     </td>
                                 </tr>
                             @endforeach
                             </tbody>
                         </table>
                         <div class="row" align="center">
-                            {{ $bancos->links() }}
+                            {{ $tipo_contas->links() }}
                         </div>
                     @else
                         <div class="row-fluid text-center alert alert-info">

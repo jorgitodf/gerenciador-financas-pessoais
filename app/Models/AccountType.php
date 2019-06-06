@@ -6,5 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class AccountType extends Model
 {
-    //
+    protected $fillable = [
+        'tipo_conta'
+    ];
 }

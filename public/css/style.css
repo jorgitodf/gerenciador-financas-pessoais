@@ -475,6 +475,9 @@ select option:checked {
     #div_cad_categoria {
         height: 315px !important;
     }
+    #div_cad_tpconta {
+        height: 200px !important;
+    }
 
 
     /* TABELA EXIBIÇÂO DOS BANCOS*/
@@ -529,7 +532,7 @@ select option:checked {
     #table_bandeiras td:nth-child(2) {
         text-align: center;
         padding-top: 0 !important;
-    }    
+    }
     #div_cad_bandeira {
         height: 215px !important;
     }
@@ -718,7 +721,7 @@ select option:checked {
     #table_bandeiras td:nth-child(2) {
         text-align: center;
         padding-top: 2px !important;
-    }    
+    }
     #div_cad_bandeira {
         height: 215px !important;
     }

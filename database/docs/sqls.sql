@@ -1,7 +1,7 @@
 https://fontawesome.com/v4.7.0/icons/
 
 UPDATE banks SET nome_banco = UPPER(nome_banco);
-INSERT INTO financial.banks (cod_banco, nome_banco, created_at, updated_at) 
+INSERT INTO financial.banks (cod_banco, nome_banco, created_at, updated_at)
 SELECT cod_banco, nome_banco, NOW(), NOW() FROM financeiro.tb_banco;
 
 --use Illuminate\Support\Facades\DB;
@@ -33,6 +33,12 @@ SELECT cod_banco, nome_banco, NOW(), NOW() FROM financeiro.tb_banco;
 --$d = Model::where('nome', '= ou > ou <', $nome)->get();
 --$d = Model::where('id', '>=', $nome)->count();
 --$d = Model::where('id', '>=', $nome)->max();
+
+exception: "Illuminate\Database\QueryException"
+file: "C:\laragon\www\financeiro\vendor\laravel\framework\src\Illuminate\Database\Connection.php"
+line: 664
+message: "SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'tipo_conta' at row 1 (SQL: insert into `account_types` (`tipo_conta`, `updated_at`, `created_at`) values (Conta Corrente Pessoa Física, 2019-06-06 00:05:06, 2019-06-06 00:05:06))"
+trace: [,…]
 
 
 

@@ -27,7 +27,14 @@ class BancoController extends Controller
     public function index()
     {
         $bancos = $this->model::paginate(10);
-        return view('banco.index', compact('bancos'));
+
+        if ($bancos->count() == 0) {
+            $msg = "Nenhum Banco Cadastrado no Sistema!";
+        } else {
+            $msg = "";
+        }
+
+        return view('banco.index', compact('bancos', 'msg'));
     }
 
     /**
