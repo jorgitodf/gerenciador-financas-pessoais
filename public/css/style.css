@@ -479,6 +479,37 @@ select option:checked {
         height: 200px !important;
     }
 
+    /* CADASTRO DE CONTA */
+    #div_cad_conta {
+        width: 120% !important;
+        height: 500px !important;
+    }
+    #table_conta th {
+        text-align: center;
+        padding: 3px !important;
+    }
+    #table_conta th:nth-child(1) {
+        width: 13% !important;
+    }
+    #table_conta th:nth-child(2) {
+        width: 11% !important;
+    }
+    #table_conta th:nth-child(3) {
+        width: 13% !important;
+    }
+    #table_conta th:nth-child(4) {
+        width: 13% !important;
+    }
+    #table_conta th:nth-child(5) {
+        width: 24% !important;
+    }
+    #table_conta th:nth-child(6) {
+        width: 26% !important;
+    }
+    #table_conta th:nth-child(7) {
+        width: 10% !important;
+    }
+
     /* TABELA EXIBIÇÂO DOS TIPOS DE CONTAS*/
     #table_tipo_conta {
         width: 100%;
@@ -585,6 +616,66 @@ select option:checked {
         margin-top: 5%;
         margin-left: 20%;
     }
+
+    /* CADASTRO DE CONTA */
+    #div_cad_conta {
+        width: 120% !important;
+        height: 500px !important;
+    }
+    #table_conta th {
+        text-align: center;
+        padding: 3px !important;
+    }
+    #table_conta th:nth-child(1) {
+        width: 13% !important;
+    }
+    #table_conta th:nth-child(2) {
+        width: 11% !important;
+    }
+    #table_conta th:nth-child(3) {
+        width: 13% !important;
+    }
+    #table_conta th:nth-child(4) {
+        width: 13% !important;
+    }
+    #table_conta th:nth-child(5) {
+        width: 24% !important;
+    }
+    #table_conta th:nth-child(6) {
+        width: 26% !important;
+    }
+    #table_conta th:nth-child(7) {
+        width: 10% !important;
+    }
+
+    #table_conta td:nth-child(1) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_conta td:nth-child(2) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_conta td:nth-child(3) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_conta td:nth-child(4) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_conta td:nth-child(5) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_conta td:nth-child(6) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_conta td:nth-child(7) {
+        text-align: center;
+    }
+
 
     /* TABELA EXIBIÇÂO DOS TIPOS DE CONTAS*/
     #table_tipo_conta {

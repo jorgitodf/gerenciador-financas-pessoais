@@ -19,7 +19,7 @@
             </li>
             <ul class="sub-menu collapse" id="contas">
                 <li class="active"><a href="{{ route('tipo-conta.novo') }}">Novo Tipo de Conta</a></li>
-                <li><a href="">Nova Conta</a></li>
+                <li><a href="{{ route('conta.novo') }}">Nova Conta</a></li>
                 <li><a href="#">Alterar Conta</a></li>
                 <li><a href="">Trocar de Conta</a></li>
             </ul>

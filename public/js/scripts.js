@@ -1674,19 +1674,20 @@ $(document).ready(function () {
         $("#btn-cad-conta").removeAttr('disabled');
         $("#btn-nov-conta").attr('disabled', 'disabled');
         $("#codigo_agencia").removeAttr('disabled');
+        $("#codigo_agencia").focus();
         $("#digito_verificador_agencia").removeAttr('disabled');
         $("#numero_conta").removeAttr('disabled');
         $("#digito_verificador_conta").removeAttr('disabled');
         $("#codigo_operacao").removeAttr('disabled');
         $("#tipo_conta").removeAttr('disabled');
-        $("#banco").removeAttr('disabled');
+        $("#bank_id").removeAttr('disabled');
         $("#codigo_agencia").css("background", "white");
         $("#digito_verificador_agencia").css("background", "white");
         $("#numero_conta").css("background", "white");
         $("#digito_verificador_conta").css("background", "white");
         $("#codigo_operacao").css("background", "white");
         $("#tipo_conta").css("background", "white");
-        $("#banco").css("background", "white");
+        $("#bank_id").css("background", "white");
         $('#span-success-cadastro-conta').remove();
         $("#codigo_agencia").val("");
         $("#digito_verificador_agencia").val("");
@@ -1694,52 +1695,43 @@ $(document).ready(function () {
         $("#digito_verificador_conta").val("");
         $("#codigo_operacao").val("");
         $("#tipo_conta").val("");
-        $("#banco").val("");
+        $("#bank_id").val("");
+    });
+    $('#btn-edit-conta').click(function () {
+        $("#btn-salvar-conta").removeAttr('disabled');
+        $("#btn-edit-conta").attr('disabled', 'disabled');
+        $("#codigo_agencia").removeAttr('disabled');
+        $("#codigo_agencia").focus();
+        $("#digito_verificador_agencia").removeAttr('disabled');
+        $("#numero_conta").removeAttr('disabled');
+        $("#digito_verificador_conta").removeAttr('disabled');
+        $("#codigo_operacao").removeAttr('disabled');
+        $("#tipo_conta").removeAttr('disabled');
+        $("#bank_id").removeAttr('disabled');
+        $("#codigo_agencia").css("background", "white");
+        $("#digito_verificador_agencia").css("background", "white");
+        $("#numero_conta").css("background", "white");
+        $("#digito_verificador_conta").css("background", "white");
+        $("#codigo_operacao").css("background", "white");
+        $("#tipo_conta").css("background", "white");
+        $("#bank_id").css("background", "white");
+        $('#span-success-cadastro-conta').remove();
     });
     $(function () {
         $("#formCadConta").submit(function(e) {
             let url = $("#formCadConta").attr("action");
-
             let codigo_agencia = $("#codigo_agencia").val();
-            if (codigo_agencia == 'Preencha o Código da Agência!' || codigo_agencia == 'Cód. da Agência somente Números!' || codigo_agencia == 'Cód. da Agência deve conter até 4 dígitos!' || codigo_agencia == '') {
-                codigo_agencia = '';
-            }
-
             let digito_verificador_agencia = $("#digito_verificador_agencia").val();
-            if (digito_verificador_agencia == 'Díg. Verificador da Agência somente Números!' || digito_verificador_agencia == 'Díg. Verificador da Ag. deve conter 1 dígito!' || digito_verificador_agencia == '') {
-                digito_verificador_agencia = '';
-            }
-
             let numero_conta = $("#numero_conta").val();
-            if (numero_conta == 'Preencha o Número da Conta!' || numero_conta == 'Número da Conta somente Números!' || numero_conta == 'Número da Conta deve conter até 9 dígitos!', numero_conta == '') {
-                numero_conta = '';
-            }
-
             let digito_verificador_conta = $("#digito_verificador_conta").val();
-            if (digito_verificador_conta == 'Preencha o Dígito Verificador da Conta!' || digito_verificador_conta == 'Díg. Verif. da Conta somente Números!' || digito_verificador_conta == 'Díg. Verif. da Conta deve conter 1 dígito!', digito_verificador_conta == '') {
-                digito_verificador_conta = '';
-            }
-
             let codigo_operacao = $("#codigo_operacao").val();
-            if (codigo_operacao == 'Cód. da Operação somente Números!' || codigo_operacao == 'Cód. da Operação deve conter até 3 dígitos!' || codigo_operacao == '') {
-                codigo_operacao = '';
-            }
-
             let tipo_conta = $("#tipo_conta").val();
-            if (tipo_conta == 'Preencha o Tipo da Conta!' || tipo_conta == '') {
-                tipo_conta = '';
-            }
-
-            let banco = $("#banco").val();
-            if (banco == 'Selecione o Banco!' || banco == '') {
-                banco = '';
-            }
-
-            let _csrf_token = $("#_csrf_token").val();
+            let bank_id = $("#bank_id").val();
+            let id_conta = $("#id_conta").val();
 
             let data = {codigo_agencia: codigo_agencia, digito_verificador_agencia: digito_verificador_agencia,
                 numero_conta: numero_conta, digito_verificador_conta: digito_verificador_conta,
-                codigo_operacao: codigo_operacao, tipo_conta: tipo_conta, banco: banco, _csrf_token: _csrf_token};
+                codigo_operacao: codigo_operacao, account_type_id: tipo_conta, bank_id: bank_id, id_conta: id_conta};
             e.preventDefault();
 
             axios.post(url, simpleQueryString.stringify(data))
@@ -1753,69 +1745,155 @@ $(document).ready(function () {
                         $("#digito_verificador_conta").attr('disabled', 'disabled');
                         $("#codigo_operacao").attr('disabled', 'disabled');
                         $("#tipo_conta").attr('disabled', 'disabled');
-                        $("#banco").attr('disabled', 'disabled');
+                        $("#bank_id").attr('disabled', 'disabled');
                         $("#tipo_conta").css("background", "white").css("color", "black");
-                        $("#banco").css("background", "white").css("color", "black");
+                        $("#bank_id").css("background", "white").css("color", "black");
                         $(".white").css("background", "white");
                         $("#div-msg-cadastro-conta").html("<span class='alert alert-success msgSuccess' id='span-success-cadastro-conta'>"+ response.data['success'] +"</span>").css("display", "block");
                         setInterval(function() {
-                            redirectPageHome(response.data['base_url']);
+                            redirectPageAllAccounts(response.data['base_url']);
                         }, 3000);
                     }
                 })
                 .catch(function(error) {
                     if (error.response.status == 500) {
-                        if (!error.response.data.error['error-cod-agencia'] == "") {
-                            $("#codigo_agencia").val(error.response.data.error['error-cod-agencia']).css("background", cor_input).css("color", "white");
+                        if (!error.response.data.error['error_cod_agencia'] == "") {
+                            $("#codigo_agencia").val(error.response.data.error['error_cod_agencia']).css("background", cor_input).css("color", "white");
+                            if (codigo_agencia == 'Preencha o Código da Agência!' || codigo_agencia == 'Cód. da Agência somente Números!' || codigo_agencia == 'Cód. da Agência deve conter até 4 dígitos!' || codigo_agencia == '') {
+                                codigo_agencia = '';
+                            }
                         } else {
                             $("#codigo_agencia").css("background", "#ffffb1");
                         }
 
-                        if (!error.response.data.error['error-dig-ver-agencia'] == "") {
-                            $("#digito_verificador_agencia").val(error.response.data.error['error-dig-ver-agencia']).css("background", cor_input).css("color", "white");
+                        if (!error.response.data.error['error_dig_ver_agencia'] == "") {
+                            $("#digito_verificador_agencia").val(error.response.data.error['error_dig_ver_agencia']).css("background", cor_input).css("color", "white");
+                            if (digito_verificador_agencia == 'Díg. Verificador da Agência somente Números!' || digito_verificador_agencia == 'Díg. Verificador da Ag. deve conter 1 dígito!' || digito_verificador_agencia == '') {
+                                digito_verificador_agencia = '';
+                            }
                         } else {
                             $("#digito_verificador_agencia").css("background", "white");
                         }
 
-                        if (!error.response.data.error['error-num-conta'] == "") {
-                            $("#numero_conta").val(error.response.data.error['error-num-conta']).css("background", cor_input).css("color", "white");
+                        if (!error.response.data.error['error_num_conta'] == "") {
+                            $("#numero_conta").val(error.response.data.error['error_num_conta']).css("background", cor_input).css("color", "white");
+                            if (numero_conta == 'Preencha o Número da Conta!' || numero_conta == 'Número da Conta somente Números!' || numero_conta == 'Número da Conta deve conter até 9 dígitos!', numero_conta == '') {
+                                numero_conta = '';
+                            }
                         } else {
                             $("#numero_conta").css("background", "#ffffb1");
                         }
 
-                        if (!error.response.data.error['error-dig-ver-conta'] == "") {
-                            $("#digito_verificador_conta").val(error.response.data.error['error-dig-ver-conta']).css("background", cor_input).css("color", "white");
+                        if (!error.response.data.error['error_dig_ver_conta'] == "") {
+                            $("#digito_verificador_conta").val(error.response.data.error['error_dig_ver_conta']).css("background", cor_input).css("color", "white");
+                            if (digito_verificador_conta == 'Preencha o Dígito Verificador da Conta!' || digito_verificador_conta == 'Díg. Verif. da Conta somente Números!' || digito_verificador_conta == 'Díg. Verif. da Conta deve conter 1 dígito!', digito_verificador_conta == '') {
+                                digito_verificador_conta = '';
+                            }
                         } else {
                             $("#digito_verificador_conta").css("background", "#ffffb1");
                         }
 
-                        if (!error.response.data.error['error-cod-operacao'] == "") {
-                            $("#codigo_operacao").val(error.response.data.error['error-cod-operacao']).css("background", cor_input).css("color", "white");
+                        if (!error.response.data.error['error_cod_operacao'] == "") {
+                            $("#codigo_operacao").val(error.response.data.error['error_cod_operacao']).css("background", cor_input).css("color", "white");
+                            if (codigo_operacao == 'Cód. da Operação somente Números!' || codigo_operacao == 'Cód. da Operação deve conter até 3 dígitos!' || codigo_operacao == '') {
+                                codigo_operacao = '';
+                            }
                         } else {
                             $("#codigo_operacao").css("background", "white");
                         }
 
-                        if (!error.response.data.error['error_categoria'] == "") {
-                            $("#tipo_conta").find('option:selected').html(error.response.data.error['error_categoria']);
+                        if (!error.response.data.error['error_tp_conta'] == "") {
+                            $("#tipo_conta").find('option:selected').html(error.response.data.error['error_tp_conta']);
                             $("#tipo_conta").css("background", cor_input).css("color", "white");
+                            if (tipo_conta == 'Preencha o Tipo da Conta!' || tipo_conta == '') {
+                                tipo_conta = '';
+                            }
                         } else {
                             $("#tipo_conta").css("background", "#ffffb1").css("color", "black");
                         }
 
-                        if (!error.response.data.error['error-tp-banco'] == "") {
-                            $("#banco").find('option:selected').html(error.response.data.error['error-tp-banco']);
-                            $("#banco").css("background", cor_input).css("color", "white");
+                        if (!error.response.data.error['error_banco'] == "") {
+                            $("#bank_id").find('option:selected').html(error.response.data.error['error_banco']);
+                            $("#bank_id").css("background", cor_input).css("color", "white");
+                            if (bank_id == 'Selecione o Banco!' || bank_id == '') {
+                                bank_id = '';
+                            }
                         } else {
-                            $("#banco").css("background", "#ffffb1").css("color", "black");
+                            $("#bank_id").css("background", "#ffffb1").css("color", "black");
                         }
 
-                        if (!error.response.data.error['error-token-conta'] == "" || !error.response.data.error['error-conta'] == "") {
-                            $("#div-msg-cadastro-conta").html("<span class='alert alert-danger msgError' id='span-success-cadastro-conta'>"+ error.response.data.error['error-token-conta'] +"</span>").css("display", "block");
-                            $("#div-msg-cadastro-conta").html("<span class='alert alert-danger msgError' id='span-success-cadastro-conta'>"+ error.response.data.error['error-conta'] +"</span>").css("display", "block");
+                        if (!error.response.data.error['error_create'] == "") {
+                            alert(error.response.data.error['error_create']);
                         }
 
                     }
                 })
+        });
+    });
+
+    $(function(){
+        $(".remove_color_input_cod_agencia").click(function() {
+            let value = $(this).val();
+            if (value.length != 0 && value == 'Preencha o Código da Agência!' || value == 'Cód. da Agência somente Números!' || value == 'Cód. da Agência deve conter até 4 dígitos!') {
+                $("#codigo_agencia").val("").css("background", "white");
+            } else {
+                $("#codigo_agencia").css("background", "white");
+            }
+            $("#codigo_agencia").attr("type", "text").css("color", "black");
+        });
+        $(".remove_color_input_cod_agencia").focus(function() {
+            let str = $(this).val();
+            if (str.indexOf("Preencha") > -1 || str.indexOf("Cod.") > -1 || str.indexOf("Agência") > -1) {
+                $(this).val("").css("background", "white").css("color", "black");
+            }
+        });
+    });
+
+    $(function(){
+        $(".remove_color_input_dig_agencia").click(function() {
+            let digito_verificador_agencia = $(this).val();
+            if (digito_verificador_agencia.length != 0) {
+                $("#digito_verificador_agencia").val("").css("background", "white");
+            } else {
+                $("#digito_verificador_agencia").css("background", "white");
+            }
+            $("#digito_verificador_agencia").attr("type", "text").css("color", "black");
+        });
+        $(".remove_color_input_dig_agencia").focus(function() {
+            let str = $(this).val();
+            if (str.indexOf("Dígito") > -1 || str.indexOf("Verificador") > -1 || str.indexOf("Agência") > -1) {
+                $(this).val("").css("background", "white").css("color", "black");
+            }
+        });
+    });
+
+    $(function(){
+        $(".remove_color_input").click(function() {
+            let action = $(this).attr("action");
+            let id = $(this).attr("id"); 
+            let value = $(this).val(); 
+
+            if(action.match(/update/)){
+                if (value.length > 0) {
+                    $("#"+id+"").css("background", "white");
+                } else {
+                    $("#"+id+"").val("").css("background", "white");
+                }
+            } else {
+                if (value.length != 0) {
+                    $("#"+id+"").val("").css("background", "white");
+                } else {
+                    $("#"+id+"").css("background", "white");
+                }
+            }
+
+            $("#"+id+"").attr("type", "text").css("color", "black");
+        });
+        $(".remove_color_input").focus(function() {
+            let str = $(this).val();
+            if (str.indexOf("Número") > -1 || str.indexOf("Preencha") > -1 || str.indexOf("Número") > -1) {
+                $(this).val("").css("background", "white").css("color", "black");
+            }
         });
     });
 
@@ -1830,6 +1908,10 @@ function redirectPageLogin(base_url) {
 
 function redirectPageAllFlags(base_url) {
     return window.location.replace(base_url + "/bandeiras");
+}
+
+function redirectPageAllAccounts(base_url) {
+    return window.location.replace(base_url + "/contas");
 }
 
 function redirectPageAllCards(base_url) {

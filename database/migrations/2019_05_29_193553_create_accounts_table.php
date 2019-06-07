@@ -29,10 +29,10 @@ class CreateAccountsTable extends Migration
             $table->timestamps();
         }); 
         DB::statement('ALTER TABLE accounts CHANGE COLUMN codigo_agencia codigo_agencia SMALLINT(4) ZEROFILL NOT NULL');
-        DB::statement('ALTER TABLE accounts CHANGE COLUMN digito_verificador_agencia digito_verificador_agencia TINYINT(1) UNSIGNED ZEROFILL NOT NULL');
+        DB::statement('ALTER TABLE accounts CHANGE COLUMN digito_verificador_agencia digito_verificador_agencia TINYINT(1) UNSIGNED ZEROFILL NULL');
         DB::statement('ALTER TABLE accounts CHANGE COLUMN numero_conta numero_conta MEDIUMINT(7) UNSIGNED ZEROFILL NOT NULL');
         DB::statement('ALTER TABLE accounts CHANGE COLUMN digito_verificador_conta digito_verificador_conta TINYINT(1) UNSIGNED ZEROFILL NOT NULL');
-        DB::statement('ALTER TABLE accounts CHANGE COLUMN codigo_operacao codigo_operacao SMALLINT(4) UNSIGNED ZEROFILL NOT NULL'); 
+        DB::statement('ALTER TABLE accounts CHANGE COLUMN codigo_operacao codigo_operacao SMALLINT(4) UNSIGNED ZEROFILL NULL'); 
     }
 
     /**
