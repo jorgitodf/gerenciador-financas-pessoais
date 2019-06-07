@@ -31,3 +31,9 @@ Route::get('/tipo-conta/create', ['as'=>'tipo-conta.novo', 'uses'=>'TipoConta\Ti
 Route::post('/tipo-conta/store', ['as'=>'tipo-conta.salvar', 'uses'=>'TipoConta\TipoContaController@store']);
 Route::get('/tipo-conta/edit/{id}', ['as'=>'tipo-conta.editar', 'uses'=>'TipoConta\TipoContaController@edit']);
 Route::post('/tipo-conta/update', ['as'=>'tipo-conta.atualizar', 'uses'=>'TipoConta\TipoContaController@update']);
+
+Route::get('/contas', ['as'=>'contas', 'uses'=>'Conta\ContaController@index']);
+Route::get('/conta/create', ['as'=>'conta.novo', 'uses'=>'Conta\ContaController@create']);
+Route::post('/conta/store', ['as'=>'conta.salvar', 'uses'=>'Conta\ContaController@store']);
+Route::get('/conta/edit/{id}', ['as'=>'conta.editar', 'uses'=>'Conta\ContaController@edit']);
+Route::post('/conta/update', ['as'=>'conta.atualizar', 'uses'=>'Conta\ContaController@update']);
