@@ -465,11 +465,24 @@ select option:checked {
     font-weight: bold;
 }
 
+#div_cad_categoria {
+    height: 315px !important;
+}
+#div_cad_tpconta {
+    height: 200px !important;
+}
+
+
+
 @media screen and (max-width: 1440px) {
     .div-principal {
         margin-top: 4.5%;
         margin-left: 14.8%;
         width: 83%;
+    }
+
+    #div_creditar {
+        height: 255px !important;
     }
 
     #div_cad_categoria {
@@ -485,11 +498,12 @@ select option:checked {
         height: 500px !important;
     }
     #table_conta th {
-        text-align: center;
-        padding: 3px !important;
+        text-align: center !important;
+        padding: 9px !important;
     }
     #table_conta th:nth-child(1) {
         width: 13% !important;
+        padding-top: 8px;
     }
     #table_conta th:nth-child(2) {
         width: 11% !important;
@@ -508,6 +522,33 @@ select option:checked {
     }
     #table_conta th:nth-child(7) {
         width: 10% !important;
+    }
+    #table_conta td:nth-child(1) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_conta td:nth-child(2) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_conta td:nth-child(3) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_conta td:nth-child(4) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_conta td:nth-child(5) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_conta td:nth-child(6) {
+        text-align: center;
+        padding-top: 9px !important;
+    }
+    #table_conta td:nth-child(7) {
+        text-align: center;
     }
 
     /* TABELA EXIBIÇÂO DOS TIPOS DE CONTAS*/
@@ -616,6 +657,10 @@ select option:checked {
         margin-top: 5%;
         margin-left: 20%;
     }
+    #div_creditar {
+        height: 255px !important;
+    }
+
 
     /* CADASTRO DE CONTA */
     #div_cad_conta {

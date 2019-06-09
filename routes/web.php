@@ -37,3 +37,7 @@ Route::get('/conta/create', ['as'=>'conta.novo', 'uses'=>'Conta\ContaController@
 Route::post('/conta/store', ['as'=>'conta.salvar', 'uses'=>'Conta\ContaController@store']);
 Route::get('/conta/edit/{id}', ['as'=>'conta.editar', 'uses'=>'Conta\ContaController@edit']);
 Route::post('/conta/update', ['as'=>'conta.atualizar', 'uses'=>'Conta\ContaController@update']);
+Route::get('/conta/debitar', ['as'=>'conta.debitar', 'uses'=>'Conta\ContaController@debitar']);
+Route::get('/conta/creditar', ['as'=>'conta.creditar', 'uses'=>'Conta\ContaController@creditar']);
+Route::post('/conta/credit', ['as'=>'conta.credit', 'uses'=>'Conta\ContaController@credit']);
+Route::post('/conta/debit', ['as'=>'conta.debit', 'uses'=>'Conta\ContaController@debit']);

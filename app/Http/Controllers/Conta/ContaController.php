@@ -7,11 +7,16 @@ use App\Http\Controllers\Controller;
 use App\Models\AccountType;
 use App\Models\Bank;
 use App\Models\Account;
+use App\Models\Extract;
+use App\Models\Categories;
 use App\Validations\ValidationConta;
+use App\Validations\ValidationDebitoCredito;
+use App\HelperFormatters\Helpers;
 
 class ContaController extends Controller
 {
     protected $model;
+    private $validations_cre_deb;
     private $validations;
     private $tipos_contas;
     private $bancos;
@@ -21,6 +26,7 @@ class ContaController extends Controller
         $this->model = $account;
         $this->request = $request;
         $this->validations = new ValidationConta();
+        $this->validations_cre_deb = new ValidationDebitoCredito();
         $this->tipos_contas = new AccountType();
         $this->bancos = new Bank();
     }
@@ -57,7 +63,7 @@ class ContaController extends Controller
                 $this->model::create($dados);
                 return response()->json(['success' => 'Conta Cadastrada com Sucesso!', 'base_url' => url('')], 201);
             } catch (\Illuminate\Database\QueryException $ex) {
-                $error['error_create'] = $ex->getMessage(); 
+                $error['error_create'] = $ex->getMessage();
             }
         }
 
@@ -75,7 +81,7 @@ class ContaController extends Controller
 
     public function update(Request $request)
     {
-        $dados = $request->all();
+        $dados = $request->where('tipo', 'C')->all();
         $error = $this->validations->validateConta($dados, $this->model, $tv = "edit");
 
         if (!$error) {
@@ -83,11 +89,85 @@ class ContaController extends Controller
                 $this->model::find($dados['id_conta'])->update($dados);
                 return response()->json(['success' => 'Conta Alterada com Sucesso!', 'base_url' => url('')], 201);
             } catch (\Illuminate\Database\QueryException $ex) {
-                $error['error_create'] = $ex->getMessage(); 
+                $error['error_create'] = $ex->getMessage();
             }
         }
 
         return response()->json(['error' => $error], 500);
     }
 
+    public function creditar()
+    {
+        $categories = new Categories();
+        $categorias = $categories::all();
+        return view('conta.creditar', compact('categorias'));
+    }
+
+    public function credit(Request $request)
+    {
+        $dados = $request->all();
+
+        $extract = new Extract();
+        $dados['account_id'] = 2;
+        $dados['mes'] = Helpers::verificaMes();
+        $dados['tipo_operacao'] = "Crédito";
+        $dados['quantidade'] = 1;
+        $dados['despesa_fixa'] = "N";
+        $valor_saldo = $extract->getSaldo($dados['account_id']);
+        if (!empty($valor_saldo[0]->saldo)) {
+            $dados['saldo'] = ((double)$valor_saldo[0]->saldo + (double) Helpers::formatarMoeda($dados['valor']));
+        } else {
+            $dados['saldo'] = ((double) Helpers::formatarMoeda($dados['valor']) + 0.00);
+        }
+        $error = $this->validations_cre_deb->validateCredito($dados, $extract);
+
+        if (!$error) {
+            try {
+                $extract::create($dados);
+                return response()->json(['success' => 'Valor Creditado com Sucesso!', 'base_url' => url('')], 201);
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $error['error_create'] = $ex->getMessage();
+            }
+        }
+
+        return response()->json(['error' => $error], 500);
+
+    }
+
+    public function debitar()
+    {
+        $categories = new Categories();
+        $categorias = $categories::where('tipo', 'D')->get();
+        return view('conta.debitar', compact('categorias'));
+    }
+
+    public function debit(Request $request)
+    {
+        $dados = $request->all();
+
+        $extract = new Extract();
+        $dados['account_id'] = 2;
+        $dados['mes'] = Helpers::verificaMes();
+        $dados['tipo_operacao'] = "Crédito";
+        $dados['quantidade'] = 1;
+        $dados['despesa_fixa'] = "N";
+        $valor_saldo = $extract->getSaldo($dados['account_id']);
+
+        if (!empty($valor_saldo[0]->saldo)) {
+            $dados['saldo'] = ((double)$valor_saldo[0]->saldo - (double) Helpers::formatarMoeda($dados['valor']));
+        }
+        $error = $this->validations_cre_deb->validateDebito($dados, $extract, $dados['account_id']);
+
+        if (!$error) {
+            try {
+                $extract::create($dados);
+                return response()->json(['success' => 'Valor Debitado com Sucesso!', 'base_url' => url('')], 201);
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $error['error_create'] = $ex->getMessage();
+            }
+        }
+
+        return response()->json(['error' => $error], 500);
+
+    }
 }

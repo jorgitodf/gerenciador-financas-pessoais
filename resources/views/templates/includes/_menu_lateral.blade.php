@@ -40,12 +40,12 @@
                 <li><a href="">Por Período</a></li>
             </ul>
 
-            <li data-toggle="collapse" data-target="#service" id="menu_div_trasacoes" class="collapsed disabled">
+            <li data-toggle="collapse" data-target="#service" id="menu_div_trasacoes" class="collapsed">
                 <a href="#"><i class="fa fa-globe fa-lg"></i> Transações <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="service">
-                <li><a href="">Creditar</a></li>
-                <li><a href="">Debitar</a></li>
+                <li><a href="{{ route('conta.creditar') }}">Creditar</a></li>
+                <li><a href="{{ route('conta.debitar') }}">Debitar</a></li>
             </ul>
 
             <li data-toggle="collapse" data-target="#new" id="menu_div_cartao_credito" class="collapsed">
