@@ -32,11 +32,11 @@
                 <li><a href="{{ route('categorias') }}">Todas Categorias</a></li>
             </ul>
 
-            <li data-toggle="collapse" data-target="#products" id="menu_div_extrato" class="collapsed disabled">
+            <li data-toggle="collapse" data-target="#products" id="menu_div_extrato" class="collapsed">
                 <a href="#"><i class="fa fa-newspaper-o fa-lg"></i> Extratos <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="products">
-                <li class="active"><a href="">Mês Atual</a></li>
+                <li class="active"><a href="{{ route('extrato') }}">Mês Atual</a></li>
                 <li><a href="">Por Período</a></li>
             </ul>
 
@@ -61,12 +61,12 @@
                 <li>Consultar Fatura</li>
             </ul>
 
-            <li data-toggle="collapse" data-target="#agendamentos" id="menu_div_agendamentos" class="collapsed disabled">
+            <li data-toggle="collapse" data-target="#agendamentos" id="menu_div_agendamentos" class="collapsed">
                 <a href="#"><i class="fa fa-calendar fa-lg"></i> Agendamentos <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="agendamentos">
-                <li><a href="">Agendar Pagamento</a></li>
-                <li>Listagem Pagamentos</li>
+                <li class="active"><a href="{{ route('pagamento.novo') }}">Agendar Pagamento</a></li>
+                <li><a href="{{ route('pagamentos') }}">Listar Pagamentos</a></li>
             </ul>
 
             <li id="menu_div_dashboards" class="disabled">

@@ -41,3 +41,12 @@ Route::get('/conta/debitar', ['as'=>'conta.debitar', 'uses'=>'Conta\ContaControl
 Route::get('/conta/creditar', ['as'=>'conta.creditar', 'uses'=>'Conta\ContaController@creditar']);
 Route::post('/conta/credit', ['as'=>'conta.credit', 'uses'=>'Conta\ContaController@credit']);
 Route::post('/conta/debit', ['as'=>'conta.debit', 'uses'=>'Conta\ContaController@debit']);
+
+Route::get('/pagamentos', ['as'=>'pagamentos', 'uses'=>'Pagamento\PagamentoAgendadoController@index']);
+Route::get('/pagamento/create', ['as'=>'pagamento.novo', 'uses'=>'Pagamento\PagamentoAgendadoController@create']);
+Route::post('/pagamento/store', ['as'=>'pagamento.salvar', 'uses'=>'Pagamento\PagamentoAgendadoController@store']);
+Route::get('/pagamento/edit/{id}', ['as'=>'pagamento.editar', 'uses'=>'Pagamento\PagamentoAgendadoController@edit']);
+Route::get('/pagamento/destroy/{id}', ['as'=>'pagamento.apagar', 'uses'=>'Pagamento\PagamentoAgendadoController@destroy']);
+Route::post('/pagamento/update', ['as'=>'pagamento.atualizar', 'uses'=>'Pagamento\PagamentoAgendadoController@update']);
+
+Route::get('/extrato', ['as'=>'extrato', 'uses'=>'Extrato\ExtratoController@index']);

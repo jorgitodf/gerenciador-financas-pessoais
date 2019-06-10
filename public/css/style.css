@@ -17,6 +17,12 @@ html, body {
     text-transform: capitalize;
 }
 
+.cor_verde {
+    color: lime;
+}
+.cor_vermelho {
+    color: red;
+}
 
 /* MENU LATERAL */
 .nav-side-menu {
@@ -409,12 +415,11 @@ select option:checked {
 }
 #div-msg-cadastro-agd-pgto {
     float: left;
-    position: relative;
 }
 #span-success-cadastro-agd-pgto {
     padding: 7.5px;
-    width: 260px;
-    position: absolute;
+    width: 290px;
+    margin-left: -15px;
 }
 
 #table_pgto_agendado th {
@@ -661,6 +666,53 @@ select option:checked {
         height: 255px !important;
     }
 
+    /* TABELA GERAL DE PAGAMENTOS AGENDADOS */
+    #panel_head_agendamento_pagamento {
+        background-color: #6767fe;
+        color: white;
+        text-align: center;
+        font-size: 16px;
+    }
+    #tabela_index_agendamento_pagamento {
+        width: 967px !important;;
+    }
+    #tabela_index_agendamento_pagamento > thead > tr > th {
+        text-align: center;
+        background-color: darkkhaki;
+    }
+    #tabela_index_agendamento_pagamento > tbody > tr > td {
+        padding: 3px;
+        font-size: 13px;
+    }
+
+    #tabela_index_agendamento_pagamento td:nth-child(1) {
+        text-align: center;
+        padding-top: 7px !important;
+    }
+    #tabela_index_agendamento_pagamento td:nth-child(2) {
+        text-align: center;
+        padding-top: 7px !important;
+    }
+    #tabela_index_agendamento_pagamento td:nth-child(3) {
+        text-align: center;
+        padding-top: 7px !important;
+    }
+    #tabela_index_agendamento_pagamento td:nth-child(4) {
+        text-align: center;
+        padding-top: 7px !important;
+    }
+    #tabela_index_agendamento_pagamento td:nth-child(5) {
+        text-align: center;
+        padding-top: 7px !important;
+    }
+    #tabela_index_agendamento_pagamento td:nth-child(6) {
+        text-align: center;
+        padding-top: 7px !important;
+    }
+    #tabela_index_agendamento_pagamento td:nth-child(7) {
+        text-align: center;
+        padding-top: 7px !important;
+    }
 
     /* CADASTRO DE CONTA */
     #div_cad_conta {

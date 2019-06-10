@@ -837,18 +837,31 @@ $(document).ready(function () {
         $("#btn-nov-agd-pgto").attr('disabled', 'disabled');
         $("#data_pagamento").removeAttr('disabled');
         $("#data_pagamento").focus();
+        $("#data_pagamento").mask("99/99/9999");
         $("#movimentacao").removeAttr('disabled');
         $("#valor").removeAttr('disabled');
-        $("#categoria").removeAttr('disabled');
+        $("#category_id").removeAttr('disabled');
         $("#data_pagamento").css("background", "white");
         $("#movimentacao").css("background", "white");
         $("#valor").css("background", "white");
-        $("#categoria").css("background", "white");
+        $("#category_id").css("background", "white");
         $('#span-success-cadastro-agd-pgto').remove();
-        $("#data_pagamento").val("");
-        $("#movimentacao").val("");
-        $("#valor").val("");
-        $("#categoria").val("");
+        $("#formCadAgendamentoPagamento input").val("");
+        $("#category_id").val("");
+    });
+    $('#btn-edit-agd-pgto').click(function () {
+        $("#btn-salv-agd-pgto").removeAttr('disabled');
+        $("#btn-edit-agd-pgto").attr('disabled', 'disabled');
+        $("#data_pagamento").removeAttr('disabled');
+        $("#data_pagamento").focus();
+        $("#data_pagamento").mask("99/99/9999");
+        $("#movimentacao").removeAttr('disabled');
+        $("#valor").removeAttr('disabled');
+        $("#category_id").removeAttr('disabled');
+        $("#data_pagamento").css("background", "white");
+        $("#movimentacao").css("background", "white");
+        $("#valor").css("background", "white");
+        $("#category_id").css("background", "white");
     });
 
     $(function () {
@@ -856,20 +869,10 @@ $(document).ready(function () {
             let url = $("#formCadAgendamentoPagamento").attr("action");
             let data_pagamento = $("#data_pagamento").val();
             let movimentacao = $("#movimentacao").val();
-            if (movimentacao == 'Preencha a Movimentação!') {
-                movimentacao = "";
-            }
             let valor = $("#valor").val();
-            if (valor == 'Preencha o Valor!') {
-                valor = "";
-            }
-            let categoria = $("#categoria").val();
-            if (categoria == 'Preencha a Categoria!') {
-                categoria = "";
-            }
-            let _csrf_token = $("#_csrf_token").val();
-            let data = {data_pagamento: data_pagamento, movimentacao: movimentacao, valor: valor,
-                categoria: categoria, _csrf_token: _csrf_token};
+            let category_id = $("#category_id").val();
+            let id_pagamento = $("#id_pagamento").val();
+            let data = {data_pagamento: data_pagamento, movimentacao: movimentacao, valor: valor, category_id: category_id, id_pagamento: id_pagamento};
             e.preventDefault();
 
             axios.post(url, simpleQueryString.stringify(data))
@@ -877,45 +880,67 @@ $(document).ready(function () {
                     if (response.status == 201) {
                         $("#btn-cad-agd-pgto").attr('disabled', 'disabled');
                         $("#btn-nov-agd-pgto").removeAttr('disabled');
+                        $("#btn-salv-agd-pgto").attr('disabled', 'disabled');
                         $("#data_pagamento").attr('disabled', 'disabled');
+                        $("#data_pagamento").unmask();
                         $("#movimentacao").attr('disabled', 'disabled');
                         $("#valor").attr('disabled', 'disabled');
-                        $("#categoria").attr('disabled', 'disabled');
+                        $("#category_id").attr('disabled', 'disabled');
                         $(".white").css("background", "#ffffb1");
                         $("#div-msg-cadastro-agd-pgto").html("<span class='alert alert-success msgSuccess' id='span-success-cadastro-agd-pgto'>"+ response.data['success'] +"</span>").css("display", "block");
+                        setInterval(function() {
+                            redirectPageAllPayments(response.data['base_url']);
+                        }, 3000);
                     }
                 })
                 .catch(function(error) {
                     if (error.response.status == 500) {
                         if (!error.response.data.error['error_data_pgto'] == "") {
-                            $("#data_pagamento").html(error.response.data.error['error_data_pgto']).css("background", cor_input).css("color", "white");
+                            $("#data_pagamento").val(error.response.data.error['error_data_pgto']).css("background", cor_input).css("color", "white");
+                            if (data_pagamento == 'Preencha a Data!') {
+                                data_pagamento = "";
+                            }
                         } else {
                             $("#data_pagamento").css("background", "#ffffb1");
                         }
 
-                        if (!error.response.data.error['error_movimentacao'] == "") {
-                            $("#movimentacao").val(error.response.data.error['error_movimentacao']).css("background", cor_input).css("color", "white");
+                        if (!error.response.data.error['error_mov'] == "") {
+                            $("#movimentacao").val(error.response.data.error['error_mov']).css("background", cor_input).css("color", "white");
+                            if (movimentacao == 'Preencha a Movimentação!') {
+                                movimentacao = "";
+                            }
                         } else {
                             $("#movimentacao").css("background", "#ffffb1");
                         }
 
                         if (!error.response.data.error['error_valor'] == "") {
                             $("#valor").val(error.response.data.error['error_valor']).css("background", cor_input).css("color", "white");
+                            if (valor == 'Preencha o Valor!') {
+                                valor = "";
+                            }
                         } else {
                             $("#valor").css("background", "#ffffb1");
                         }
 
                         if (!error.response.data.error['error_categoria'] == "") {
-                            $("#categoria").find('option:selected').html(error.response.data.error['error_categoria']);
-                            $("#categoria").css("background", cor_input).css("color", "white");
+                            $("#category_id").find('option:selected').html(error.response.data.error['error_categoria']);
+                            $("#category_id").css("background", cor_input).css("color", "white");
+                            if (category_id == 'Preencha a Categoria!') {
+                                category_id = "";
+                            }
                         } else {
-                            $("#categoria").css("background", "#ffffb1").css("color", "black");
+                            $("#category_id").css("background", "#ffffb1").css("color", "black");
                         }
 
-                        if (!error.response.data.error['error-token-banco'] == "") {
-                            $("#div-msg-cadastro-banco").html("<span class='alert alert-danger msgError' id='span-success-cadastro-banco'>"+ error.response.data.error['error-token-banco'] +"</span>").css("display", "block");
+                        if (!error.response.data.error['error_agendamento'] == "") {
+                            $("#div-msg-cadastro-agd-pgto").html("<span class='alert alert-danger msgError' id='span-success-cadastro-agd-pgto'>"+ error.response.data.error['error_agendamento'] +"</span>").css("display", "block");
+                            $("#data_pagamento").focus();
+                            $("#data_pagamento").css("background", "white").css("color", "black");
                         }
-
+                        
+                        if (!error.response.data.error['error_create'] == "") {
+                            alert(error.response.data.error['error_create']);
+                        }
                     }
                 })
         });
@@ -1613,6 +1638,9 @@ $(document).ready(function () {
                         $(".white").css("background", "#ffffb1");
                         $("#data_movimentacao").unmask();
                         $("#div-msg-cadastro-debito").html("<span class='alert alert-success msgSuccess' id='span-success-cadastro-credito'>"+ response.data['success'] +"</span>").css("display", "block");
+                        setInterval(function() {
+                            redirectPageAllExtract(response.data['base_url']);
+                        }, 3000);
                     }
                 })
                 .catch(function(error) {
@@ -1901,7 +1929,7 @@ $(document).ready(function () {
             let action = $("#"+id+"").attr("action");
             let value = $(this).val();
 
-            if(action.match(/update/)){
+            if (action.match(/update/)){
                 if (value.length > 0) {
                     $("#"+id+"").css("background", "white");
                 } else {
@@ -1922,7 +1950,7 @@ $(document).ready(function () {
             let action = $("#"+id+"").attr("action");
             let value = $(this).val();
 
-            if(action.match(/update/)){
+            if (action.match(/update/)){
                 if (value.length > 0) {
                     $("#"+id+"").css("background", "white");
                 } else {
@@ -1951,6 +1979,14 @@ function redirectPageLogin(base_url) {
 
 function redirectPageAllFlags(base_url) {
     return window.location.replace(base_url + "/bandeiras");
+}
+
+function redirectPageAllExtract(base_url) {
+    return window.location.replace(base_url + "/extrato");
+}
+
+function redirectPageAllPayments(base_url) {
+    return window.location.replace(base_url + "/pagamentos");
 }
 
 function redirectPageAllAccounts(base_url) {

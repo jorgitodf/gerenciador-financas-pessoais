@@ -38,6 +38,7 @@ class ValidationDebitoCredito
     public function validateDebito($data, $model = null, $id_account)
     {
         $valor_saldo = $model->getSaldo($id_account);
+
         if (!empty($data['valor']) && empty($valor_saldo[0]->saldo)) {
             $this->erros['error_saldo'] = "Saldo Insuficente para Debitar!";
         } else if (!empty($data['valor']) && (Helpers::formatarMoeda($data['valor']) > $valor_saldo[0]->saldo)) {

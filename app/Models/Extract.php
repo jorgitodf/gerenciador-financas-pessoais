@@ -12,6 +12,11 @@ class Extract extends Model
         'despesa_fixa'
     ];
 
+    public function categoria()
+    {
+        return $this->belongsTo(Categories::class, 'category_id', 'id');
+    }
+
     public function getSaldo($account_id)
     {
         return Extract::where('account_id', $account_id)->select('saldo')->orderBy('id', 'DESC')->take(1)->get();
@@ -31,6 +36,26 @@ class Extract extends Model
     public function setMovimentacaoAttribute($value)
     {
         $this->attributes['movimentacao'] = trim(ucwords(strtolower($value)));
+    }
+
+    public function getDataMovimentacaoFormattedAttribute()
+    {
+        return Helpers::formataDataEnPt($this->data_movimentacao);
+    }
+
+    public function getMovimentacaoFormattedAttribute()
+    {
+        return mb_convert_case($this->movimentacao, MB_CASE_TITLE, "UTF-8");    
+    }
+
+    public function getValorFormattedAttribute()
+    {
+        return Helpers::formatarMoedaEnPt($this->valor);
+    }
+
+    public function getSaldoFormattedAttribute()
+    {
+        return Helpers::formatarMoedaEnPt($this->saldo);
     }
 
 }

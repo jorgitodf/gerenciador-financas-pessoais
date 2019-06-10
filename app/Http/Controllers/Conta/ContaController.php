@@ -146,9 +146,9 @@ class ContaController extends Controller
         $dados = $request->all();
 
         $extract = new Extract();
-        $dados['account_id'] = 2;
+        $dados['account_id'] = 1;
         $dados['mes'] = Helpers::verificaMes();
-        $dados['tipo_operacao'] = "Crédito";
+        $dados['tipo_operacao'] = "Débito";
         $dados['quantidade'] = 1;
         $dados['despesa_fixa'] = "N";
         $valor_saldo = $extract->getSaldo($dados['account_id']);

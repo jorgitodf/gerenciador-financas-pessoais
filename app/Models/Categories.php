@@ -10,6 +10,15 @@ class Categories extends Model
         'nome_categoria', 'despesa_fixa', 'tipo'
     ];
     
+    public function pagamentos()
+    {
+        return $this->hasMany(ScheduledPayment::class, 'category_id', 'id');
+    }
+
+    public function extratos()
+    {
+        return $this->hasMany(Extract::class, 'category_id', 'id');
+    }
 
     // Mutator para Modificar o dado antes de salvá-lo no Banco de Dados
     public function setNomeCategoriaAttribute($value)
