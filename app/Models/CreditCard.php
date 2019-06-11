@@ -20,6 +20,10 @@ class CreditCard extends Model
         return $this->belongsTo(FlagCards::class, 'flag_card_id', 'id');
     }
 
+    public function despesas()
+    {
+        return $this->hasMany(ExpenseCard::class, 'credit_card_id', 'id');
+    }
 
     // Mutator para Modificar o dado antes de salvá-lo no Banco de Dados
     public function setNumeroCartaoAttribute($value)
@@ -51,6 +55,11 @@ class CreditCard extends Model
         $tam = strlen($this->data_validade);
 
         return substr_replace($this->data_validade, "/", $tam - 4).substr($this->data_validade, $tam - 4);
+    }
+
+    public function getNumeroCartaoFormattedAttribute()
+    {
+        return rtrim(chunk_split($this->numero_cartao, 4, "."),'.');
     }
 
 }

@@ -24,6 +24,8 @@ html, body {
     color: red;
 }
 
+input[type=text]{outline:none;}
+
 /* MENU LATERAL */
 .nav-side-menu {
     margin-top: 3.7%;
@@ -648,8 +650,13 @@ select option:checked {
     }
     #span-success-desp-cartao-credito {
         padding: 7.5px;
-        width: 240px;
-        position: absolute;
+        width: 300px;
+        margin-top: 4%;
+        margin-left: -2.5%;
+    }
+    #div-msg-cadastro-desp-cartao-credito {
+        margin-top: 4%;
+        margin-left: 20%;
     }
 }
 
@@ -664,6 +671,11 @@ select option:checked {
     }
     #div_creditar {
         height: 255px !important;
+    }
+
+    /* DESPSA DE CARTÃO DE CRÉDITO */
+    #div_despesa_cartao {
+        height: 310px !important;
     }
 
     /* TABELA GERAL DE PAGAMENTOS AGENDADOS */
@@ -1038,8 +1050,13 @@ select option:checked {
     }
     #span-success-desp-cartao-credito {
         padding: 7.5px;
-        width: 240px;
-        position: absolute;
+        width: 300px;
+        margin-top: 4%;
+        margin-left: -2.5%;
+    }
+    #div-msg-cadastro-desp-cartao-credito {
+        margin-top: 2%;
+        margin-left: 20%;
     }
 
 

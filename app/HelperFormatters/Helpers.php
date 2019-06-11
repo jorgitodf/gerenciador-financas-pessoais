@@ -62,6 +62,29 @@ class Helpers
         }
     }
 
+
+
+    public static function dataPagamento($mes_compra, $dia_compra, $ano_compra, int $id_cartao) {
+
+        $data_pagamento = "";
+
+        if ($id_cartao == 1 && $dia_compra <= 26) {
+            $data_pagamento = date('d/m/Y', strtotime("+1 month", strtotime("{$ano_compra}-{$mes_compra}-08")));
+        } else if ($id_cartao == 1 && $dia_compra > 26) {
+            $data_pagamento = date('d/m/Y', strtotime("+2 month", strtotime("{$ano_compra}-{$mes_compra}-08")));
+        } else if ($id_cartao == 2 && $dia_compra <= 25) {
+            $data_pagamento = date('d/m/Y', strtotime("+1 month", strtotime("{$ano_compra}-{$mes_compra}-08")));
+        } else if ($id_cartao == 2 && $dia_compra > 25) {
+            $data_pagamento = date('d/m/Y', strtotime("+2 month", strtotime("{$ano_compra}-{$mes_compra}-08")));
+        } else if ($id_cartao == 3 && ($dia_compra >= 1 && $dia_compra <= 2)) {
+            $data_pagamento = date('09/m/Y');
+        } else if ($id_cartao == 3 && ($dia_compra > 2 && $dia_compra <= 31)) {
+            $data_pagamento = date('d/m/Y', strtotime("+1 month", strtotime("{$ano_compra}-{$mes_compra}-09")));
+        }
+    
+        return $data_pagamento;
+    }
+
     public static function verificaMes() {
         $mesAtual = date("m");
         switch ($mesAtual) {

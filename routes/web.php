@@ -50,3 +50,6 @@ Route::get('/pagamento/destroy/{id}', ['as'=>'pagamento.apagar', 'uses'=>'Pagame
 Route::post('/pagamento/update', ['as'=>'pagamento.atualizar', 'uses'=>'Pagamento\PagamentoAgendadoController@update']);
 
 Route::get('/extrato', ['as'=>'extrato', 'uses'=>'Extrato\ExtratoController@index']);
+
+Route::get('/despesa-cartao/create', ['as'=>'despesa-cartao.novo', 'uses'=>'DespesaCartao\DespesaCartaoController@create']);
+Route::post('/despesa-cartao/store', ['as'=>'despesa-cartao.salvar', 'uses'=>'DespesaCartao\DespesaCartaoController@store']);

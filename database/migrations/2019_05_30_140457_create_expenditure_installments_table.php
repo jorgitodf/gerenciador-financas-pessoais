@@ -15,7 +15,7 @@ class CreateExpenditureInstallmentsTable extends Migration
     {
         Schema::create('expenditure_installments', function (Blueprint $table) {
             $table->increments('id'); 
-            $table->double('valor', 5, 2);
+            $table->double('valor', 9, 2);
             $table->string('numero_parcela', 6)->charset('utf8')->collation('utf8_unicode_ci');
             $table->date('data_pagamento');
             $table->integer('expense_card_id')->unsigned();

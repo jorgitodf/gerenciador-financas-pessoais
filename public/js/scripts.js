@@ -665,20 +665,20 @@ $(document).ready(function () {
     $('#btn-nov-desp-cartao').click(function () {
         $("#btn-desp-cartao").removeAttr('disabled');
         $("#btn-nov-desp-cartao").attr('disabled', 'disabled');
-        $("#cartao").removeAttr('disabled');
-        $("#cartao").focus();
+        $("#credit_card_id").removeAttr('disabled');
+        $("#credit_card_id").focus();
         $("#descricao").removeAttr('disabled');
         $("#data_compra").removeAttr('disabled');
         $("#valor").removeAttr('disabled');
         $("#numero_parcela").removeAttr('disabled');
-        $("#cartao").css("background", "white");
+        $("#credit_card_id").css("background", "white");
         $("#descricao").css("background", "white");
         $("#data_compra").css("background", "white");
         $("#valor").css("background", "white");
         $("#numero_parcela").css("background", "white");
         $('#span-success-desp-cartao-credito').remove();
-        $("#cartao").find('option:selected').html("");
-        $("#cartao").val("");
+        $("#credit_card_id").find('option:selected').html("");
+        $("#credit_card_id").val("");
         $("#descricao").val("");
         $("#data_compra").val("");
         $("#valor").val("");
@@ -687,9 +687,9 @@ $(document).ready(function () {
     $(function () {
         $("#formCadDespCartaoCredito").submit(function(e) {
             let url = $("#formCadDespCartaoCredito").attr("action");
-            let cartao = $("#cartao").val();
-            if (cartao == 'Informe o Cartão!') {
-                cartao = "";
+            let credit_card_id = $("#credit_card_id").val();
+            if (credit_card_id == 'Informe o Cartão!') {
+                credit_card_id = "";
             }
             let descricao = $("#descricao").val();
             if (descricao == 'Preencha a Descrição!' || descricao == 'Descrição sem Números!' || descricao == 'Descrição acima de 3 caracters!') {
@@ -704,12 +704,11 @@ $(document).ready(function () {
                 valor = "";
             }
             let numero_parcela = $("#numero_parcela").val();
-            if (numero_parcela == 'Informe o Número de Parcela(s)!' || numero_parcela == 'Número de Parcela(s) somente Números') {
+            if (numero_parcela == 'Informe o Número de Parcela(s)!') {
                 numero_parcela = "";
             }
-            let _csrf_token = $("#_csrf_token").val();
-            let data = {cartao: cartao, descricao: descricao, data_compra: data_compra, valor: valor,
-                numero_parcela: numero_parcela, _csrf_token: _csrf_token};
+
+            let data = {credit_card_id: credit_card_id, descricao: descricao, data_compra: data_compra, valor: valor, numero_parcela: numero_parcela};
             e.preventDefault();
 
             axios.post(url, simpleQueryString.stringify(data))
@@ -724,39 +723,42 @@ $(document).ready(function () {
                         $("#numero_parcela").attr('disabled', 'disabled');
                         $(".white").css("background", "#ffffb1");
                         $("#div-msg-cadastro-desp-cartao-credito").html("<span class='alert alert-success msgSuccess' id='span-success-desp-cartao-credito'>"+ response.data['success'] +"</span>").css("display", "block");
+                        setInterval(function() {
+                            redirectPageDespesaCartaoNovo(response.data['base_url']);
+                        }, 3000);
                     }
                 })
                 .catch(function(error) {
                     if (error.response.status == 500) {
                         if (!error.response.data.error['error_cartao'] == "") {
-                            $("#cartao").find('option:selected').html(error.response.data.error['error_cartao']);
-                            $("#cartao").css("background", "#EBA8A3").css("color", "white");
+                            $("#credit_card_id").find('option:selected').html(error.response.data.error['error_cartao']);
+             
+                            $("#credit_card_id").focus().css("background", "#EBA8A3").css("color", "white");
                         } else {
-                            $("#cartao").css("background", "#ffffb1").css("color", "black");
+                            $("#credit_card_id").css("background", "#ffffb1").css("color", "black");
                         }
 
                         if (!error.response.data.error['error_descricao'] == "") {
-                            $("#descricao").val(error.response.data.error['error_descricao']).css("background", "#EBA8A3").css("color", "white");
+                            $("#descricao").val(error.response.data.error['error_descricao']).css("background", cor_input).css("color", "white");
                         } else {
                             $("#descricao").css("background", "#ffffb1");
                         }
 
                         if (!error.response.data.error['error_data_compra'] == "") {
-                            $("#data_compra").attr("type", "text");
-                            $("#data_compra").val(error.response.data.error['error_data_compra']).css("background", "#EBA8A3").css("color", "white");
+                            $("#data_compra").val(error.response.data.error['error_data_compra']).css("background", cor_input).css("color", "white");
                         } else {
                             $("#data_compra").css("background", "#ffffb1");
                         }
 
                         if (!error.response.data.error['error_valor'] == "") {
-                            $("#valor").val(error.response.data.error['error_valor']).css("background", "#EBA8A3").css("color", "white");
+                            $("#valor").val(error.response.data.error['error_valor']).css("background", cor_input).css("color", "white");
                         } else {
                             $("#valor").css("background", "#ffffb1");
                         }
 
                         if (!error.response.data.error['error_numero_parcela'] == "") {
                             $("#numero_parcela").find('option:selected').html(error.response.data.error['error_numero_parcela']);
-                            $("#numero_parcela").css("background", "#EBA8A3").css("color", "white");
+                            $("#numero_parcela").css("background", cor_input).css("color", "white");
                         } else {
                             $("#numero_parcela").css("background", "#ffffb1").css("color", "black");
                         }
@@ -1700,7 +1702,7 @@ $(document).ready(function () {
         $(".remove_color_input_date").click(function() {
             let data = $(this).val();
             let id = $(this).attr("id");
-            if (data.length != 0 && data == "Preencha a Data!") {
+            if (data.length != 0 && data == "Preencha a Data!" || data == "Informe a Data da Compra!") {
                 $("#"+id+"").val("");
                 $("#"+id+"").css("background", "white");
             } else if (data.length != 0) {
@@ -1713,7 +1715,7 @@ $(document).ready(function () {
         $(".remove_color_input_date").focus(function () {
             let data = $(this).val();
             let id = $(this).attr("id");
-            if (data.length != 0 && data == "Preencha a Data!") {
+            if (data.length > 0 && data == "Preencha a Data!" || data == "Informe a Data da Compra!") {
                 $("#"+id+"").val("");
                 $("#"+id+"").css("background", "white");
             } else if (data_validade.length != 0) {
@@ -1979,6 +1981,10 @@ function redirectPageLogin(base_url) {
 
 function redirectPageAllFlags(base_url) {
     return window.location.replace(base_url + "/bandeiras");
+}
+
+function redirectPageDespesaCartaoNovo(base_url) {
+    return window.location.replace(base_url + "/despesa-cartao/create");
 }
 
 function redirectPageAllExtract(base_url) {
