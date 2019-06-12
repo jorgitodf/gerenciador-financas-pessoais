@@ -673,7 +673,11 @@ select option:checked {
         height: 255px !important;
     }
 
-    /* DESPSA DE CARTÃO DE CRÉDITO */
+    #div_gera_fatura_cartao {
+        height: 260px !important;
+    }
+
+    /* DESPESA DE CARTÃO DE CRÉDITO */
     #div_despesa_cartao {
         height: 310px !important;
     }
@@ -1069,11 +1073,13 @@ select option:checked {
         margin-left: 33%;
     }
     #span-success-desp-fatura-cartao-credito {
+        margin-top: 5.3%;
         padding: 7.5px;
         width: 240px;
-        margin-left: -63%;
+        margin-left: -56%;
         position: absolute;
     }
+
 
     /* FORMULÁRIO PAGAR FATURA DO CARTÃO DE CRÉDITO */
     #well_fatura_pagar_cartao {

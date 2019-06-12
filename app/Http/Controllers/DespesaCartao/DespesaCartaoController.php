@@ -101,6 +101,7 @@ class DespesaCartaoController extends Controller
                         'data_pagamento'=> Helpers::formataData($linha['data_pagamento']), 'expense_card_id'=> $linha['expense_card_id'], 'created_at' => date('Y-m-d H:i:s'),
                         'updated_at' => date('Y-m-d H:i:s')]);
                     }
+                    
                     return response()->json(['success' => 'Despesa do Cartão Lançada com Sucesso!', 'base_url' => url('')], 201);
 
                 } catch (\Illuminate\Database\QueryException $ex) {

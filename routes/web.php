@@ -53,3 +53,6 @@ Route::get('/extrato', ['as'=>'extrato', 'uses'=>'Extrato\ExtratoController@inde
 
 Route::get('/despesa-cartao/create', ['as'=>'despesa-cartao.novo', 'uses'=>'DespesaCartao\DespesaCartaoController@create']);
 Route::post('/despesa-cartao/store', ['as'=>'despesa-cartao.salvar', 'uses'=>'DespesaCartao\DespesaCartaoController@store']);
+
+Route::get('/fatura/create', ['as'=>'fatura.novo', 'uses'=>'Fatura\FaturaCartaoController@create']);
+Route::post('/fatura/store', ['as'=>'fatura.salvar', 'uses'=>'Fatura\FaturaCartaoController@store']);
