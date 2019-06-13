@@ -128,6 +128,51 @@ class Helpers
         return $mesAtual;
     }
 
+    public static function defineMesReferencia() {
+        $mesAtual = date("m");
+        $anoAtual = date("Y");
+        $mesReferencia = "";
+        switch ($mesAtual) {
+            case '01':
+                $mesReferencia = "{$anoAtual}-{$mesAtual}";
+                break;
+            case '02':
+                $mesReferencia = "{$anoAtual}-{$mesAtual}";
+                break;
+            case '03':
+                $mesReferencia = "{$anoAtual}-{$mesAtual}";
+                break;
+            case '04':
+                $mesReferencia = "{$anoAtual}-{$mesAtual}";
+                break;
+            case '05':
+                $mesReferencia = "{$anoAtual}-{$mesAtual}";
+                break;
+            case '06':
+                $mesReferencia = "{$anoAtual}-{$mesAtual}";
+                break;
+            case '07':
+                $mesReferencia = "{$anoAtual}-{$mesAtual}";
+                break;
+            case '08':
+                $mesReferencia = "{$anoAtual}-{$mesAtual}";
+                break;
+            case '09':
+                $mesReferencia = "{$anoAtual}-{$mesAtual}";
+                break;
+            case '10':
+                $mesReferencia = "{$anoAtual}-{$mesAtual}";
+                break;
+            case '11':
+                $mesReferencia = "{$anoAtual}-{$mesAtual}"; 
+                break;
+            case '12':
+                $mesReferencia = "{$anoAtual}-{$mesAtual}";
+                break;
+        }
+        return $mesReferencia;
+    }
+
     public static function verificaMesNumerico() {
         $mesAtual = date("m");
         switch ($mesAtual) {

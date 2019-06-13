@@ -25,6 +25,11 @@ class CreditCard extends Model
         return $this->hasMany(ExpenseCard::class, 'credit_card_id', 'id');
     }
 
+    public function faturas()
+    {
+        return $this->hasMany(InvoiceCard::class, 'credit_card_id', 'id');
+    }
+
     // Mutator para Modificar o dado antes de salvá-lo no Banco de Dados
     public function setNumeroCartaoAttribute($value)
     {

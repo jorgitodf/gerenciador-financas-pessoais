@@ -57,7 +57,7 @@
                 <li><a href="{{ route('cartao.novo') }}">Novo Cartão</a></li>
                 <li><a href="{{ route('despesa-cartao.novo') }}">Lançar Compra</a></li>
                 <li><a href="{{ route('fatura.novo') }}">Gerar Fatura</a></li>
-                <li><a href="">Pagar Fatura</a></li>
+                <li><a href="{{ route('fatura.pagar') }}">Pagar Fatura</a></li>
                 <li>Consultar Fatura</li>
             </ul>
 

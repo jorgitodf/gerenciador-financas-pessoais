@@ -56,3 +56,6 @@ Route::post('/despesa-cartao/store', ['as'=>'despesa-cartao.salvar', 'uses'=>'De
 
 Route::get('/fatura/create', ['as'=>'fatura.novo', 'uses'=>'Fatura\FaturaCartaoController@create']);
 Route::post('/fatura/store', ['as'=>'fatura.salvar', 'uses'=>'Fatura\FaturaCartaoController@store']);
+Route::get('/fatura/pay', ['as'=>'fatura.pagar', 'uses'=>'Fatura\FaturaCartaoController@pay']);
+Route::get('/fatura/payment/{id}', ['as'=>'fatura.fechar', 'uses'=>'Fatura\FaturaCartaoController@payment']);
+Route::post('/fatura/quitar', ['as'=>'fatura.quitar', 'uses'=>'Fatura\FaturaCartaoController@quitar']);

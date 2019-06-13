@@ -26,6 +26,19 @@ class ValidationFaturaCartao
         return $this->erros;
     }
 
+    public function validateQuitarFaturaCartao($data)
+    {
+        if (empty($data['valor_pagamento_fatura'])) {
+            $this->erros['error_valor_pagar'] = "Preencha o Valor do Pagamento!";
+        } else if (!empty($data['valor_pagamento_fatura']) && (Helpers::formatarMoeda($data['valor_pagamento_fatura']) > Helpers::formatarMoeda($data['valor_total_fatura']))) {
+            $this->erros['error_valor_pagar'] = "Valor do Pagamento acima do Valor Total!";
+        } else if (!empty($data['valor_pagamento_fatura']) && (Helpers::formatarMoeda($data['valor_pagamento_fatura']) < (Helpers::formatarMoeda($data['valor_total_fatura']) * 0.10))) {
+            $this->erros['error_valor_pagar'] = "Valor do Pagamento Insufuciente!";
+        }
+
+        return $this->erros;
+    }
+
 
     private function checkDiaPagamentoFatura($id_cartao, $data_pagamento)
     {

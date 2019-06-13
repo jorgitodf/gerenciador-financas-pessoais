@@ -24,6 +24,7 @@ html, body {
     color: red;
 }
 
+
 input[type=text]{outline:none;}
 
 /* MENU LATERAL */
@@ -682,6 +683,27 @@ select option:checked {
         height: 310px !important;
     }
 
+    /* TABELA LISTAR FATUARAS A PAGAR */
+    #table_listar_faturas {
+        height: 100% !important;
+    }
+    #table_listar_faturas td:nth-child(1) {
+        text-align: center;
+        padding-top: 5px !important;
+    }
+    #table_listar_faturas td:nth-child(2) {
+        text-align: center;
+        padding-top: 5px !important;
+    }
+    #table_listar_faturas td:nth-child(3) {
+        text-align: center;
+        padding-top: 5px !important;
+    }
+    #table_listar_faturas td:nth-child(4) {
+        text-align: center;
+        padding-top: 5px !important;
+    }
+
     /* TABELA GERAL DE PAGAMENTOS AGENDADOS */
     #panel_head_agendamento_pagamento {
         background-color: #6767fe;
@@ -1097,8 +1119,31 @@ select option:checked {
     }
 
     /* FORMULÁRIO FECHAR FATURA DO CARTÃO DE CRÉDITO */
+
+    div{
+		border-radius: 5px;
+	}
+	.contenedor{
+		width:100% !important;
+		height:90px !important;
+        display:flex !important;
+        justify-content: space-around !important;
+	}
+	.contenido{
+		float:left !important;
+		margin: 10px !important;
+    }
+    
+    #div_fechar_fatura_cartao {
+        margin-top: 4.5%;
+        margin-left: 16%;
+        width: 83%;
+    }
+
     #well_fechar_fatura_cartao {
         height: 535px;
+        max-width: 100%;
+        overflow: scroll
     }
     #div-principal-form-fechar-fatura-cartao {
         margin-top: 3%;

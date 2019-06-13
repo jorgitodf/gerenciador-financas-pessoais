@@ -30,4 +30,5 @@ class ExpenditureInstallment extends Model
     {
         $this->attributes['data_pagamento'] = Helpers::formataData($value);
     }
+
 }
