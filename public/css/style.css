@@ -659,6 +659,107 @@ select option:checked {
         margin-top: 4%;
         margin-left: 20%;
     }
+
+    /* TABELA LISTAR FATUARAS A PAGAR */
+    #table_listar_faturas {
+        height: 100% !important;
+    }
+    #table_listar_faturas td:nth-child(1) {
+        text-align: center;
+        padding-top: 5px !important;
+    }
+    #table_listar_faturas td:nth-child(2) {
+        text-align: center;
+        padding-top: 5px !important;
+    }
+    #table_listar_faturas td:nth-child(3) {
+        text-align: center;
+        padding-top: 5px !important;
+    }
+    #table_listar_faturas td:nth-child(4) {
+        text-align: center;
+        padding-top: 5px !important;
+    }
+
+    /* FORMULÁRIO FECHAR FATURA DO CARTÃO DE CRÉDITO */
+
+    div{
+        border-radius: 5px;
+    }
+    .contenedor{
+        width:100% !important;
+        height:90px !important;
+        display:flex !important;
+        justify-content: space-around !important;
+    }
+    .contenido{
+        float:left !important;
+        margin: 10px !important;
+    }
+
+    #div_fechar_fatura_cartao {
+        margin-top: 4.5%;
+        margin-left: 16%;
+        width: 83%;
+    }
+
+    #well_fechar_fatura_cartao {
+        height: 665px;
+        max-width: 100%;
+        overflow: scroll
+    }
+    #div-principal-form-fechar-fatura-cartao {
+        margin-top: 3%;
+        margin-left: 23.5%;
+    }
+    #span-success-quitar-fatura-cartao-credito {
+        padding: 7px;
+        width: 300px;
+        margin-left: 10%;
+    }
+    #div-msg-quitar-fatura-cartao-credito {
+        display: none;
+    }
+    .alinha_td_centro, .alinha_th_centro {
+        text-align: center;
+    }
+    .muda_label {
+        font-size: 12px;
+    }
+    #table_lista_itens_fatura > tbody > tr > td {
+        font-size: 12px;
+        padding: 2px;
+    }
+    #table_lista_itens_fatura > tfoot > tr > td{
+        font-size: 12px;
+        padding: 2px;
+    }
+    #table_lista_itens_fatura {
+        margin-left: auto;
+    }
+    .destaque{
+        background:#FFFF99 !important;
+        color:#FF0000 !important;
+    }
+    .tamanho_fonte {
+        font-size: 12px;
+        font-weight: bold;
+    }
+    .input_sm {
+        padding-right:0 !important;
+        padding-left:0 !important;
+    }
+    .input_sm {
+        height: 25px !important;
+        padding: 5px 10px !important;
+        font-size: 12px !important;
+        line-height: 1.5 !important;
+        border-radius: 3px !important;
+    }
+    .div_table_pagar_fatura {
+        height: 55px;
+    }
+
 }
 
 @media screen and (max-width: 1366px) {
@@ -1133,7 +1234,7 @@ select option:checked {
 		float:left !important;
 		margin: 10px !important;
     }
-    
+
     #div_fechar_fatura_cartao {
         margin-top: 4.5%;
         margin-left: 16%;
@@ -1150,10 +1251,9 @@ select option:checked {
         margin-left: 23.5%;
     }
     #span-success-quitar-fatura-cartao-credito {
-        padding: 7.5px;
+        padding: 7px;
         width: 300px;
         margin-left: 10%;
-        position: absolute;
     }
     #div-msg-quitar-fatura-cartao-credito {
         display: none;

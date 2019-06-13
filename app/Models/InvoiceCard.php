@@ -25,35 +25,35 @@ class InvoiceCard extends Model
 
     public function setEncargosAttribute($value)
     {
-        !empty($value) ? Helpers::formatarMoeda($value) : 0.00;
+        !empty($value) ? $this->attributes['encargos'] = Helpers::formatarMoeda($value) : $this->attributes['encargos'] = 0.00;
     }
 
     public function setProtecaoPremiadaAttribute($value)
     {
-        !empty($value) ? Helpers::formatarMoeda($value) : 0.00;
+        !empty($value) ? $this->attributes['protecao_premiada'] = Helpers::formatarMoeda($value) : $this->attributes['protecao_premiada'] = 0.00;
     }
 
     public function setIofAttribute($value)
     {
-        !empty($value) ? Helpers::formatarMoeda($value) : 0.00;
+        !empty($value) ? $this->attributes['iof'] = Helpers::formatarMoeda($value) : $this->attributes['iof'] = 0.00;
     }
 
     public function setJurosAttribute($value)
     {
-        !empty($value) || $value != null ? Helpers::formatarMoeda($value) : 0.00;
+        !empty($value) ? $this->attributes['juros'] = Helpers::formatarMoeda($value) : $this->attributes['juros'] = 0.00;
     }
 
     public function setValorTotalFaturaAttribute($value)
     {
-        !empty($value) || $value != null ? Helpers::formatarMoeda($value) : 0.00;
+        !empty($value) ? $this->attributes['valor_total_fatura'] = Helpers::formatarMoeda($value) : $this->attributes['valor_total_fatura'] = 0.00;
     }
 
     public function setValorPagamentoFaturaAttribute($value)
     {
-        !empty($value) || $value != null ? Helpers::formatarMoeda($value) : 0.00;
+        !empty($value) ? $this->attributes['valor_pagamento_fatura'] = Helpers::formatarMoeda($value) : $this->attributes['valor_pagamento_fatura'] = 0.00;
     }
 
-    
+
 
 
     public function getDataPagamentoFaturaFormattedAttribute()
@@ -65,5 +65,5 @@ class InvoiceCard extends Model
     {
         return Helpers::formatarMoedaEnPt($this->restante_fatura_mes_anterior);
     }
-    
+
 }

@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="container col-md-9 col-sm-9 col-xs-9" id="div_fechar_fatura_cartao"> 
+    <div class="container col-md-9 col-sm-9 col-xs-9" id="div_fechar_fatura_cartao">
         <div class="row-fluid">
             <div class="col-sm-11 col-sm-offset-1 col-md-11 col-md-offset-1">
                 <div class="well well-sm sombra" id="well_fechar_fatura_cartao">
@@ -36,7 +36,7 @@
                                 </div>
                             </div>
 
-                            <div class="row-fluid col-sm-12 col-md-12 col-lg-12" id="">  
+                            <div class="row-fluid col-sm-12 col-md-12 col-lg-12" id="">
                                 <table class="table table-hover table-condensed table-responsive" id="table_lista_itens_fatura">
                                     <thead>
                                         <tr>
@@ -56,19 +56,19 @@
                                         </tr>
                                         @endforeach
                                     </tbody>
-                                    <tfoot> 
+                                    <tfoot>
                                         <tr>
                                             <td class="tamanho_fonte alinha_td_centro">SubTotal</td>
                                             <td class="muda_label"></td>
                                             <td class="muda_label"></td>
                                             <td class="tamanho_fonte">R$ {{ number_format($total, 2, ',', '.') }}</td>
                                             <input type="hidden" name="subtotal" id="subtotal" value="{{ number_format($total, 2, ',', '.') }}"/>
-                                        </tr>    
+                                        </tr>
                                     </tfoot>
                                 </table>
                             </div>
 
-                            <div class="row-fluid col-sm-12 col-md-12 col-lg-12 contenedor" id="">  
+                            <div class="row-fluid col-sm-12 col-md-12 col-lg-12 contenedor" id="">
                                 <div class="form-group form-group-sm col-sm-3 col-md-3 col-lg-3 contenido" id="">
                                     <label for="encargos" class="control-label muda_label">Encargos:</label>
                                     <input type="text" name="encargos" id="encargos" class="form-control input_sm" disabled="disabled" value=""/>
@@ -84,10 +84,10 @@
                                 <div class="form-group form-group-sm col-sm-3 col-md-3 col-lg-3 contenido" id="">
                                     <label for="protecao_premiada" class="control-label muda_label">Proteção Premiada:</label>
                                     <input type="text" name="protecao_premiada" id="protecao_premiada" class="form-control input_sm" disabled="disabled" value=""/>
-                                </div> 
+                                </div>
                             </div>
 
-                            <div class="row-fluid col-sm-12 col-md-12 col-lg-12 contenedor" id="">  
+                            <div class="row-fluid col-sm-12 col-md-12 col-lg-12 contenedor" id="">
                                 <div class="form-group form-group-sm col-sm-3 col-md-3 col-lg-3 contenido" id="">
                                     <label for="juros" class="control-label muda_label">Juros:</label>
                                     <input type="text" name="juros" id="juros" class="form-control input_sm" disabled="disabled" value=""/>
@@ -107,23 +107,23 @@
                                 </div>
                             </div>
 
-                            <div class="row-fluid col-sm-12 col-md-12 col-lg-12" id="">  
+                            <div class="row-fluid col-sm-12 col-md-12 col-lg-12" id="">
                                 <div class="row-fluid col-sm-5 col-md-5 col-lg-5" id="">
                                     <button type="button" id="btn_novo_pgto_fatura" class="btn btn-primary">Novo</button>
                                     <button type="button" id="btn_calcular_fatura" class="btn btn-primary" disabled="disabled">Calcular</button>
                                     <button type="submit" id="btn_pagar_fatura" class="btn btn-primary" disabled="disabled">Pagar</button>
                                     <button type="button" id="btn_limpar_pgto_fatura" class="btn btn-primary" disabled="disabled">Limpar</button>
                                 </div>
-                                <div class="form-group form-group-sm col-sm-7 col-md-7 col-lg-7" id="div-msg-quitar-fatura-cartao-credito">
-                                    
+                                <div class="row-fluid form-group form-group-sm col-sm-5 col-md-5 col-lg-5" id="div-msg-quitar-fatura-cartao-credito">
+
                                 </div>
                             </div>
 
-                        </fieldset>        
-                    </form>  
+                        </fieldset>
+                    </form>
                 </div>
-            </div>    
+            </div>
         </div>
-    </div>                
+    </div>
 
 @endsection()
