@@ -445,7 +445,7 @@ $(document).ready(function () {
             axios.post(url, simpleQueryString.stringify(data))
             .then(function(response) {
                 if (response.status == 201) {
-                    $("#btn_novo_pgto_fatura").removeAttr('disabled');
+                    $("#btn_novo_pgto_fatura").attr('disabled', 'disabled');
                     $("#btn_calcular_fatura").attr('disabled', 'disabled');
                     $("#btn_pagar_fatura").attr('disabled', 'disabled');
                     $("#btn_limpar_pgto_fatura").attr('disabled', 'disabled');
@@ -456,6 +456,9 @@ $(document).ready(function () {
                     $("#juros_fat").attr('disabled', 'disabled');
                     $("#valor_pagar").attr('disabled', 'disabled');
                     $("#div-msg-quitar-fatura-cartao-credito").html("<span class='alert alert-success msgSuccess' id='span-success-quitar-fatura-cartao-credito'>"+ response.data['success'] +"</span>").css("display", "block");
+                    setInterval(function() {
+                        redirectPageListarFaturas(response.data['base_url']);
+                    }, 3000);
                 }
             })
             .catch(function(error) {
@@ -1051,15 +1054,12 @@ $(document).ready(function () {
     // ACESSA CONTA
     $(function () {
         $("#table_contas input:radio").click(function(e) {
-            let url = '/conta/list';
-            let id_conta = $(this).val()
-            let _csrf_token = $("#_csrf_token").val();
+            let url = $("#url").val();
+            let id = $("#id").val()
+            let u = "/conta/list/";
             e.preventDefault();
-            axios.get(url, {
-                params: {
-                    id_conta: id_conta,
-                    _csrf_token: _csrf_token
-                }
+            axios.get(url+u+id, {
+                params: { id: id }
             })
                 .then(function(response) {
                     if (response.status == 201) {
@@ -1929,6 +1929,10 @@ function redirectPageAllFlags(base_url) {
 
 function redirectPageDespesaCartaoNovo(base_url) {
     return window.location.replace(base_url + "/despesa-cartao/create");
+}
+
+function redirectPageListarFaturas(base_url) {
+    return window.location.replace(base_url + "/fatura/pay");
 }
 
 function redirectPageAllExtract(base_url) {

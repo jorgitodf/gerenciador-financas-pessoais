@@ -327,36 +327,6 @@ select option:checked {
 }
 
 
-#table_contas th {
-    text-align: center;
-    background-color: #CDCDC1;
-}
-#table_contas th {
-    border: 1px solid white !important;
-}
-#table_contas th:nth-child(1) {
-    width: 10% !important;
-}
-#table_contas th:nth-child(2) {
-    width: 12% !important;
-}
-#table_contas th:nth-child(3) {
-    width: 12% !important;
-}
-#table_contas th:nth-child(4) {
-    width: 18% !important;
-}
-#table_contas th:nth-child(5) {
-    width: 18% !important;
-}
-#table_contas th:nth-child(6) {
-    width: 30% !important;
-}
-
-#table_contas tbody tr {
-    text-align: center;
-}
-
 
 /* FOMULÁRIO DEBITAR VALOR CONTA */
 #formCadDebito {
@@ -498,6 +468,44 @@ select option:checked {
     }
     #div_cad_tpconta {
         height: 200px !important;
+    }
+
+    #div-principal-home {
+        margin-top: 5%;
+        margin-left: 16%;
+        width: 83%;
+    }
+
+    
+    /* TABELA CONTAS PÁGINA HOME */
+    #table_contas th {
+        text-align: center;
+        background-color: #CDCDC1;
+    }
+    #table_contas th {
+        border: 1px solid white !important;
+    }
+    #table_contas th:nth-child(1) {
+        width: 10% !important;
+    }
+    #table_contas th:nth-child(2) {
+        width: 12% !important;
+    }
+    #table_contas th:nth-child(3) {
+        width: 12% !important;
+    }
+    #table_contas th:nth-child(4) {
+        width: 12% !important;
+    }
+    #table_contas th:nth-child(5) {
+        width: 29% !important;
+    }
+    #table_contas th:nth-child(6) {
+        width: 30% !important;
+    }
+    
+    #table_contas tbody tr {
+        text-align: center;
     }
 
     /* CADASTRO DE CONTA */
@@ -778,6 +786,44 @@ select option:checked {
     #div_gera_fatura_cartao {
         height: 260px !important;
     }
+
+    #div-principal-home {
+        margin-top: 5%;
+        margin-left: 16%;
+        width: 83%;
+    }
+
+    /* TABELA CONTAS PÁGINA HOME */
+    #table_contas th {
+        text-align: center;
+        background-color: #CDCDC1;
+    }
+    #table_contas th {
+        border: 1px solid white !important;
+    }
+    #table_contas th:nth-child(1) {
+        width: 10% !important;
+    }
+    #table_contas th:nth-child(2) {
+        width: 12% !important;
+    }
+    #table_contas th:nth-child(3) {
+        width: 12% !important;
+    }
+    #table_contas th:nth-child(4) {
+        width: 12% !important;
+    }
+    #table_contas th:nth-child(5) {
+        width: 29% !important;
+    }
+    #table_contas th:nth-child(6) {
+        width: 30% !important;
+    }
+    
+    #table_contas tbody tr {
+        text-align: center;
+    }
+    
 
     /* DESPESA DE CARTÃO DE CRÉDITO */
     #div_despesa_cartao {

@@ -79,6 +79,15 @@ class ContaController extends Controller
         return view('conta.edit', compact('conta', 'legend', 'tipos_contas', 'bancos'));
     }
 
+    public function list(Request $request)
+    {
+        $id = $request->query('id');
+
+        //verificar se existe a conta na sessão
+        return response()->json(['success' => 'ok', 'base_url' => url('')], 201);
+
+    }
+
     public function update(Request $request)
     {
         $dados = $request->where('tipo', 'C')->all();

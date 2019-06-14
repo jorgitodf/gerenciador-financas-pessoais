@@ -81,7 +81,7 @@ class Helpers
         } else if ($id_cartao == 3 && ($dia_compra > 2 && $dia_compra <= 31)) {
             $data_pagamento = date('d/m/Y', strtotime("+1 month", strtotime("{$ano_compra}-{$mes_compra}-09")));
         }
-    
+
         return $data_pagamento;
     }
 

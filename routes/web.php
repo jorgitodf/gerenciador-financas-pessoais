@@ -41,6 +41,7 @@ Route::get('/conta/debitar', ['as'=>'conta.debitar', 'uses'=>'Conta\ContaControl
 Route::get('/conta/creditar', ['as'=>'conta.creditar', 'uses'=>'Conta\ContaController@creditar']);
 Route::post('/conta/credit', ['as'=>'conta.credit', 'uses'=>'Conta\ContaController@credit']);
 Route::post('/conta/debit', ['as'=>'conta.debit', 'uses'=>'Conta\ContaController@debit']);
+Route::get('/conta/list/{id}', ['as'=>'conta.list', 'uses'=>'Conta\ContaController@list']);
 
 Route::get('/pagamentos', ['as'=>'pagamentos', 'uses'=>'Pagamento\PagamentoAgendadoController@index']);
 Route::get('/pagamento/create', ['as'=>'pagamento.novo', 'uses'=>'Pagamento\PagamentoAgendadoController@create']);

@@ -66,19 +66,21 @@ class FaturaCartaoController extends Controller
     {
         $legend = "Pagamento Fatura Cartão de Crédito";
         $total = 0;
+        $fatura = $this->model::find($id);
+
         $despesas = DB::table('expenditure_installments AS ei')
                     ->join('expense_cards AS ex', 'ex.id', '=', 'ei.expense_card_id')
                     ->join('credit_cards AS cc', 'cc.id', '=', 'ex.credit_card_id')
                     ->join('invoice_cards AS ic', 'ic.credit_card_id', '=', 'cc.id')
-                    ->select('ei.id', 'ex.data_compra', 'ex.descricao', 'ei.numero_parcela', 'ei.valor')
+                    ->select('ei.id', 'ex.data_compra', 'ex.descricao', 'ei.numero_parcela', 'ei.valor', 'ex.credit_card_id')
                     ->where('ic.id', '=',  $id)
-                    ->where('ei.data_pagamento', '=', '2019-06-09')
+                    ->where('ei.data_pagamento', '=', $fatura->data_pagamento_fatura)
                     ->get();
         foreach ($despesas as $desp) {
             $total = $total + $desp->valor;
         }    
-        $fatura = $this->model::find($id);
-        $restante = $this->model::where('pago', 'S')->select('restante_fatura_mes_anterior')->orderBy('id', 'DESC')->take(1)->get();
+        
+        $restante = $this->model::where('pago', 'S')->where('credit_card_id', $despesas[0]->credit_card_id)->select('restante_fatura_mes_anterior')->orderBy('id', 'DESC')->take(1)->get();
 
         return view('fatura.fechar', compact('legend', 'despesas', 'total', 'fatura', 'restante'));
     }

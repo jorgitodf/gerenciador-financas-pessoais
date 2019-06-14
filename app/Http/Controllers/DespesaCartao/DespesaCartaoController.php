@@ -51,9 +51,10 @@ class DespesaCartaoController extends Controller
         if (!$error) { 
             if ($dados['numero_parcela'] == 1) {
                 try {
-                    $dia_compra = date('m', strtotime($dados['data_compra']));
-                    $mes_compra = date('d', strtotime($dados['data_compra']));
-                    $ano_compra = date('Y', strtotime($dados['data_compra']));
+
+                    $dia_compra = date('d', strtotime(Helpers::formataData($dados['data_compra'])));
+                    $mes_compra = date('m', strtotime(Helpers::formataData($dados['data_compra'])));
+                    $ano_compra = date('Y', strtotime(Helpers::formataData($dados['data_compra'])));
 
                     $dados['data_pagamento'] = Helpers::dataPagamento($mes_compra, $dia_compra, $ano_compra, $dados['credit_card_id']);
 
