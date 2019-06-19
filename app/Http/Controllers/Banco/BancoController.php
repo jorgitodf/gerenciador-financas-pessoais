@@ -60,9 +60,12 @@ class BancoController extends Controller
         $error = $this->validations->validateBanco($dados, $this->model);
 
         if (!$error) {
-            $this->model::create($dados);
-            return response()->json(['success' => 'Banco Cadastrado com Sucesso!', 'base_url' => url('')], 201);
-            return redirect()->route('bancos');
+            try {
+                $this->model::create($dados);
+                return response()->json(['success' => 'Banco Cadastrado com Sucesso!', 'base_url' => url('')], 201);
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $error['error_create'] = $ex->getMessage();
+            }
         }
 
         return response()->json(['error' => $error], 500);
@@ -87,11 +90,15 @@ class BancoController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request)
+    public function update(Request $request, Bank $banco)
     {
         $dados = $request->all();
-        if ($this->model::find($dados['cod_banco'])->update($dados)) {
+
+        try {
+            $banco::find($dados['cod_banco'])->update($dados);
             return response()->json(['success' => 'Banco Alterado com Sucesso!', 'base_url' => url('')], 201);
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $error['error_create'] = $ex->getMessage();
         }
     }
 

@@ -25,7 +25,7 @@
                                     <td>{{ $categoria->despesa_fixa_formatted }}</td>
                                     <td>{{ $categoria->tipo_formatted }}</td>
                                     <td>
-                                        <a class="btn deep-orange" href="{{ route('categoria.editar', $categoria->id) }}">Editar</a>
+                                        <a class="btn btn-warning btn-sm" href="{{ route('categoria.editar', $categoria->id) }}">Editar</a>
                                     </td>
                                 </tr>
                             @endforeach
@@ -35,8 +35,8 @@
                             {{ $categorias->links() }}
                         </div>
                     @else
-                        <div class="row-fluid text-center">
-                            <p>Nenhuma Categoria Cadastrada</p>
+                        <div class="row-fluid text-center alert alert-info">
+                            <strong>Atenção!!</strong><p>{{ $msg ?? $msg }}</p>
                         </div>
                     @endif
                 </div>

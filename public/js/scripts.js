@@ -1297,6 +1297,7 @@ $(document).ready(function () {
         $("#btn-cad-cat").removeAttr('disabled');
         $("#btn-nov-cat").attr('disabled', 'disabled');
         $("#nome_categoria").removeAttr('disabled');
+        $("#nome_categoria").focus();
         $("#despesa_fixa").removeAttr('disabled');
         $("#tipo").removeAttr('disabled');
         $("#nome_categoria").css("background", "white");
@@ -1377,6 +1378,10 @@ $(document).ready(function () {
                         } else {
                             $("#tipo").css("background", "#ffffb1").css("color", "black");
                         }
+
+                        if (!error.response.data.error['error_create'] == "") {
+                            alert(error.response.data.error['error_create']);
+                        }
                     }
                 })
         });
@@ -1447,6 +1452,10 @@ $(document).ready(function () {
                             $("#nome_banco").val(error.response.data.error['error-nome-banco']).css("background", cor_input).css("color", "white");
                         } else {
                             $("#nome_banco").css("background", "#ffffb1");
+                        }
+
+                        if (!error.response.data.error['error_create'] == "") {
+                            alert(error.response.data.error['error_create']);
                         }
                     }
                 })

@@ -22,7 +22,12 @@ class CategoriaController extends Controller
     public function index()
     {
         $categorias = $this->model::orderBy('nome_categoria')->paginate(10);
-        return view('categoria.index', compact('categorias'));
+
+        if ($categorias->count() == 0) {
+            $msg = "Nenhuma Categoria Cadastrada no Sistema!";
+        }
+
+        return view('categoria.index', compact('categorias', 'msg'));
     }
 
     public function create()
@@ -37,9 +42,12 @@ class CategoriaController extends Controller
         $error = $this->validations->validateCategoria($dados, $this->model);
 
         if (!$error) {
-            $this->model::create($dados);
-            return response()->json(['success' => 'Categoria Cadastrada com Sucesso!', 'base_url' => url('')], 201);
-            return redirect()->route('categorias');
+            try {
+                $this->model::create($dados);
+                return response()->json(['success' => 'Categoria Cadastrada com Sucesso!', 'base_url' => url('')], 201);
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $error['error_create'] = $ex->getMessage();
+            }
         }
 
         return response()->json(['error' => $error], 500);
@@ -52,11 +60,16 @@ class CategoriaController extends Controller
         return view('categoria.edit', compact('categoria', 'legend'));
     }
 
-    public function update(Request $request)
+    public function update(Request $request, Categories $categoria)
     {
         $dados = $request->all();
-        if ($this->model::find($dados['id_categoria'])->update($dados)) {
+
+        try {
+            $categoria::find($dados['id_categoria'])->update($dados);
             return response()->json(['success' => 'Categoria Alterada com Sucesso!', 'base_url' => url('')], 201);
+        } catch (\Illuminate\Database\QueryException $ex) {
+            $error['error_create'] = $ex->getMessage();
         }
+
     }
 }
