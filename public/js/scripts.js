@@ -1,14 +1,22 @@
 $(document).ready(function () {
 
     $(document).ready(function() {
-        $('#table_extrato').DataTable( {
+        $('#table_extrato').DataTable({
             "scrollY": "470px",
             "scrollCollapse": true,
             "paging":         false,
             "bInfo" : false,
             "searching": false
-        } );
-    } );
+        });
+        let id_conta_session = $("#id_conta_session").val();
+        if (id_conta_session > 0) {
+            $("#menu_div_categoria").removeClass("disabled");
+            $("#menu_div_extrato").removeClass("disabled");
+            $("#menu_div_trasacoes").removeClass("disabled");
+            $("#menu_div_cartao_credito").removeClass("disabled");
+            $("#menu_div_agendamentos").removeClass("disabled");
+        }
+    });
 
     jQuery.browser = {};
     (function () {
@@ -1063,7 +1071,12 @@ $(document).ready(function () {
             })
                 .then(function(response) {
                     if (response.status == 201) {
-                        window.location.replace(response.data['base_url']);
+                        $("#menu_div_categoria").removeClass("disabled");
+                        $("#menu_div_extrato").removeClass("disabled");
+                        $("#menu_div_trasacoes").removeClass("disabled");
+                        $("#menu_div_cartao_credito").removeClass("disabled");
+                        $("#menu_div_agendamentos").removeClass("disabled");
+                        redirectPageHome(response.data['base_url']);
                     }
                 })
                 .catch(function(error) {
@@ -1300,7 +1313,7 @@ $(document).ready(function () {
         $("#nome_categoria").focus();
         $("#despesa_fixa").removeAttr('disabled');
         $("#tipo").removeAttr('disabled');
-        $("#nome_categoria").css("background", "white");
+        $("#nome_categoria").css("background", "white")
         $("#despesa_fixa").css("background", "white");
         $("#tipo").css("background", "white");
         $('#span-success-cadastro-categoria').remove();
@@ -1969,6 +1982,9 @@ function redirectPageAllBanks(base_url) {
 }
 function redirectPageAllCategories(base_url) {
     return window.location.replace(base_url + "/categorias");
+}
+function redirectPageHome(base_url) {
+    return window.location.replace(base_url + "/");
 }
 
 function formateDate(inputFormat) {

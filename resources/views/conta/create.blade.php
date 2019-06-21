@@ -19,6 +19,7 @@
                                     <button type="button" class="btn btn-primary btn-md" id="btn-nov-conta">Novo</button>
                                     <button type="submit" class="btn btn-primary btn-md" id="btn-cad-conta" disabled>Cadastrar</button>
                                     <a class="btn btn-primary btn-md" href="{{ route('contas') }}">Cancelar</a>
+                                    <a class="btn btn-primary btn-md" href="{{ route('tipo-conta.novo') }}">Novo Tipo de Conta</a>
                                 </div>
                             </div>
 

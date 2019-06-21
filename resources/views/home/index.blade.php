@@ -6,7 +6,8 @@
 
     <div class="container col-xs-10 col-md-10 col-sm-10" id="div-principal-home">
         <div class="row">
-            <div class="col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1">
+            <div class="col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1" id="div_princ_home">
+                @if(isset($contas) && $contas->count() > 0)
                 <div class="well well-sm well-md well-xs sombra">
                 <div class="panel-heading" id="panel_head_agendamento_pagamento">Selecione uma Conta abaixo para obter acesso a todas Operações do Sistema!!!</div>
 
@@ -35,7 +36,14 @@
                     </tbody>
                 </table>
                 </div>
-            </div>    
+                @else
+                    @if(isset($msg) && !empty($msg))
+                    <div class="row-fluid text-center alert alert-warning">
+                        <strong>Atenção!!</strong><p>{{ $msg ?? $msg }}</p>
+                    </div>
+                    @endif
+                @endif
+            </div>
         </div>
     </div>
 

@@ -395,28 +395,6 @@ select option:checked {
     margin-left: -15px;
 }
 
-#table_pgto_agendado th {
-    text-align: center;
-    background-color: #CDCDC1;
-}
-#table_pgto_agendado th {
-    border: 1px solid white !important;
-}
-#table_pgto_agendado th:nth-child(1) {
-    width: 25% !important;
-}
-#table_pgto_agendado th:nth-child(2) {
-    width: 10% !important;
-}
-#table_pgto_agendado th:nth-child(3) {
-    width: 10% !important;
-}
-#table_pgto_agendado th:nth-child(4) {
-    width: 10% !important;
-}
-#table_pgto_agendado tbody tr {
-    text-align: center;
-}
 
 #cab_table {
     border: 1px solid white !important;
@@ -437,10 +415,6 @@ select option:checked {
     font-weight: bold;
     color: black;
     font-size: 14px !important;
-}
-#table_pgto_agendado tfoot {
-    background-color: #E9B65C;
-    font-weight: bold;
 }
 
 #div_cad_categoria {
@@ -476,6 +450,35 @@ select option:checked {
         width: 83%;
     }
 
+    /* TABELA DE LISTAGEM DE PAGAMENTOS AGENDADOS NO MÊS*/
+    #table_pgto_agendado th {
+        text-align: center;
+        background-color: #CDCDC1;
+    }
+    #table_pgto_agendado th {
+        border: 1px solid white !important;
+    }
+    #table_pgto_agendado th:nth-child(1) {
+        width: 25% !important;
+    }
+    #table_pgto_agendado th:nth-child(2) {
+        width: 10% !important;
+    }
+    #table_pgto_agendado th:nth-child(3) {
+        width: 10% !important;
+    }
+    #table_pgto_agendado th:nth-child(4) {
+        width: 10% !important;
+    }
+    #table_pgto_agendado tbody tr {
+        text-align: center;
+    }
+    #table_pgto_agendado tfoot {
+        background-color: #E9B65C;
+        font-weight: bold;
+    }
+    #table_pgto_agendado tbody tr:nth-child(even) {background-color: #FFF !important;}
+    #table_pgto_agendado tbody tr:nth-child(odd) {background: #EEE !important;}
     
     /* TABELA CONTAS PÁGINA HOME */
     #table_contas th {
@@ -792,6 +795,36 @@ select option:checked {
         margin-left: 16%;
         width: 83%;
     }
+
+    /* TABELA DE LISTAGEM DE PAGAMENTOS AGENDADOS NO MÊS*/
+    #table_pgto_agendado th {
+        text-align: center;
+        background-color: #CDCDC1;
+    }
+    #table_pgto_agendado th {
+        border: 1px solid white !important;
+    }
+    #table_pgto_agendado th:nth-child(1) {
+        width: 25% !important;
+    }
+    #table_pgto_agendado th:nth-child(2) {
+        width: 10% !important;
+    }
+    #table_pgto_agendado th:nth-child(3) {
+        width: 10% !important;
+    }
+    #table_pgto_agendado th:nth-child(4) {
+        width: 10% !important;
+    }
+    #table_pgto_agendado tbody tr {
+        text-align: center;
+    }
+    #table_pgto_agendado tfoot {
+        background-color: #E9B65C;
+        font-weight: bold;
+    }
+    #table_pgto_agendado tbody tr:nth-child(even) {background-color: #FFF !important;}
+    #table_pgto_agendado tbody tr:nth-child(odd) {background: #EEE !important;}
 
     /* TABELA CONTAS PÁGINA HOME */
     #table_contas th {

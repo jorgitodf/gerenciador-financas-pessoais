@@ -24,7 +24,7 @@
                 <li><a href="">Trocar de Conta</a></li>
             </ul>
 
-            <li data-toggle="collapse" data-target="#categorias" id="menu_div_categoria" class="collapsed active">
+            <li data-toggle="collapse" data-target="#categorias" id="menu_div_categoria" class="collapsed active disabled">
                 <a><i class="fa fa-users fa-lg"></i> Categorias <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="categorias">
@@ -32,7 +32,7 @@
                 <li><a href="{{ route('categorias') }}">Todas Categorias</a></li>
             </ul>
 
-            <li data-toggle="collapse" data-target="#products" id="menu_div_extrato" class="collapsed">
+            <li data-toggle="collapse" data-target="#products" id="menu_div_extrato" class="collapsed disabled">
                 <a href="#"><i class="fa fa-newspaper-o fa-lg"></i> Extratos <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="products">
@@ -40,7 +40,7 @@
                 <li><a href="">Por Período</a></li>
             </ul>
 
-            <li data-toggle="collapse" data-target="#service" id="menu_div_trasacoes" class="collapsed">
+            <li data-toggle="collapse" data-target="#service" id="menu_div_trasacoes" class="collapsed disabled">
                 <a href="#"><i class="fa fa-globe fa-lg"></i> Transações <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="service">
@@ -48,7 +48,7 @@
                 <li><a href="{{ route('conta.debitar') }}">Debitar</a></li>
             </ul>
 
-            <li data-toggle="collapse" data-target="#new" id="menu_div_cartao_credito" class="collapsed">
+            <li data-toggle="collapse" data-target="#new" id="menu_div_cartao_credito" class="collapsed disabled">
                 <a href="#"><i class="fa fa-credit-card fa-lg"></i> Cartão de Crédito <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="new">
@@ -61,7 +61,7 @@
                 <li>Consultar Fatura</li>
             </ul>
 
-            <li data-toggle="collapse" data-target="#agendamentos" id="menu_div_agendamentos" class="collapsed">
+            <li data-toggle="collapse" data-target="#agendamentos" id="menu_div_agendamentos" class="collapsed disabled">
                 <a href="#"><i class="fa fa-calendar fa-lg"></i> Agendamentos <span class="arrow"></span></a>
             </li>
             <ul class="sub-menu collapse" id="agendamentos">

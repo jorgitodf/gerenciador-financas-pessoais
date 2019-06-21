@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\User;
 use Illuminate\Database\Eloquent\Model;
 
 class Account extends Model
@@ -19,6 +20,11 @@ class Account extends Model
     public function banco()
     {
         return $this->belongsTo(Bank::class, 'bank_id', 'cod_banco');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
     }
 
     // Mutator para Modificar o dado antes de salvá-lo no Banco de Dados

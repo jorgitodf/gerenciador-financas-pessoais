@@ -30,6 +30,12 @@ class Helpers
         return "{$ano}-12-31";
     }
 
+    public static function getAno()
+    {
+        $ano = date("Y");
+        return "{$ano}";
+    }
+
     public static function formatarMoeda($valor)
     {
         if (!empty($valor)) {

@@ -17,7 +17,11 @@
                 <li id=""><a href=""></a></li>
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                <li id=""><a href="/auth/logout"><i class="fa fa-sign-out fa-lg"></i> Logout</a></li>
+                <li id=""><a href="{{ route('logout') }}" onclick="event.preventDefault();
+                             document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-lg"></i> Logout</a>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                    @csrf
+                </form></li>
             </ul>
         </div>
     </div>

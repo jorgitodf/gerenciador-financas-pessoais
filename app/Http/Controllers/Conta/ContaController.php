@@ -12,6 +12,8 @@ use App\Models\Categories;
 use App\Validations\ValidationConta;
 use App\Validations\ValidationDebitoCredito;
 use App\HelperFormatters\Helpers;
+use Illuminate\Support\Facades\Auth;
+use App\Models\ScheduledPayment;
 
 class ContaController extends Controller
 {
@@ -79,12 +81,15 @@ class ContaController extends Controller
         return view('conta.edit', compact('conta', 'legend', 'tipos_contas', 'bancos'));
     }
 
-    public function list(Request $request)
+    public function list(Request $request, ScheduledPayment $scheduledPayment)
     {
         $id = $request->query('id');
+        $user = Auth::user();
 
-        //verificar se existe a conta na sessão
-        return response()->json(['success' => 'ok', 'base_url' => url('')], 201);
+        if ($user->contas[0]->id == $id) {
+            session(['id_conta' => $user->contas[0]->id]);
+            return response()->json(['success' => 'ok', 'base_url' => url('')], 201);
+        }
 
     }
 
@@ -123,6 +128,7 @@ class ContaController extends Controller
         $dados['quantidade'] = 1;
         $dados['despesa_fixa'] = "N";
         $valor_saldo = $extract->getSaldo($dados['account_id']);
+
         if (!empty($valor_saldo[0]->saldo)) {
             $dados['saldo'] = ((double)$valor_saldo[0]->saldo + (double) Helpers::formatarMoeda($dados['valor']));
         } else {
