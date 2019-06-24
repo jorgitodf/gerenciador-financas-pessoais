@@ -1999,59 +1999,61 @@ function numberToReal(valor) {
     return numero.join(',');
 }
 
-function generateTableExtract(datas) {
-
-    let table = "<table class='table table-striped table-hover table-bordered table-condensed display' id='table_extrato_din'>";
-    table +=  "<thead>";
-    table +=   	"<tr>";
-    table +=       "<th class='th'>Data</th>";
-    table +=       "<th class='th'>Movimentação</th>";
-    table +=       "<th class='th'>Categoria</th>";
-    table +=       "<th class='th'>Valor</th>";
-    table +=       "<th class='th'>Saldo</th>";
-    table +=    "</tr>";
-    table +=  "</thead>";
-    table +=  "<tbody>";
-
-    for (attr in datas) {
-        table +=  "<tr>";
-        if (datas[attr].tipo == 'D') {
-            table += "<td class='fonte_data td'>" + formateDate(datas[attr].data_movimentacao) + "</td>";
-            if (datas[attr].despesa_fixa == 'S') {
-                table += "<td class='fonte_despesa td'>" + datas[attr].movimentacao + "</td>";
-                table += "<td class='fonte_despesa td'>" + datas[attr].nome_categoria + "</td>";
-                table += "<td class='fonte_despesa td'>" + numberToReal(datas[attr].valor) + "</td>";
-                table += "<td class='fonte_despesa td'>" + numberToReal(datas[attr].saldo) + "</td>";
-            } else {
-                table += "<td class='fonte_despesa_fixa td'>" + datas[attr].movimentacao + "</td>";
-                table += "<td class='fonte_despesa_fixa td'>" + datas[attr].nome_categoria + "</td>";
-                table += "<td class='fonte_despesa_fixa td'>" + numberToReal(datas[attr].valor) + "</td>";
-                table += "<td class='fonte_despesa_fixa td'>" + numberToReal(datas[attr].saldo) + "</td>";
-            }
-        } else {
-            table += "<td class='fonte_data td'>" + formateDate(datas[attr].data_movimentacao) + "</td>";
-            table += "<td class='fonte_receita td'>" + datas[attr].movimentacao + "</td>";
-            table += "<td class='fonte_receita td'>" + datas[attr].nome_categoria + "</td>";
-            table += "<td class='fonte_receita td'>" + numberToReal(datas[attr].valor) + "</td>";
-            table += "<td class='fonte_receita td'>" + numberToReal(datas[attr].saldo) + "</td>";
-        }
-        table +=  "</tr>";
+function titleize(text) {
+    var words = text.toLowerCase().split(" ");
+    for (var a = 0; a < words.length; a++) {
+        var w = words[a];
+        words[a] = w[0].toUpperCase() + w.slice(1);
     }
+    return words.join(" ");
+}
 
-    table +=  "</tbody>";
-    table += "</table>";
+function formataData(data) {
+    split = data.split('-');
+    novadata = split[2] + "/" + split[1] + "/" + split[0];
+    return novadata; 
+}
 
-    table += "<script>";
-    table +=    "$('#table_extrato_din').ready(function() {";
-    table +=        "$('#table_extrato_din').DataTable( {";
-    table +=        "'scrollY': '470px',";
-    table +=        "'scrollCollapse': true,";
-    table +=        "'paging': false,";
-    table +=        "'bInfo': false,";
-    table +=        "'searching': false,";
-    table +=        "});";
-    table +=    "});";
-    table += "</script>";
+function generateTabelaPagamentosAgendados(pagamentos, ano) {
+    let total = 0;
+    let table = "<table class='table table-striped table-hover table-bordered table-condensed' id='table_pgto_agendado'>";
+    table += "<thead>";
+        table += "<tr>";
+            table += "<td colspan='4' id='cab_table'>Contas Agendadas para "+ ano +"</td>";
+            table += "<input type='hidden' id='id_conta' value='{{ session()->get('id_conta') }}'>";
+        table += "</tr>";
+        table += "<tr>";
+            table += "<th>Movimentação</th>";
+            table += "<th>Valor</th>";
+            table += "<th>Data Pagamento</th>";
+            table += "<th>Pago</th>";
+        table += "</tr>";
+        table += "</thead>";
+        table += "<tbody>";
+            for (attr in pagamentos) {
+                table += "<tr>";
+                if (pagamentos[attr].tipo == "Não") {
+                    table += "<td class='td_color_pgto'>" + titleize(pagamentos[attr].movimentacao) + "</td>";
+                    table += "<td class='td_color_pgto'>"+ numberToReal(pagamentos[attr].valor) + "</td>";
+                    table += "<td class='td_color_pgto'>"+ formataData(pagamentos[attr].data_pagamento) + "</td>";
+                    table += "<td class='td_color_pgto'>" + pagamentos[attr].pago + "</td>";
+                } else {
+                    table += "<td class='td_color_pgto_sim'>" + titleize(pagamentos[attr].movimentacao) + "</td>";
+                    table += "<td class='td_color_pgto_sim'>"+ numberToReal(pagamentos[attr].valor) + "</td>";
+                    table += "<td class='td_color_pgto_sim'>"+ formataData(pagamentos[attr].data_pagamento) + "</td>";
+                    table += "<td class='td_color_pgto_sim'>" + pagamentos[attr].pago + "</td>";
+                }
+                table += "</tr>";
+                total += parseFloat(pagamentos[attr].valor);
+            }
+            table += "<tbody>";
+        table += "<tfoot>";
+        table += "<tr>";
+            table += "<td colspan='2' align='center' class='cor_preta'>Total de Contas a Pagar em "+ ano +"</td>";
+            table += "<td colspan='2' align='center' class='cor_preta tam_fonte'>"+ numberToReal(total) + " </td>";
+            table += "<tr>";
+            table += "</tfoot>";
+        table += "</table>";
 
     return table;
 }

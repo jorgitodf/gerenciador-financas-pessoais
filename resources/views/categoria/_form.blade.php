@@ -5,6 +5,7 @@
     <label class="col-md-3 control-label" for="nome_categoria">Categoria</label>
     <div class="col-md-8">
         <input id="nome_categoria" name="nome_categoria" type="text" placeholder="Nome da Categoria" class="form-control white remove-color-input-categoria" value="{{isset($categoria->nome_categoria_formatted) ? $categoria->nome_categoria_formatted : ''}}" disabled="disabled">
+        <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">
     </div>
 </div>
 

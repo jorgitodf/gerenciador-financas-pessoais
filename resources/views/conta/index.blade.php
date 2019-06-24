@@ -36,6 +36,7 @@
                                 </tr>
                             @endforeach
                             </tbody>
+                            <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">
                         </table>
                         <div class="row" align="center">
                             {{ $contas->links() }}

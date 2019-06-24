@@ -16,6 +16,7 @@
                                 <label class="col-sm-2 control-label tam-fonte" for="data_movimentacao">Data Movimentação:</label>
                                 <div class="col-sm-4">
                                     <input type="text" id="data_movimentacao" name="data_movimentacao" placeholder="Informe a Data de Movimentação" class="form-control remove_color_input_date white data_movimentacao" autofocus="autofocus" disabled="disabled"/>
+                                    <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">
                                 </div>
 
                                 <label class="col-sm-2 control-label tam-fonte" for="movimentacao">Movimentação:</label>

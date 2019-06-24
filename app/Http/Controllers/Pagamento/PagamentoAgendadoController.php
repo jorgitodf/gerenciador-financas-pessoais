@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Categories;
 use App\Models\ScheduledPayment;
+use App\Models\Extract;
 use App\Validations\ValidationPagamentoAgendado;
 use App\HelperFormatters\Helpers;
+use Illuminate\Support\Facades\DB;
 
 class PagamentoAgendadoController extends Controller
 {
@@ -85,9 +87,43 @@ class PagamentoAgendadoController extends Controller
         return response()->json(['error' => $error], 500);
     }
 
-    public function destroy($id)
+    public function verificar(Request $request)
     {
-        //
+        $id = $request->all();
+
+        if ($id['id_conta']) {
+            try {
+                $extract = new Extract();
+                $pagamentos = $this->model::where(['data_pagamento' => date("Y-m-d"), 'pago' => 'Não'])->get();
+                $categorias = $this->categorias::select('id', 'despesa_fixa')->orderBy('id', 'ASC')->get();
+                $cat = "";   
+
+                if ($pagamentos->count() > 0) {
+                    foreach ($pagamentos as $pgto) {
+                        foreach ($categorias as $categoria) {
+                            if ($pgto->category_id == $categoria->id) {
+                                $cat = $categoria->despesa_fixa;
+                            }
+                        }
+    
+                        DB::table('extracts')->insert(
+                            ['data_movimentacao' => $pgto->data_pagamento, 'mes' => Helpers::verificaMes(), 'tipo_operacao' => 'Débito',
+                            'movimentacao' => $pgto->movimentacao, 'quantidade' => 1, 'valor' => $pgto->valor, 'saldo' => ($extract->getSaldo($pgto->account_id)[0]->saldo - $pgto->valor), 
+                            'category_id' => $pgto->category_id, 'account_id' => $pgto->account_id, 'despesa_fixa' => $cat, 'created_at' => date("Y-m-d H:i:s"), 'updated_at' => date("Y-m-d H:i:s")]
+                        );
+    
+                        DB::table('scheduled_payments')->where('id', $pgto->id)->update(['pago' => 'Sim']);
+                    }   
+                    return response()->json(['response' => 'Pagamentos Agendados Pagos com Sucesso!', 'status' => '1', 'pagamentos' => $this->model->getPagamentosAgendados()], 201);
+                }
+                return response()->json(['response' => 'Não Há Nenhum Pagamento Agendado para a Data de Hoje!', 'status' => '2', 'pagamentos' => $this->model->getPagamentosAgendados()], 201);
+
+            } catch (\Illuminate\Database\QueryException $ex) {
+                $error['error_create'] = $ex->getMessage();
+            }
+        }
+
+        return response()->json(['error' => $error], 500);
     }
 
 }

@@ -6,6 +6,7 @@
         <div class="col-md-8">
             <input id="cod_banco" name="cod_banco" type="text" placeholder="Código do Banco" class="form-control white remove-color-input" value="{{isset($banco->cod_banco_formatted) ? $banco->cod_banco_formatted : ''}}" disabled="disabled">
         </div>
+        <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">
     </div>
 
     <div class="form-group">

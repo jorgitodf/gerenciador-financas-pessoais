@@ -7,6 +7,7 @@
         <input id="numero_cartao" name="numero_cartao" type="text" placeholder="0000.0000.0000.0000" class="form-control remove-color-input-num-card white" value="{{isset($cartao->numero_cartao) ? $cartao->numero_cartao : ''}}" disabled="disabled">
     </div>
     <input type="hidden" id="id_cartao" name="id_cartao" value="{{isset($cartao->id) ? $cartao->id : ''}}">
+    <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">
 </div>
 
 <div class="form-group col-md-12">

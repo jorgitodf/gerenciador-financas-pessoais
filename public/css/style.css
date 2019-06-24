@@ -826,6 +826,19 @@ select option:checked {
     #table_pgto_agendado tbody tr:nth-child(even) {background-color: #FFF !important;}
     #table_pgto_agendado tbody tr:nth-child(odd) {background: #EEE !important;}
 
+    #span-msg-pagamentos-agendados {
+        padding: 9px;
+        width: 985px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+    }
+
+    #div-msg-pagamento-agendado {
+        width: 400px;
+    }
+
     /* TABELA CONTAS PÁGINA HOME */
     #table_contas th {
         text-align: center;

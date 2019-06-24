@@ -7,6 +7,7 @@
         <input type="text" id="codigo_agencia" name="codigo_agencia" placeholder="Informe o Código da Agência" class="form-control remove_color_input_cod_agencia white" autofocus="autofocus" value="{{isset($conta->codigo_agencia_formatted) ? $conta->codigo_agencia_formatted : ''}}" disabled="disabled">
     </div>
     <input type="hidden" id="id_conta" name="id_conta" value="{{isset($conta->id) ? $conta->id : ''}}">
+    <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">
 </div>
 
 <div class="form-group">

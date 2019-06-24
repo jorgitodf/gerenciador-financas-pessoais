@@ -51,6 +51,7 @@ Route::post('/pagamento/store', ['as'=>'pagamento.salvar', 'uses'=>'Pagamento\Pa
 Route::get('/pagamento/edit/{id}', ['as'=>'pagamento.editar', 'uses'=>'Pagamento\PagamentoAgendadoController@edit'])->middleware('auth');
 Route::get('/pagamento/destroy/{id}', ['as'=>'pagamento.apagar', 'uses'=>'Pagamento\PagamentoAgendadoController@destroy'])->middleware('auth');
 Route::post('/pagamento/update', ['as'=>'pagamento.atualizar', 'uses'=>'Pagamento\PagamentoAgendadoController@update'])->middleware('auth');
+Route::post('/pagamento/verificar', ['as'=>'pagamento.verificar', 'uses'=>'Pagamento\PagamentoAgendadoController@verificar'])->middleware('auth');
 
 Route::get('/extrato', ['as'=>'extrato', 'uses'=>'Extrato\ExtratoController@index'])->middleware('auth');
 

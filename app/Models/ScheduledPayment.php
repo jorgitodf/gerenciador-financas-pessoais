@@ -16,6 +16,22 @@ class ScheduledPayment extends Model
         return $this->belongsTo(Categories::class, 'category_id', 'id');
     }
 
+    public function getPagamentosAgendados()
+    {
+        $array = ['pagamentos' => '', 'ano' => ''];
+
+        $pgtos = ScheduledPayment::whereBetween('data_pagamento', [Helpers::data_inicial(), Helpers::data_final()])->orderBy('data_pagamento')->get();
+
+        $mes = Helpers::verificaMes();
+        $ano = Helpers::getAno();
+        $data = "{$mes} / {$ano}";
+
+        $array['pagamentos'] = $pgtos;
+        $array['ano'] = $data;
+
+        return $array;
+    }
+
     // Mutator para Modificar o dado antes de salvá-lo no Banco de Dados
     public function setValorAttribute($value)
     {
