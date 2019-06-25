@@ -51,7 +51,7 @@ class DespesaCartaoController extends Controller
         if (!$error) { 
             if ($dados['numero_parcela'] == 1) {
                 try {
-
+                    
                     $dia_compra = date('d', strtotime(Helpers::formataData($dados['data_compra'])));
                     $mes_compra = date('m', strtotime(Helpers::formataData($dados['data_compra'])));
                     $ano_compra = date('Y', strtotime(Helpers::formataData($dados['data_compra'])));
@@ -77,6 +77,7 @@ class DespesaCartaoController extends Controller
                     for ($i = 1; $i <= $dados['numero_parcela']; $i++) {
 
                         $data[$i]['valor'] = Helpers::formatarMoeda($dados['valor']) / $qtd_parcelas;
+
                         $data[$i]['numero_parcela'] = $i < 10 ? "0".$i."/".$dados['numero_parcela'] : $i."/".$dados['numero_parcela'];
                         
                         if ($dados['credit_card_id'] == 1 && $dia_compra <= 26) {

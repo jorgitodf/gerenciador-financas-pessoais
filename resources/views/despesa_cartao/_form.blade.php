@@ -17,6 +17,7 @@
     <label class="col-sm-2 col-md-2 control-label tam-fonte" for="descricao">Descrição:</label>
     <div class="col-sm-4 col-md-4">
         <input type="text" id="descricao" name="descricao" action="" class="form-control remove_color_input white" placeholder="Informe a Despesa" disabled="disabled">
+        <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">     
     </div>
 
     <label class="col-sm-2 col-md-2 control-label tam-fonte" for="data_compra">Data Compra:</label>

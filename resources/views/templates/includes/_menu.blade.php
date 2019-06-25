@@ -16,6 +16,7 @@
                 <li id=""><a href=""></a></li>
                 <li id=""><a href=""></a></li>
             </ul>
+            @if(auth()->check())
             <ul class="nav navbar-nav navbar-right">
                 <li id=""><a href="{{ route('logout') }}" onclick="event.preventDefault();
                              document.getElementById('logout-form').submit();"><i class="fa fa-sign-out fa-lg"></i> Logout</a>
@@ -23,6 +24,7 @@
                     @csrf
                 </form></li>
             </ul>
+            @endif   
         </div>
     </div>
 </nav>

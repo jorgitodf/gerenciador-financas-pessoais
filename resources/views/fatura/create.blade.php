@@ -29,6 +29,7 @@
                                 <label class="col-sm-3 col-md-3 control-label tam-fonte" for="data_pagamento_fatura">Data Pagamento:</label>
                                 <div class="col-sm-8 col-md-8">
                                     <input type="text" id="data_pagamento_fatura" name="data_pagamento_fatura" action="" class="form-control remove_color_input_date white data_movimentacao"" disabled="disabled">
+                                    <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">
                                 </div>
                             </div>
 

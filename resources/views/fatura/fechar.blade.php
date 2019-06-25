@@ -72,6 +72,7 @@
                                 <div class="form-group form-group-sm col-sm-3 col-md-3 col-lg-3 contenido" id="">
                                     <label for="encargos" class="control-label muda_label">Encargos:</label>
                                     <input type="text" name="encargos" id="encargos" class="form-control input_sm" disabled="disabled" value=""/>
+                                    <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">
                                 </div>
                                 <div class="form-group form-group-sm col-sm-3 col-md-3 col-lg-3 contenido" id="">
                                     <label for="iof" class="control-label muda_label">IOF:</label>

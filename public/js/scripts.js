@@ -2032,7 +2032,7 @@ function generateTabelaPagamentosAgendados(pagamentos, ano) {
         table += "<tbody>";
             for (attr in pagamentos) {
                 table += "<tr>";
-                if (pagamentos[attr].tipo == "Não") {
+                if (pagamentos[attr].pago == "Não") {
                     table += "<td class='td_color_pgto'>" + titleize(pagamentos[attr].movimentacao) + "</td>";
                     table += "<td class='td_color_pgto'>"+ numberToReal(pagamentos[attr].valor) + "</td>";
                     table += "<td class='td_color_pgto'>"+ formataData(pagamentos[attr].data_pagamento) + "</td>";

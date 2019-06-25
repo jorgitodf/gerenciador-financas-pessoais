@@ -18,7 +18,9 @@ class ExpenditureInstallment extends Model
 
     public function setNumeroParcelaAttribute($value)
     {
-        $this->attributes['numero_parcela'] = "01/".$value;
+        if ($value == 1) {
+            $this->attributes['numero_parcela'] = "01/0".$value;
+        } 
     }
 
     public function setValorAttribute($value)

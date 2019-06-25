@@ -33,6 +33,7 @@
                                 </tr>
                                 @endforeach 
                             </tbody>
+                            
                         </table>  
 
                         </fieldset>        
@@ -41,7 +42,8 @@
                     <div class="row-fluid text-center alert alert-info">
                         <strong>Atenção!!</strong><p>{{ $msg ?? $msg }}</p>
                     </div>
-                @endif      
+                @endif 
+                <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">     
                 </div>
             </div>    
         </div>

@@ -25,7 +25,10 @@
 
     <div class="container-fluid">
     @include('templates.includes._menu')
-    @include('templates.includes._menu_lateral')
+
+    @if(auth()->check())
+        @include('templates.includes._menu_lateral')
+    @endif    
 
     @yield('content')
 

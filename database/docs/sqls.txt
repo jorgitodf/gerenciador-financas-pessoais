@@ -34,11 +34,32 @@ SELECT cod_banco, nome_banco, NOW(), NOW() FROM financeiro.tb_banco;
 --$d = Model::where('id', '>=', $nome)->count();
 --$d = Model::where('id', '>=', $nome)->max();
 
-exception: "Illuminate\Database\QueryException"
-file: "C:\laragon\www\financeiro\vendor\laravel\framework\src\Illuminate\Database\Connection.php"
-line: 664
-message: "SQLSTATE[22001]: String data, right truncated: 1406 Data too long for column 'tipo_conta' at row 1 (SQL: insert into `account_types` (`tipo_conta`, `updated_at`, `created_at`) values (Conta Corrente Pessoa Física, 2019-06-06 00:05:06, 2019-06-06 00:05:06))"
-trace: [,…]
+Faça ais ou menos assim:
 
+<?php
+$cliente = ModelCliente::create([
+  'nome' =. $request->nome,
+  'email' => $request->email
+]);
+Fazendo isso, a variavél $cliente terá um objeto que acabou de ser criado
+
+Para inserir o endereço do cliente
+
+$cliente->endereco()->create([
+  //Dados do endereco
+]);
+Se a chave de endereço estiver em cliente, você precisará criar o endereço primeiro
+
+
+Opa,
+
+Tudo bem Jorgito?
+
+A dica do Eduardo te ajudou?
+
+Para recuperar o id do cliente inserido, basta pegar o id:
+
+echo $cliente->id;
+Qualquer coisa estou a disposição.
 
 

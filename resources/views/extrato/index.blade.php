@@ -51,6 +51,7 @@
                             <strong>Atenção!!</strong><p>{{ $msg ?? $msg }}</p>
                         </div>
                     @endif
+                    <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">     
                 </div>
             </div>
         </div>

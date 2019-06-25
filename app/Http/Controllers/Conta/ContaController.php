@@ -59,10 +59,12 @@ class ContaController extends Controller
         $dados = $request->all();
         $dados['user_id'] = 1;
         $error = $this->validations->validateConta($dados, $this->model, $tv = "create");
+        $user = Auth::user();
 
         if (!$error) {
             try {
                 $this->model::create($dados);
+                session(['id_conta' => $user->contas[0]->id]);
                 return response()->json(['success' => 'Conta Cadastrada com Sucesso!', 'base_url' => url('')], 201);
             } catch (\Illuminate\Database\QueryException $ex) {
                 $error['error_create'] = $ex->getMessage();

@@ -44,6 +44,7 @@ class FaturaCartaoController extends Controller
         if (!$error) {
             try {
                 $dados['pago'] = "N";
+                $dados['ano_mes_ref'] = Helpers::defineMesReferencia();
                 $this->model::create($dados);
                 return response()->json(['success' => 'Fatura Gerada com Sucesso!', 'base_url' => url('')], 201);
             } catch (\Illuminate\Database\QueryException $ex) {
@@ -75,10 +76,12 @@ class FaturaCartaoController extends Controller
                     ->select('ei.id', 'ex.data_compra', 'ex.descricao', 'ei.numero_parcela', 'ei.valor', 'ex.credit_card_id')
                     ->where('ic.id', '=',  $id)
                     ->where('ei.data_pagamento', '=', $fatura->data_pagamento_fatura)
+                    ->orderBy('ex.data_compra')
                     ->get();
         foreach ($despesas as $desp) {
             $total = $total + $desp->valor;
         }    
+
         
         $restante = $this->model::where('pago', 'S')->where('credit_card_id', $despesas[0]->credit_card_id)->select('restante_fatura_mes_anterior')->orderBy('id', 'DESC')->take(1)->get();
 
