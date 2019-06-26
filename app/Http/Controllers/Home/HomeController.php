@@ -23,6 +23,7 @@ class HomeController extends Controller
     {
         if (Auth::check()) {
             $user = Auth::user();
+
             $msg = "";
             $total = 0;
 

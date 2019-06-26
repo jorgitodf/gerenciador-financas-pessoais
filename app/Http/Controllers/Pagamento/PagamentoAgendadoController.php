@@ -48,7 +48,7 @@ class PagamentoAgendadoController extends Controller
     {
         $dados = $request->all();
         $dados['account_id'] = 1;
-        $dados['pago'] = "N";
+        $dados['pago'] = "Não";
         $error = $this->validations->validatePagamentoAgendado($dados, $this->model, $dados['account_id'], $tv = "create");
         if (!$error) {
             try {

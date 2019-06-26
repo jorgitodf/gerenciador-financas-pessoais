@@ -18,6 +18,8 @@
                                     <label class="control-label tam-fonte" for="num_cartao">Número do Cartão:</label>
                                     <input type="text" name="num_cartao" id="num_cartao" class="form-control input-sm" readonly="true" value="{{ $fatura->cartao->numero_cartao_formatted }}"/>
                                     <input type="hidden" name="id" id="id" value="{{ $fatura->id }}"/>
+                                    <input type="hidden" name="credit_card_id" id="credit_card_id" value="{{ $fatura->credit_card_id }}"/>
+                                    <input type="hidden" name="data_pagamento_fatura" id="data_pagamento_fatura" value="{{ $fatura->data_pagamento_fatura }}"/>
                                 </div>
 
                                 <div class="form-group form-group-sm col-sm-3 col-md-3 col-lg-3 contenido">

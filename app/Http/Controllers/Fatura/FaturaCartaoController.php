@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\CreditCard;
 use App\Models\InvoiceCard;
+use App\Models\ScheduledPayment;
 use App\Validations\ValidationFaturaCartao;
 use App\HelperFormatters\Helpers;
 use Illuminate\Support\Facades\DB;
@@ -88,7 +89,7 @@ class FaturaCartaoController extends Controller
         return view('fatura.fechar', compact('legend', 'despesas', 'total', 'fatura', 'restante'));
     }
 
-    public function quitar(Request $request)
+    public function quitar(Request $request, ScheduledPayment $scheduledPayment)
     {
         $dados = $request->all();
         $error = $this->validations->validateQuitarFaturaCartao($dados);
@@ -101,7 +102,17 @@ class FaturaCartaoController extends Controller
                 $dados['pago'] = "S";
 
                 $this->model::find($dados['id'])->update($dados);
-                return response()->json(['success' => 'Fatura Paga com Sucesso!', 'base_url' => url('')], 201);
+
+                $return = $scheduledPayment->cardPaymentSchedule($dados);
+
+                if ($return == true) {
+                    return response()->json(['success' => 'Fatura Paga com Sucesso!', 'base_url' => url('')], 201);
+                } else {
+                    $error['error_create'] = $return;
+                    return response()->json(['error' => $error], 500);
+                    die();
+                }
+
             } catch (\Illuminate\Database\QueryException $ex) {
                 $error['error_create'] = $ex->getMessage(); 
             } 

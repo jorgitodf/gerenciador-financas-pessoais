@@ -444,9 +444,12 @@ $(document).ready(function () {
             let juros = $("#juros").val();
             let valor_total_fatura = $("#valor_total_fatura").val();
             let valor_pagamento_fatura = $("#valor_pagamento_fatura").val();
+            let credit_card_id = $("#credit_card_id").val();
+            let data_pagamento_fatura = $("#data_pagamento_fatura").val();
             
             let data = {id: id, encargos: encargos, protecao_premiada: protecao_premiada, iof: iof, anuidade: anuidade, juros: juros,
-                valor_total_fatura: valor_total_fatura, valor_pagamento_fatura: valor_pagamento_fatura};
+                valor_total_fatura: valor_total_fatura, valor_pagamento_fatura: valor_pagamento_fatura, credit_card_id: credit_card_id,
+                data_pagamento_fatura: data_pagamento_fatura};
 
             e.preventDefault();
 

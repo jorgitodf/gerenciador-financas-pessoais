@@ -32,6 +32,37 @@ class ScheduledPayment extends Model
         return $array;
     }
 
+    public function cardPaymentSchedule(array $dados) //método para agendar pagamento do cartão de crédito após quitar a fatura
+    {
+        $dadoPgtoAgendado = [];
+        $movimentacao = "";
+
+        if ($dados['credit_card_id'] == 1) {
+            $movimentacao = "Cartão Votorantim";
+        } else if ($dados['credit_card_id'] == 2) {
+            $movimentacao = "Cartão CEF";
+        } else if ($dados['credit_card_id'] == 3) {
+            $movimentacao = "Cartão NuBank";
+        }
+
+        $dadoPgtoAgendado['data_pagamento'] = Helpers::formataDataEnPt($dados['data_pagamento_fatura']);
+        $dadoPgtoAgendado['movimentacao'] = $movimentacao;
+        $dadoPgtoAgendado['valor'] = $dados['valor_pagamento_fatura'];
+        $dadoPgtoAgendado['pago'] = "Não";
+        $dadoPgtoAgendado['category_id'] = 6;
+        $dadoPgtoAgendado['account_id'] = session()->get('id_conta');
+        $dadoPgtoAgendado['created_at'] = date('Y-m-d H:i:s');
+        $dadoPgtoAgendado['updated_at'] = date('Y-m-d H:i:s');
+
+        try {
+            ScheduledPayment::create($dadoPgtoAgendado);
+            return true;
+        } catch (\Illuminate\Database\QueryException $ex) {
+            return $error_insert_pagamento_agendado = $ex->getMessage();
+        }
+
+    }
+
     // Mutator para Modificar o dado antes de salvá-lo no Banco de Dados
     public function setValorAttribute($value)
     {
