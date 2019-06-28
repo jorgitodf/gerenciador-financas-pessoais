@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    setTimeout(function(){
+        $('#email').removeAttr('disabled');
+        $('#password').removeAttr('disabled');
+    }, 50);
+
     $(document).ready(function() {
         $('#table_extrato').DataTable({
             "scrollY": "470px",
@@ -1105,22 +1110,22 @@ $(document).ready(function () {
 
             axios.interceptors.response.use((response) => {
                 window.localStorage.setItem('token', response.data.token);
-            return response;
-        });
+                return response;
+            });
             axios.post(url, simpleQueryString.stringify(data))
                 .then(function(response) {
                     if (response.status == 202) {
-                        window.location.replace(response.data['base_url']);
+                        window.location.replace(response.data['redirect']);
                     }
                 })
                 .catch(function(error) {
-                    if (error.response.status == 401) {
-                        $("#div-error-login").html("<span class='alert alert-danger msgError' id='span-error-login'>"+ error.response.data.error +"</span>");
-                        $("#div-error-login").css("display", "block");
+                    if (error.response.status == 500) {
+                        $("#axios_response_error_login").append("<span class='alert alert-warning msgError' id='span-error-login'>" +error.response.data.error['error_login'] + "</span>").css("display", "block");
                     }
                 })
 
         });
+
     });
 
     // CADASTRO NOVO USUÁRIO

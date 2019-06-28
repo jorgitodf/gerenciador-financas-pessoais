@@ -4,16 +4,18 @@ namespace App\Validations;
 
 class ValidationUser
 {
-    private $erros = [];
+    private $error = [];
 
-    public function validateUser($data)
+    public function validateUser($email, $password)
     {
-        if (empty($data['email']) || $data['email'] == null) {
-            $this->erros['error_email'] = "Preencha o seu E-mail!";
-        }
-
-        if (empty($data['password']) || $data['password'] == null) {
-            $this->erros['error_password'] = "Preencha a sua Senha!";
+        if (empty($email) && empty($password)) {
+            $error['error_login'] = "Informe o E-mail e a Senha!";
+        } else if (!empty($email) && empty($password)) {
+            $error['error_login'] = "Informe a Senha!";
+        } else if (empty($email) && !empty($password)) {
+            $erros['error_login'] = "Informe o E-mail!";
+        } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $erros['error_login'] = "Informe um E-mail válido!";
         }
 
         return $this->erros;

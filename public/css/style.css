@@ -450,6 +450,31 @@ select option:checked {
         width: 83%;
     }
 
+    /*FORMULÁRIO DE LOGIN*/
+    #axios_response_error_login {
+        z-index: 6;
+        position: center;
+        max-width: 100%;
+    }
+    #span-error-login {
+        padding: 6px;
+        width: 220px;
+        position: absolute;
+        font-size: 0.8em;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        align-items: center;
+        margin-bottom: 15px;
+        overflow: hidden;
+        margin-left: -25px;
+        background-color: #F6CED8 !important;
+    }
+    .box {
+        float: left;
+        width: 150px;
+    }
+
     /* TABELA DE LISTAGEM DE PAGAMENTOS AGENDADOS NO MÊS*/
     #table_pgto_agendado th {
         text-align: center;
@@ -774,6 +799,34 @@ select option:checked {
 }
 
 @media screen and (max-width: 1366px) {
+
+    /*FORMULÁRIO DE LOGIN*/
+    #axios_response_error_login {
+        z-index: 6;
+        position: center;
+        max-width: 100%;
+    }
+    #span-error-login {
+        padding: 6px;
+        width: 220px;
+        position: absolute;
+        font-size: 0.8em;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+        align-items: center;
+        margin-bottom: 15px;
+        overflow: hidden;
+        margin-left: -25px;
+        background-color: #F6CED8 !important;
+    }
+    .box {
+        float: left;
+        width: 150px;
+    }
+
+
+
     .div-principal {
         margin-top: 3%;
         margin-left: 15.4%;

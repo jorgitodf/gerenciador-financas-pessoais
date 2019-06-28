@@ -9,12 +9,12 @@
             <div class="panel panel-default">
                 <div class="panel-heading">Login</div>
                     <div class="panel-body">
-                        <form class="form-horizontal" role="form" action="{{ route('login') }}" aria-label="Login" method="POST" id="">
+                        <form class="form-horizontal" role="form" action="{{ route('login') }}" aria-label="Login" method="POST" id="formLogin" autocomplete="off">
                             @csrf
                             <div class="form-group row">
                                 <label for="email" class="col-md-3 control-label">E-Mail</label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" placeholder="Informe seu E-mail" autofocus>
+                                    <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="" placeholder="Informe seu E-mail" autofocus disabled="disabled">
                                     @if ($errors->has('email'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('email') }}</strong>
@@ -26,7 +26,7 @@
                             <div class="form-group row">
                                 <label for="password" class="col-md-3 control-label">Password</label>
                                 <div class="col-md-6 col-sm-6">
-                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Informe sua Senha">
+                                    <input id="password" type="password" class="form-control{{ $errors->has('password') ? ' is-invalid' : '' }}" name="password" placeholder="Informe sua Senha" disabled="disabled">
                                     @if ($errors->has('password'))
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('password') }}</strong>
@@ -35,11 +35,13 @@
                                 </div>
                             </div>
 
-                            <div class="form-group row">
-                                <div class="col-md-6 col-md-offset-3 col-sm-6 col-sm-offset-3">
+                            <div class="form-group row" id="container_div">
+                                <div class="col-md-4 col-md-offset-3 col-sm-4 col-sm-offset-3 box" id="teste1">
                                     <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                                     <label class="form-check-label" for="remember"> Lembrar-me</label>
                                 </div>
+                                <div class="col-md-8 col-sm-8 box" id="axios_response_error_login"></div>
+
                              </div>
 
                             <div class="form-group row">
