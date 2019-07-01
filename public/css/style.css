@@ -369,11 +369,6 @@ select option:checked {
 }
 
 
-/* EXTRATO */
-#well_extrato {
-    width: 102%;
-}
-
 /* FOMULÁRIO AGENDAMENTO DE PAGAMENTOS */
 #div-principal-agd-pgto {
     margin-top: 5%;
@@ -450,6 +445,40 @@ select option:checked {
         width: 83%;
     }
 
+    /* TABELA DE EXTRATO*/
+    .th {
+        text-align: center !important;
+        background-color: #CDCDC1 !important;
+        border: 1px solid white !important;
+    }
+    .well_extrato {
+        width: 100%;
+
+    }
+    #table_extrato th:nth-child(1) {
+        width: 8% !important;
+    }
+    #table_extrato th:nth-child(2) {
+        width: 22% !important;
+    }
+    #table_extrato th:nth-child(3) {
+        width: 18% !important;
+    }
+    #table_extrato th:nth-child(4) {
+        width: 8% !important;
+    }
+    #table_extrato th:nth-child(5) {
+        width: 8% !important;
+    }
+    .td {
+        text-align: center;
+        padding: 3px !important;
+    }
+    #table_extrato tbody td:nth-child(2) {
+        width: 20% !important;
+        text-align: left !important;
+    }
+
     /*FORMULÁRIO DE LOGIN*/
     #axios_response_error_login {
         z-index: 6;
@@ -504,6 +533,15 @@ select option:checked {
     }
     #table_pgto_agendado tbody tr:nth-child(even) {background-color: #FFF !important;}
     #table_pgto_agendado tbody tr:nth-child(odd) {background: #EEE !important;}
+
+    #span-msg-pagamentos-agendados {
+        padding: 9px;
+        width: 1042px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        overflow: hidden;
+        display: inline-block;
+    }
     
     /* TABELA CONTAS PÁGINA HOME */
     #table_contas th {

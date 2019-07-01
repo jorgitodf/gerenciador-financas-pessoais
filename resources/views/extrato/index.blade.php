@@ -7,7 +7,7 @@
     <div class="container col-xs-10 col-md-10 col-sm-10" id="div-principal-conta">
         <div class="row">
             <div class="col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1">
-                <div class="well well-sm well-md well-xs sombra table-responsive">
+                <div class="well well-sm well-md well-xs sombra well_extrato table-responsive">
                     @if(isset($extrato) && $extrato->count() > 0)
                         <table class="table table-striped table-hover table-bordered table-condensed display" id="table_extrato">
                             <thead>

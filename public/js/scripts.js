@@ -7,7 +7,7 @@ $(document).ready(function () {
 
     $(document).ready(function() {
         $('#table_extrato').DataTable({
-            "scrollY": "470px",
+            "scrollY": "590px",
             "scrollCollapse": true,
             "paging":         false,
             "bInfo" : false,

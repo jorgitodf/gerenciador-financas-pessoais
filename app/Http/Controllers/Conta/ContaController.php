@@ -124,7 +124,7 @@ class ContaController extends Controller
         $dados = $request->all();
 
         $extract = new Extract();
-        $dados['account_id'] = 2;
+        $dados['account_id'] = session()->get('id_conta');
         $dados['mes'] = Helpers::verificaMes();
         $dados['tipo_operacao'] = "Crédito";
         $dados['quantidade'] = 1;
@@ -163,7 +163,7 @@ class ContaController extends Controller
         $dados = $request->all();
 
         $extract = new Extract();
-        $dados['account_id'] = 1;
+        $dados['account_id'] = session()->get('id_conta');
         $dados['mes'] = Helpers::verificaMes();
         $dados['tipo_operacao'] = "Débito";
         $dados['quantidade'] = 1;
