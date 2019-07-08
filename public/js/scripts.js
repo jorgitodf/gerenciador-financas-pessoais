@@ -6,8 +6,14 @@ $(document).ready(function () {
     }, 50);
 
     $(document).ready(function() {
+        screen_width = screen.width;
+        screen_height = screen.height;
+        if (screen_width == 1366 && screen_height == 768) {
+            scrollY = 468;
+        }
+
         $('#table_extrato').DataTable({
-            "scrollY": "590px",
+            "scrollY": scrollY,
             "scrollCollapse": true,
             "paging":         false,
             "bInfo" : false,
@@ -1613,10 +1619,10 @@ $(document).ready(function () {
                         $("#category_id").attr('disabled', 'disabled');
                         $(".white").css("background", "#ffffb1");
                         $("#data_movimentacao").unmask();
-                        $("#div-msg-cadastro-debito").html("<span class='alert alert-success msgSuccess' id='span-success-cadastro-credito'>"+ response.data['success'] +"</span>").css("display", "block");
-                        setInterval(function() {
+                        $("#div-msg-cadastro-debito").html("<span class='alert alert-success msgSuccess' id='span-success-cadastro-debito'>"+ response.data['success'] +"</span>").css("display", "block");
+                        /*setInterval(function() {
                             redirectPageAllExtract(response.data['base_url']);
-                        }, 3000);
+                        }, 3000); */
                     }
                 })
                 .catch(function(error) {
