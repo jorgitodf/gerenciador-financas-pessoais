@@ -20,10 +20,13 @@ class InvoiceCard extends Model
 
     public function setDataPagamentoFaturaAttribute($value)
     {
-        if(strpos($value, "/")) {
+        
+        if (strpos($value, "/")) {
             $this->attributes['data_pagamento_fatura'] = Helpers::formataData($value);
+        } else {
+            $this->attributes['data_pagamento_fatura'] = $value;
         }
-        $this->attributes['data_pagamento_fatura'] = $value;
+        
     }
 
     public function setEncargosAttribute($value)

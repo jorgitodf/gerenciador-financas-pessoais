@@ -43,20 +43,22 @@ class DespesaCartaoController extends Controller
     {
         $dados = $request->all();
         $error = $this->validations->validateDespesaCartao($dados, $this->model, $tv = "create");
-
-        $dia_compra = date('m', strtotime($dados['data_compra']));
-        $mes_compra = date('d', strtotime($dados['data_compra']));
-        $ano_compra = date('Y', strtotime($dados['data_compra']));
+        
+        $mes_atual = date('m', strtotime(date('Y-m-d')));
+        $dia_compra = date('d', strtotime(Helpers::formataData($dados['data_compra'])));
+        $mes_compra = date('m', strtotime(Helpers::formataData($dados['data_compra'])));
+        $ano_compra = date('Y', strtotime(Helpers::formataData($dados['data_compra'])));
         
         if (!$error) { 
             if ($dados['numero_parcela'] == 1) {
                 try {
                     
+                    $mes_atual = date('m', strtotime(date('Y-m-d')));
                     $dia_compra = date('d', strtotime(Helpers::formataData($dados['data_compra'])));
                     $mes_compra = date('m', strtotime(Helpers::formataData($dados['data_compra'])));
                     $ano_compra = date('Y', strtotime(Helpers::formataData($dados['data_compra'])));
 
-                    $dados['data_pagamento'] = Helpers::dataPagamento($mes_compra, $dia_compra, $ano_compra, $dados['credit_card_id']);
+                    $dados['data_pagamento'] = Helpers::dataPagamento($mes_atual, $dia_compra, $mes_compra, $ano_compra, $dados['credit_card_id']);
 
                     $id = $this->model::create($dados)->id;
                     $dados['expense_card_id'] = $id;
@@ -78,19 +80,27 @@ class DespesaCartaoController extends Controller
 
                         $data[$i]['valor'] = Helpers::formatarMoeda($dados['valor']) / $qtd_parcelas;
 
-                        $data[$i]['numero_parcela'] = $i < 10 ? "0".$i."/".$dados['numero_parcela'] : $i."/".$dados['numero_parcela'];
+                        $data[$i]['numero_parcela'] = $i < 10 ? "0".$i."/0".$dados['numero_parcela'] : $i."/".$dados['numero_parcela'];
                         
-                        if ($dados['credit_card_id'] == 1 && $dia_compra <= 26) {
+                        if ($dados['credit_card_id'] == 1 && $dia_compra <= 26 & ($mes_compra == $mes_atual)) {
                             $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
+                        } else if ($dados['credit_card_id'] == 1 && $dia_compra <= 26 & ($mes_compra < $mes_atual)) {
+                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_atual}-08")));
                         } else if ($dados['credit_card_id'] == 1 && $dia_compra > 26) {
                             $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
-                        } else if ($dados['credit_card_id'] == 2 && $dia_compra <= 25) {
+                
+                        } else if ($dados['credit_card_id'] == 2 && $dia_compra <= 25 & ($mes_compra == $mes_atual)) {
                             $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
+                        } else if ($dados['credit_card_id'] == 2 && $dia_compra <= 25 & ($mes_compra < $mes_atual)) {
+                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_atual}-08")));            
                         } else if ($dados['credit_card_id'] == 2 && $dia_compra > 25) {
                             $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
-                        } else if ($dados['credit_card_id'] == 3 && ($dia_compra >= 1 && $dia_compra <= 2)) {
+                
+                        } else if ($dados['credit_card_id'] == 3 && (($dia_compra >= 1 && $dia_compra <= 2) && ($mes_compra == $mes_atual))) {
                             $data[$i]['data_pagamento'] = date('09/m/Y');
-                        } else if ($dados['credit_card_id'] == 3 && ($dia_compra > 2 && $dia_compra <= 31)) {
+                        } else if ($dados['credit_card_id'] == 3 && (($dia_compra > 2 && $dia_compra <= 31) && ($mes_compra == $mes_atual))) {
+                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-09")));
+                        } else if ($dados['credit_card_id'] == 3 && (($dia_compra > 2 && $dia_compra <= 31) && ($mes_compra < $mes_atual))) {
                             $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-09")));
                         }
 
