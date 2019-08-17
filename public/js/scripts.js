@@ -10,6 +10,8 @@ $(document).ready(function () {
         screen_height = screen.height;
         if (screen_width == 1366 && screen_height == 768) {
             scrollY = 468;
+        } else if (screen_width == 1440 && screen_height == 900) {
+            scrollY = 588;
         }
 
         $('#table_extrato').DataTable({
