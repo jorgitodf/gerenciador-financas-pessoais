@@ -78,7 +78,11 @@ class DespesaCartaoController extends Controller
 
                         $data[$i]['valor'] = Helpers::formatarMoeda($dados['valor']) / $qtd_parcelas;
 
-                        $data[$i]['numero_parcela'] = $i < 10 ? "0".$i."/0".$dados['numero_parcela'] : $i."/".$dados['numero_parcela'];
+                        if ($qtd_parcelas < 10) {
+                            $data[$i]['numero_parcela'] = "0{$i}/0".$i;
+                        } else {
+                            $data[$i]['numero_parcela'] = "{$i}/{$i}";
+                        }
 
                         if ($dados['credit_card_id'] == 1 && $dia_compra <= 26 & ($mes_compra == $mes_atual)) {
                             $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
@@ -94,19 +98,25 @@ class DespesaCartaoController extends Controller
                         } else if ($dados['credit_card_id'] == 2 && $dia_compra > 25) {
                             $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
 
+
                         } else if ($dados['credit_card_id'] == 3 && (($dia_compra >= 1 && $dia_compra <= 2) && ($mes_compra == $mes_atual))) {
                             $data[$i]['data_pagamento'] = date('09/m/Y');
                         } else if ($dados['credit_card_id'] == 3 && (($dia_compra > 2 && $dia_compra <= 31) && ($mes_compra == $mes_atual))) {
                             $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-09")));
                         } else if ($dados['credit_card_id'] == 3 && (($dia_compra > 2 && $dia_compra <= 31) && ($mes_compra < $mes_atual))) {
                             $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-09")));
+                        } else if ($dados['credit_card_id'] == 3 && (($dia_compra > 2 && $dia_compra <= 31) && ($mes_compra > $mes_atual))) {
+                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-09")));
                         }
 
                         $data[$i]['expense_card_id'] = $id;
 
                     }
+                    echo $qtd_parcelas;exit;
+
 
                     foreach ($data as $linha) {
+
                         DB::table('expenditure_installments')->insert(['valor' => number_format($linha['valor'], 2, '.', ''), 'numero_parcela'=> $linha['numero_parcela'],
                         'data_pagamento'=> Helpers::formataData($linha['data_pagamento']), 'expense_card_id'=> $linha['expense_card_id'], 'created_at' => date('Y-m-d H:i:s'),
                         'updated_at' => date('Y-m-d H:i:s')]);

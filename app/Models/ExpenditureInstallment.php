@@ -20,7 +20,7 @@ class ExpenditureInstallment extends Model
     {
         if ($value == 1) {
             $this->attributes['numero_parcela'] = "01/0".$value;
-        } 
+        }
     }
 
     public function setValorAttribute($value)
@@ -28,9 +28,9 @@ class ExpenditureInstallment extends Model
         $this->attributes['valor'] = Helpers::formatarMoeda($value);
     }
 
-    public function setDataPagamentoAttribute($value)
-    {
-        $this->attributes['data_pagamento'] = Helpers::formataData($value);
-    }
+    // public function setDataPagamentoAttribute($value)
+    // {
+    //     $this->attributes['data_pagamento'] = Helpers::formataData($value);
+    // }
 
 }
