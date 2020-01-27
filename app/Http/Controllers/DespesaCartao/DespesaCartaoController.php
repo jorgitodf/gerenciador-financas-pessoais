@@ -112,8 +112,6 @@ class DespesaCartaoController extends Controller
                         $data[$i]['expense_card_id'] = $id;
 
                     }
-                    echo $qtd_parcelas;exit;
-
 
                     foreach ($data as $linha) {
 
