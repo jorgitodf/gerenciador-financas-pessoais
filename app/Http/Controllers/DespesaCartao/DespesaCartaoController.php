@@ -59,6 +59,7 @@ class DespesaCartaoController extends Controller
                     $id = $this->model::create($dados)->id;
                     $dados['expense_card_id'] = $id;
 
+
                     $this->parcelas::create($dados);
                     return response()->json(['success' => 'Despesa do Cartão Lançada com Sucesso!', 'base_url' => url('')], 201);
 
