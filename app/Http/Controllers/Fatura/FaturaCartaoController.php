@@ -49,7 +49,7 @@ class FaturaCartaoController extends Controller
                 $this->model::create($dados);
                 return response()->json(['success' => 'Fatura Gerada com Sucesso!', 'base_url' => url('')], 201);
             } catch (\Illuminate\Database\QueryException $ex) {
-                $error['error_create'] = $ex->getMessage(); 
+                $error['error_create'] = $ex->getMessage();
             }
         }
 
@@ -81,9 +81,8 @@ class FaturaCartaoController extends Controller
                     ->get();
         foreach ($despesas as $desp) {
             $total = $total + $desp->valor;
-        }    
+        }
 
-        
         $restante = $this->model::where('pago', 'S')->where('credit_card_id', $despesas[0]->credit_card_id)->select('restante_fatura_mes_anterior')->orderBy('id', 'DESC')->take(1)->get();
 
         return view('fatura.fechar', compact('legend', 'despesas', 'total', 'fatura', 'restante'));
@@ -94,7 +93,7 @@ class FaturaCartaoController extends Controller
         $dados = $request->all();
         $error = $this->validations->validateQuitarFaturaCartao($dados);
 
-        if (!$error) { 
+        if (!$error) {
             try {
                 $dados['restante_fatura_mes_anterior'] = (Helpers::formatarMoeda($dados['valor_total_fatura']) - Helpers::formatarMoeda($dados['valor_pagamento_fatura']));
                 $dados['ano_mes_ref'] = Helpers::defineMesReferencia();
@@ -114,8 +113,8 @@ class FaturaCartaoController extends Controller
                 }
 
             } catch (\Illuminate\Database\QueryException $ex) {
-                $error['error_create'] = $ex->getMessage(); 
-            } 
+                $error['error_create'] = $ex->getMessage();
+            }
         }
 
         return response()->json(['error' => $error], 500);

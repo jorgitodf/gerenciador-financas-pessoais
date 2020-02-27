@@ -10,6 +10,7 @@ use App\Models\ExpenditureInstallment;
 use App\Validations\ValidationDespesaCartao;
 use App\HelperFormatters\Helpers;
 use Illuminate\Support\Facades\DB;
+use DateTime;
 
 class DespesaCartaoController extends Controller
 {
@@ -68,12 +69,22 @@ class DespesaCartaoController extends Controller
                 }
 
             } else {
+
+                $dataA = new DateTime();
+
                 $data = [];
                 $qtd_parcelas = (int) $dados['numero_parcela'];
+                $mesAtual = $dataA->format('m');
 
                 try {
 
                     $id = $this->model::create($dados)->id;
+
+                    if ($dados['credit_card_id'] == 3 && $mesAtual == 2) {
+                        $diaFF = '26';
+                    } else if ($dados['credit_card_id'] == 3 && $mesAtual != 2) {
+                        $diaFF = '31';
+                    }
 
                     for ($i = 1; $i <= $dados['numero_parcela']; $i++) {
 
@@ -103,14 +114,14 @@ class DespesaCartaoController extends Controller
                         } else if ($dados['credit_card_id'] == 2 && ($dia_compra >= 25 && $dia_compra <= 31) && ($mes_compra < $mes_atual)) {
                             $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_atual}-08")));
 
-                        } else if ($dados['credit_card_id'] == 3 && (($dia_compra >= 1 && $dia_compra <= 2) && ($mes_compra == $mes_atual))) {
-                            $data[$i]['data_pagamento'] = date('04/m/Y');
-                        } else if ($dados['credit_card_id'] == 3 && (($dia_compra > 2 && $dia_compra <= 31) && ($mes_compra == $mes_atual))) {
+                        } else if ($dados['credit_card_id'] == 3 && $dia_compra < $diaFF & ($mes_compra == $mes_atual)) {
                             $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-04")));
-                        } else if ($dados['credit_card_id'] == 3 && (($dia_compra > 2 && $dia_compra <= 31) && ($mes_compra < $mes_atual))) {
+                        } else if ($dados['credit_card_id'] == 3 && $dia_compra < $diaFF & ($mes_compra < $mes_atual)) {
+                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_atual}-04")));
+                        } else if ($dados['credit_card_id'] == 3 && $dia_compra >= $diaFF) {
                             $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-04")));
-                        } else if ($dados['credit_card_id'] == 3 && (($dia_compra > 2 && $dia_compra <= 31) && ($mes_compra > $mes_atual))) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-04")));
+                        } else if ($dados['credit_card_id'] == 3 && ($dia_compra >= $diaFF && $dia_compra <= 31) && ($mes_compra < $mes_atual)) {
+                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_atual}-04")));
                         }
 
                         $data[$i]['expense_card_id'] = $id;

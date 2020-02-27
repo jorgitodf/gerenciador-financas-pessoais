@@ -431,7 +431,7 @@ $(document).ready(function () {
             total = (parseFloat(subtotal) + parseFloat(encargos) + parseFloat(iof) + parseFloat(anuidade) + parseFloat(protecao_premiada)
                 + parseFloat(juros) + parseFloat(restante_fatura_mes_anterior));
         }
-       
+
         $('#valor_total_fatura').val(numberToReal(total));
     });
 
@@ -448,7 +448,7 @@ $(document).ready(function () {
     $(function () {
         $("#formPagarFatura").submit(function(e) {
             let url = $("#formPagarFatura").attr("action");
-            
+
             let id = $("#id").val();
             let encargos = $("#encargos").val();
             let protecao_premiada = $("#protecao_premiada").val();
@@ -459,7 +459,7 @@ $(document).ready(function () {
             let valor_pagamento_fatura = $("#valor_pagamento_fatura").val();
             let credit_card_id = $("#credit_card_id").val();
             let data_pagamento_fatura = $("#data_pagamento_fatura").val();
-            
+
             let data = {id: id, encargos: encargos, protecao_premiada: protecao_premiada, iof: iof, anuidade: anuidade, juros: juros,
                 valor_total_fatura: valor_total_fatura, valor_pagamento_fatura: valor_pagamento_fatura, credit_card_id: credit_card_id,
                 data_pagamento_fatura: data_pagamento_fatura};
@@ -498,7 +498,7 @@ $(document).ready(function () {
             })
         });
     });
-    
+
     $('#btn_limpar_pgto_fatura').click(function () {
         $("#encargos").val("");
         $("#iof").val("");
@@ -611,7 +611,7 @@ $(document).ready(function () {
                     if (error.response.status == 500) {
                         if (!error.response.data.error['error_cartao'] == "") {
                             $("#credit_card_id").find('option:selected').html(error.response.data.error['error_cartao']);
-                
+
                             $("#credit_card_id").focus().css("background", "#EBA8A3").css("color", "white");
                         } else {
                             $("#credit_card_id").css("background", "#ffffb1").css("color", "black");
@@ -703,7 +703,7 @@ $(document).ready(function () {
                     if (error.response.status == 500) {
                         if (!error.response.data.error['error_cartao'] == "") {
                             $("#credit_card_id").find('option:selected').html(error.response.data.error['error_cartao']);
-             
+
                             $("#credit_card_id").focus().css("background", "#EBA8A3").css("color", "white");
                         } else {
                             $("#credit_card_id").css("background", "#ffffb1").css("color", "black");
@@ -910,7 +910,7 @@ $(document).ready(function () {
                             $("#data_pagamento").focus();
                             $("#data_pagamento").css("background", "white").css("color", "black");
                         }
-                        
+
                         if (!error.response.data.error['error_create'] == "") {
                             alert(error.response.data.error['error_create']);
                         }
@@ -2027,7 +2027,7 @@ function titleize(text) {
 function formataData(data) {
     split = data.split('-');
     novadata = split[2] + "/" + split[1] + "/" + split[0];
-    return novadata; 
+    return novadata;
 }
 
 function generateTabelaPagamentosAgendados(pagamentos, ano) {

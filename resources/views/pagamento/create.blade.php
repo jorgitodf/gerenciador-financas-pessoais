@@ -9,6 +9,7 @@
             <div class="col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1">
                 <div class="well well-sm sombra" id="div_debitar">
                     <form class="form-horizontal" role="form" action="{{ route('pagamento.salvar') }}" method="post" id="formCadAgendamentoPagamento" enctype="multipart/form-data">
+                        <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">
                         {{ csrf_field() }}
                         <fieldset>
                             <legend class="text-center">{{ $legend }}</legend>

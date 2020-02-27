@@ -7,8 +7,9 @@
     <div class="container col-xs-10 col-md-10 col-sm-10" id="div-principal-conta">
         <div class="row">
             <div class="col-md-11 col-md-offset-1 col-sm-11 col-sm-offset-1 col-xs-11 col-xs-offset-1">
+                <input type="hidden" id="id_conta_session" value="{{session()->get('id_conta')}}">
                 <div class="well well-sm well-md well-xs sombra">
-                @if(isset($pagamentos) && $pagamentos->count() > 0)    
+                @if(isset($pagamentos) && $pagamentos->count() > 0)
                 <div class="panel-heading" id="panel_head_agendamento_pagamento">Listagem Geral de Agendamento de Pagamentos</div>
                 <div class="panel-body" id="div_panel_body">
                     <table class="row col-xs-12 col-md-12 col-sm-12 table table-bordered table-responsive table-hover table-condensed" id="tabela_index_agendamento_pagamento">
@@ -52,8 +53,8 @@
                     <div class="row-fluid text-center alert alert-info">
                         <strong>Atenção!!</strong><p>{{ $msg ?? $msg }}</p>
                     </div>
-                
-                </div> 
+
+                </div>
                 </div>
                 @endif
             </div>
