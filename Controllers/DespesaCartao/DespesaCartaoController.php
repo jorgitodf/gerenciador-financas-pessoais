@@ -52,6 +52,7 @@ class DespesaCartaoController extends Controller
 
         if (!$error) {
             if ($dados['numero_parcela'] == 1) {
+
                 try {
                     $dados['data_pagamento'] = Helpers::dataPagamento($dados['data_compra'], $dados['credit_card_id']);
                     $id = $this->model::create($dados)->id;
@@ -61,23 +62,19 @@ class DespesaCartaoController extends Controller
                 } catch (\Illuminate\Database\QueryException $ex) {
                     $error['error_create'] = $ex->getMessage();
                 }
+                
             } else {
-                $dataA = new DateTime();
 
                 $data = [];
                 $qtd_parcelas = (int) $dados['numero_parcela'];
-                $mesAtual = $dataA->format('m');
 
                 try {
                     $id = $this->model::create($dados)->id;
 
-                    if ($dados['credit_card_id'] == 3 && $mesAtual == 2) {
-                        $diaFF = '26';
-                    } elseif ($dados['credit_card_id'] == 3 && $mesAtual != 2) {
-                        $diaFF = '31';
-                    }
+                    $dados['data_pagamento'] = Helpers::dataPagamento($dados['data_compra'], $dados['credit_card_id']);
 
                     for ($i = 1; $i <= $dados['numero_parcela']; $i++) {
+
                         $data[$i]['valor'] = Helpers::formatarMoeda($dados['valor']) / $qtd_parcelas;
 
                         if ($qtd_parcelas < 10) {
@@ -86,41 +83,10 @@ class DespesaCartaoController extends Controller
                             $data[$i]['numero_parcela'] = "{$i}/{$qtd_parcelas}";
                         }
 
-                        if ($dados['credit_card_id'] == 1 && $dia_compra <= 29 && ($mes_compra == $mes_atual)) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
-                        } elseif ($dados['credit_card_id'] == 1 && $dia_compra < 29 && ($mes_compra < $mes_atual)) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_atual}-08")));
-                        } elseif ($dados['credit_card_id'] == 1 && $dia_compra > 29) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
-                        } elseif ($dados['credit_card_id'] == 1 && ($dia_compra >= 29 && $dia_compra <= 31) && ($mes_compra < $mes_atual)) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_atual}-08")));
-                        } elseif ($dados['credit_card_id'] == 1 && ($dia_compra < 29) && ($mes_compra == 12)) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
-                        } elseif ($dados['credit_card_id'] == 2 && $dia_compra <= 25 & ($mes_compra == $mes_atual)) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
-                        } elseif ($dados['credit_card_id'] == 2 && $dia_compra <= 25 & ($mes_compra < $mes_atual)) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_atual}-08")));
-                        } elseif ($dados['credit_card_id'] == 2 && $dia_compra > 25) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
-                        } elseif ($dados['credit_card_id'] == 2 && ($dia_compra >= 25 && $dia_compra <= 31) && ($mes_compra < $mes_atual)) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_atual}-08")));
-                        } elseif ($dados['credit_card_id'] == 2 && ($dia_compra < 25) && ($mes_compra == 12)) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
-                        } elseif ($dados['credit_card_id'] == 3 && $dia_compra < $diaFF & ($mes_compra == $mes_atual)) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-04")));
-                        } elseif ($dados['credit_card_id'] == 3 && $dia_compra < $diaFF & ($mes_compra < $mes_atual)) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_atual}-04")));
-                        } elseif ($dados['credit_card_id'] == 3 && $dia_compra >= $diaFF) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-04")));
-                        } elseif ($dados['credit_card_id'] == 3 && ($dia_compra >= $diaFF && $dia_compra <= 31) && ($mes_compra < $mes_atual)) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_atual}-04")));
-                        } elseif ($dados['credit_card_id'] == 3 && ($dia_compra <= 31) && ($mes_compra == 12)) {
-                            $data[$i]['data_pagamento'] = date('d/m/Y', strtotime("+{$i} month", strtotime("{$ano_compra}-{$mes_compra}-08")));
-                        }
+                        $data[$i]['data_pagamento'] = $dados['data_pagamento'];
 
                         $data[$i]['expense_card_id'] = $id;
                     }
-
 
                     foreach ($data as $linha) {
                         DB::table('expenditure_installments')->insert(['valor' => number_format($linha['valor'], 2, '.', ''), 'numero_parcela' => $linha['numero_parcela'],
@@ -129,6 +95,7 @@ class DespesaCartaoController extends Controller
                     }
 
                     return response()->json(['success' => 'Despesa do Cartão Lançada com Sucesso!', 'base_url' => url('')], 201);
+
                 } catch (\Illuminate\Database\QueryException $ex) {
                     $error['error_create'] = $ex->getMessage();
                 }
